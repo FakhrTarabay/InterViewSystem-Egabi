@@ -172,6 +172,7 @@ const CreateTopic = () => {
             setOption={HandleChoicesReset}
             value={QuestionType}
           />
+          {console.log(selectedCompQuestion)}
           {QuestionType === "MCQ" ? (
             <>
               <TextFields
