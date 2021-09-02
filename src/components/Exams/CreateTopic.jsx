@@ -47,7 +47,6 @@ const CreateTopic = () => {
   const [ComprehensionQs, setComprehensionQs] = useState([]);
   const [ComprehensionAs, setComprehensionAs] = useState([]);
   const [ComprehensionChoices, setComprehensionChoices] = useState([]);
-  const [selectedCompQuestion, setSelectedCompQuestion] = useState(0);
 
   function generateID() {
     return Math.floor(Math.random() * 100000000);
@@ -106,6 +105,7 @@ const CreateTopic = () => {
     }
     if (q.type === "Comprehension") {
       setQuestion("");
+      setQAnswer("");
       setComprehension(q.prompt);
       setComprehensionQs(q.questions);
       setComprehensionChoices(q.options);
@@ -172,7 +172,6 @@ const CreateTopic = () => {
             setOption={HandleChoicesReset}
             value={QuestionType}
           />
-          {console.log(selectedCompQuestion)}
           {QuestionType === "MCQ" ? (
             <>
               <TextFields
@@ -248,9 +247,10 @@ const CreateTopic = () => {
             className={css.element}
             label="Set model answer"
             value={
-              QuestionType === "Comprehension"
-                ? ComprehensionAs[selectedCompQuestion]
-                : qAnswer
+              // QuestionType === "Comprehension"
+              //   ? ComprehensionAs[selectedCompQuestion]
+              //   :
+                 qAnswer
             }
           />
           {QuestionType === "Comprehension" && (
