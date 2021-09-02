@@ -1,0 +1,23 @@
+.position {
+    height: 100%;
+    width:22%;
+    display: flex;
+    flex-direction: column;
+    padding:50px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+}
+.width40{
+    width:40%;
+}
+.width10{
+    width:7%;
+    padding: 30px;
+}
+.element{
+    margin:10px 0px!important;
+}
+.btn{
+    margin: 0px 10px 0px 0px!important;
+    text-transform: none!important;
+}
