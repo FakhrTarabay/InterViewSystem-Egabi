@@ -5,7 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import './RadioGroup.css'
 
-export default function RadioButtonsGroup({value,options,label,setOption,disabled}) {
+export default function RadioButtonsGroup({value,options,label,setOption,disabled,row}) {
   const handleChange = (event) => {
     setOption(event.target.value);
   };
@@ -14,7 +14,7 @@ export default function RadioButtonsGroup({value,options,label,setOption,disable
   }
   return (
     <FormControl component="fieldset">
-      <RadioGroup aria-label={label} name={label} value={value} onChange={handleChange}>
+      <RadioGroup row={row} aria-label={label} name={label} value={value} onChange={handleChange}>
         {options.map(option=>(
             <FormControlLabel key={generateID()} disabled={disabled} value={option} control={<Radio />} label={option} />
         ))}

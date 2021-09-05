@@ -1,0 +1,5 @@
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    /* background: linear-gradient(darkblue,rgb(185, 0, 46))!important; */
+    background-color:darkcyan!important;
+    border: none!important;
+}

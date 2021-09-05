@@ -1,6 +1,7 @@
 .App {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  /* margin:10px auto; */
+  justify-content: center;
+  /* justify-content: space-evenly; */
+  align-items: center;
 }
