@@ -23,7 +23,7 @@
     justify-content: space-between;
 }
 
-.col40,.col20{
+.col40,.col20,.col75{
     display: flex;
     flex-direction: column;
     width: 35%;
@@ -36,6 +36,9 @@
     width:23%;
     justify-content: space-around;
     align-items: center;
+}
+.col75{
+    width:80%;
 }
 
 .icon{

@@ -9,6 +9,8 @@ import RadioButtonsGroup from "../UI/RadioGroup";
 import DatePicker from "../UI/DatePicker";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
+
+
 const PersonalInfo = () => {
   const [applicantName, setApplicantName] = useState("");
   const [Address, setAddress] = useState("");
@@ -22,9 +24,9 @@ const PersonalInfo = () => {
   const [Mobile, setMobile] = useState("");
   const [NofDep, setNofDep] = useState("");
   const [PostTill, setPostTill] = useState(new Date());
-  const [Info,setInfo] = useState([])
+  const [Info, setInfo] = useState([]);
 
-  function HandleReset(){
+  function HandleReset() {
     setApplicantName("");
     setAppliedFor("");
     setAddress("");
@@ -38,11 +40,26 @@ const PersonalInfo = () => {
     setNofDep("");
     setPostTill(new Date());
   }
-  function HandleAddMore(){
-    const info = {applicantName:applicantName,Address:Address,AppliedFor:AppliedFor,email:email,maritalStatus:maritalStatus,militaryStatus:militaryStatus,
-    date:date,City:City,Techno:Techno,Mobile:Mobile,NofDep:NofDep,PostTill:PostTill}
-    setInfo(prevInfo=>[...prevInfo,info])
+  function HandleAddMore() {
+    const info = {
+      applicantName: applicantName,
+      Address: Address,
+      AppliedFor: AppliedFor,
+      email: email,
+      maritalStatus: maritalStatus,
+      militaryStatus: militaryStatus,
+      date: date,
+      City: City,
+      Techno: Techno,
+      Mobile: Mobile,
+      NofDep: NofDep,
+      PostTill: PostTill,
+    };
+    setInfo((prevInfo) => [...prevInfo, info]);
     HandleReset();
+    console.log(Info);
+  }
+  function HandleSubmit(){
     console.log(Info)
   }
   return (
@@ -164,7 +181,7 @@ const PersonalInfo = () => {
           variant="primary"
           size="lg"
           className="btn-primary"
-          // onClick={HandleClick}
+          onClick={HandleSubmit}
         >
           Submit
         </Button>

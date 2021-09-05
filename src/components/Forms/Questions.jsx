@@ -1,9 +1,17 @@
-import React from "react";
+import React,{useState} from "react";
 import css from "./MainPage.module.css";
 import Container from "../UI/Container";
 import Divider from "@material-ui/core/Divider";
 import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
+import RadioButtonsGroup from "../UI/RadioGroup";
+
 const Questions = () => {
+  const [numWeeks, setNumWeeks] = useState("")
+  const [whoVac, setWhoVac] = useState("")
+  const [salary, setSalary] = useState("")
+  const [other, setOther] = useState("")
+  const [itSol, setItSol] = useState("")
+  const [abroad, setAbroad] = useState("")
   return (
     <>
       <Container className={css.row2}>
@@ -20,19 +28,26 @@ const Questions = () => {
             <label className={css.formElement}>Notice period</label>
             <input
               className={`${css.input} ${css.formElement}`}
+              onChange={e=>setNumWeeks(e.target.value)}
+              value={numWeeks}
               placeholder="Enter number of weeks"
               type="text"
             ></input>
             <label className={css.formElement}>How did you know about this vacancy?</label>
+            <RadioButtonsGroup
+              setOption={setWhoVac}
+              value={whoVac}
+              label="Marital Status"
+              row={true}
+              options={["Social Media","egabiFSI Employee","recruitme website","Others"]}
+            />
+            <label className={css.formElement}>Please specify the channel</label>
             <input
               className={`${css.input} ${css.formElement}`}
-              placeholder="How?"
-              type="text"
-            ></input>
-            <label className={css.formElement}>Are you willing to work in banking IT solutions?</label>
-            <input
-              className={`${css.input} ${css.formElement}`}
-              placeholder="Yes or No?"
+              placeholder="Others"
+              onChange={e=>setOther(e.target.value)}
+              value={other}
+              disabled={whoVac==='Others'?false:true}
               type="text"
             ></input>
           </form>
@@ -43,22 +58,26 @@ const Questions = () => {
             <input
               className={`${css.input} ${css.formElement}`}
               placeholder="Expected salary"
+              onChange={e=>setSalary(e.target.value)}
+              value={salary}
               type="text"
             ></input>
-            <label className={css.formElement}>Please specify the channel</label>
-            <input
-              className={`${css.input} ${css.formElement}`}
-              placeholder="Others"
-              disabled
-              type="text"
-            ></input>
-            <label className={css.formElement}>Are you willing to travel abroad for business missions</label>
-            <input
-              className={`${css.input} ${css.formElement}`}
-              placeholder="Yes or no?"
-              disabled
-              type="text"
-            ></input>
+            <label className={css.formElement}>Are you willing to work in banking IT solutions?</label>
+            <RadioButtonsGroup
+              setOption={setItSol}
+              value={itSol}
+              label="Marital Status"
+              row={true}
+              options={["Yes","No"]}
+            />
+            <label className={css.formElement}>Are you willing to travel abroad for business missions?</label>
+            <RadioButtonsGroup
+              setOption={setAbroad}
+              value={abroad}
+              label="Marital Status"
+              row={true}
+              options={["Yes","No"]}
+            />
           </form>
         </Container>
       </Container>

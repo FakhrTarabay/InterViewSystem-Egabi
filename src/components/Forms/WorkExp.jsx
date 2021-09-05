@@ -137,6 +137,7 @@ const WorkExp = () => {
             ></input>
           </div>
         </Container>
+      </Container>
       <Container className={css.rowBtn}>
         <Button
           variant="primary"
@@ -146,7 +147,6 @@ const WorkExp = () => {
         >
           Submit
         </Button>
-      </Container>
       </Container>
     </>
   );

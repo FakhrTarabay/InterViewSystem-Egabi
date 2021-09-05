@@ -4,13 +4,15 @@ import css from "./MainPage.module.css";
 import PersonalInfo from './PersonalInfo';
 import Education from './Edu'
 import Questions from './Questions';
+import QuestionsCont from './QuestionsCont';
 import WorkExp from './WorkExp';
 const MainPageTmp = () => {
     return (
         <Container className={css.col}>
-            <PersonalInfo/>
+            {/* <PersonalInfo/> */}
             {/* <Education/> */}
             {/* <Questions/> */}
+            <QuestionsCont/>
             {/* <WorkExp/> */}
         </Container>
     )
