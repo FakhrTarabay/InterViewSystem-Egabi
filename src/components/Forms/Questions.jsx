@@ -4,6 +4,10 @@ import Container from "../UI/Container";
 import Divider from "@material-ui/core/Divider";
 import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 import RadioButtonsGroup from "../UI/RadioGroup";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.css";
+import "./WorkExp.css";
+import WE from "./WorkExp.module.css";
 
 const Questions = () => {
   const [numWeeks, setNumWeeks] = useState("")
@@ -12,6 +16,10 @@ const Questions = () => {
   const [other, setOther] = useState("")
   const [itSol, setItSol] = useState("")
   const [abroad, setAbroad] = useState("")
+
+  function HandleClick() {
+    console.log("yes");
+  }
   return (
     <>
       <Container className={css.row2}>
@@ -24,7 +32,7 @@ const Questions = () => {
           <HelpOutlineRoundedIcon className={css.iconBig}/>
         </Container>
         <Container className={css.col40}>
-          <form className={css.form}>
+          <div className={css.form}>
             <label className={css.formElement}>Notice period</label>
             <input
               className={`${css.input} ${css.formElement}`}
@@ -50,10 +58,10 @@ const Questions = () => {
               disabled={whoVac==='Others'?false:true}
               type="text"
             ></input>
-          </form>
+          </div>
         </Container>
         <Container className={css.col40}>
-          <form className={css.form}>
+          <div className={css.form}>
             <label className={css.formElement}>Expected monthly salary in EGP</label>
             <input
               className={`${css.input} ${css.formElement}`}
@@ -78,11 +86,28 @@ const Questions = () => {
               row={true}
               options={["Yes","No"]}
             />
-          </form>
+          </div>
         </Container>
       </Container>
-      <Container className={css.rowBtn}>
-          <button>sdfdsfsdfds</button>
+      <Container className={WE.rowBtn2}>
+      <div>
+          <Button
+            variant="primary"
+            size="lg"
+            className="btn-primary"
+            onClick={HandleClick}
+          >
+            Back
+          </Button>
+          <Button
+            variant="primary"
+            size="lg"
+            className="btn-primary"
+            onClick={HandleClick}
+          >
+            Submit
+          </Button>
+        </div>
       </Container>
     </>
   );

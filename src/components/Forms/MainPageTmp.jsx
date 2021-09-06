@@ -11,8 +11,10 @@ const MainPageTmp = () => {
         <Container className={css.col}>
             {/* <PersonalInfo/> */}
             {/* <Education/> */}
-            {/* <Questions/> */}
-            <QuestionsCont/>
+            {/* Done */}
+            <Questions/>
+            {/* Done */}
+            {/* <QuestionsCont/> */}
             {/* <WorkExp/> */}
         </Container>
     )
