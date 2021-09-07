@@ -14,6 +14,7 @@ export default function DatePicker({label,value,setValue}) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
+          required
           disableToolbar
           variant="inline"
           format="MM/dd/yyyy"

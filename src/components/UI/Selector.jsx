@@ -32,6 +32,7 @@ export default function Selector({setValue,value,items,label,help}) {
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>
         <Select
+          required
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
           value={value}

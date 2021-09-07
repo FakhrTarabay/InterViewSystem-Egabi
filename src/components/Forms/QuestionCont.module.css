@@ -21,7 +21,6 @@
     flex-direction: row;
     justify-content: space-between;
   }
-  
   .rowCenter {
     justify-content: start;
     align-items: center;
@@ -40,10 +39,12 @@
     width: 50%;
     padding: 10px;
   }
+  .col80{
+      width:100%
+  }
   .form {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
     height: 100%;
   }
@@ -62,23 +63,32 @@
     font-size: 1rem;
   }
   
-  .rowBtn,.rowBtn2 {
+  .rowBtn {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
   }
-  
-
-.MuiButtonBaseRoot{
+  .MuiButtonBaseRoot{
     justify-content: start!important;
     padding: 0px!important;
     width:24px!important;
 }
 
-
-.rowBtn2{
-    justify-content: flex-end;
-}
+  .rowInput{
+    display: flex;
+    flex-direction: row;
+    align-items:end;
+  }
+  .rowS{
+      display: flex;
+      flex-direction: row;
+  }
+  .colInput{
+    display: flex;
+    flex-Direction: column;
+    margin-Right: 7px;
+  }
+  

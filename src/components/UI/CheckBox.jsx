@@ -9,6 +9,7 @@ export default function CheckboxN({className,setValue,value}) {
   return (
     <>
       <Checkbox
+        required
         className={className}
         checked={value}
         onChange={handleChange}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import css from "./MainPage.module.css";
 import WE from "./WorkExp.module.css";
-import "./WorkExp.css";
+import "./general.css";
 import Container from "../UI/Container";
 import Divider from "@material-ui/core/Divider";
 import WorkOutlineRoundedIcon from "@material-ui/icons/WorkOutlineRounded";
@@ -38,19 +37,19 @@ const WorkExp = () => {
   }
   return (
     <>
-      <Container className={css.row2}>
-        <WorkOutlineRoundedIcon className={css.icon} />
-        <h3 style={{ marginLeft: "10px" }}>Work Experience</h3>
+      <Container className={WE.rowCenter}>
+        <WorkOutlineRoundedIcon className={WE.icon} />
+        <h3 className={WE.h3}>Work Experience</h3>
       </Container>
-      <Divider />
-      <Container className={css.row}>
-        <Container className={css.col20}>
-          <WorkOutlineRoundedIcon className={css.iconBig} />
+      <Divider className={WE.Divider} />
+      <Container className={WE.row}>
+        <Container className={WE.col23}>
+          <WorkOutlineRoundedIcon className={WE.iconBig} />
         </Container>
-        <Container className={css.col40}>
-          <div className={css.form}>
+        <form className={WE.form}>
+          <Container className={WE.col50}>
             <div
-              className={`${css.input} ${css.formElement}`}
+              className={`${WE.input} ${WE.formElement}`}
               style={{ border: "none", paddingLeft: "0px" }}
             >
               <CheckboxN
@@ -58,11 +57,12 @@ const WorkExp = () => {
                 setValue={setIsFresh}
                 value={isFresh}
               />
-              <label className={css.formElement}>Fresh Graduate</label>
+              <label className={WE.formElement}>Fresh Graduate</label>
             </div>
-            <label className={css.formElement}>Company name</label>
+            <label className={WE.formElement}>Company name</label>
             <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${WE.input} ${WE.formElement}`}
               placeholder="Company name"
               onChange={(e) => setWhoEmployer(e.target.value)}
               value={whoEmployer}
@@ -73,38 +73,37 @@ const WorkExp = () => {
               setValue={setDurFrom}
               value={durationFrom}
             />
-            <label className={css.formElement}>Entry position</label>
+            <label className={WE.formElement}>Entry position</label>
             <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${WE.input} ${WE.formElement}`}
               placeholder="Entry position"
               onChange={(e) => setEntryPos(e.target.value)}
               value={entryPos}
               type="text"
             ></input>
-            <label className={css.formElement}>
-              Last monthly salary in EGP
-            </label>
+            <label className={WE.formElement}>Last monthly salary in EGP</label>
             <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${WE.input} ${WE.formElement}`}
               placeholder="Last monthly salary"
               onChange={(e) => setLastSalary(e.target.value)}
               value={LastSalary}
               type="text"
             ></input>
-          </div>
-        </Container>
-        <Container className={css.col40}>
-          <div className={css.form}>
-            <label className={css.formElement}>Total years of experience</label>
+          </Container>
+          <Container className={WE.col50}>
+            <label className={WE.formElement}>Total years of experience</label>
             <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${WE.input} ${WE.formElement}`}
               placeholder="Enter number of years"
               onChange={(e) => setExp(e.target.value)}
               value={Exp}
               type="text"
             ></input>
             <div
-              className={`${css.input} ${css.formElement}`}
+              className={`${WE.input} ${WE.formElement}`}
               style={{ border: "none", paddingLeft: "0px" }}
             >
               <CheckboxN
@@ -112,41 +111,54 @@ const WorkExp = () => {
                 setValue={setIsEmp}
                 value={isEmployer}
               />
-              <label className={css.formElement}>current employer</label>
+              <label className={WE.formElement}>current employer</label>
             </div>
             <DatePicker
               label="Duration to"
               setValue={setDurTo}
               value={durationTo}
             />
-            <label className={css.formElement}>Last position held</label>
+            <label className={WE.formElement}>Last position held</label>
             <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${WE.input} ${WE.formElement}`}
               placeholder="Last position held"
               onChange={(e) => setLastPos(e.target.value)}
               value={LastPos}
               type="text"
             ></input>
-            <label className={css.formElement}>Reason for leaving</label>
+            <label className={WE.formElement}>Reason for leaving</label>
             <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${WE.input} ${WE.formElement}`}
               placeholder="Reason for leaving"
               onChange={(e) => setReasonLeave(e.target.value)}
               value={ReasonLeave}
               type="text"
             ></input>
-          </div>
-        </Container>
-      </Container>
-      <Container className={css.rowBtn}>
-        <Button
-          variant="primary"
-          size="lg"
-          className="btn-primary"
-          onClick={HandleClick}
-        >
-          Submit
-        </Button>
+          </Container>
+          <Container className={WE.rowBtn2}>
+            <div>
+              <Button
+                variant="primary"
+                size="lg"
+                className="btn-primary"
+                onClick={HandleClick}
+              >
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                size="lg"
+                type="submit"
+                className="btn-primary"
+                onClick={HandleClick}
+              >
+                Submit
+              </Button>
+            </div>
+          </Container>
+        </form>
       </Container>
     </>
   );

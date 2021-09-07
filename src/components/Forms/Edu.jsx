@@ -1,84 +1,227 @@
-import React from "react";
-import css from "./MainPage.module.css";
+import React, { useState } from "react";
+import Edu from "./Edu.module.css";
 import Container from "../UI/Container";
 import Divider from "@material-ui/core/Divider";
-import SchoolIcon from '@material-ui/icons/School';
+import SchoolIcon from "@material-ui/icons/School";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.css";
+
 const Education = () => {
+  const [index, setIndex] = useState(1);
+  const [highName, setHighName] = useState("");
+  const [uniName, setUniName] = useState("");
+  const [major, setMajor] = useState("");
+  const [faculty, setFaculty] = useState("");
+  const [gradYear, setGradYear] = useState("");
+  const [grade, setGrade] = useState("");
+  const [UniGrade, setUniGrade] = useState("");
+  const [info, setInfo] = useState([
+    { cert: "", prov: "", year: "", index: index - 1 },
+  ]);
+
+  function HandleClick() {
+    console.log("asdas");
+  }
+
+  function HandleSubmit() {
+    console.log(info);
+  }
+  function HandleAdd() {
+    setIndex((prevState) => prevState + 1);
+    setInfo((prevInfo) => [
+      ...prevInfo,
+      { cert: "", prov: "", year: "", index: index },
+    ]);
+  }
+  function HandleChange(e, index) {
+    const { name, value } = e.target;
+    let list = [...info];
+    list[index][name] = value;
+    setInfo(list);
+  }
   return (
     <>
-      <Container className={css.row2}>
-        <SchoolIcon  className={css.icon} />
-        <h3 style={{marginLeft:'10px'}}>Education</h3>
+      <Container className={Edu.rowCenter}>
+        <SchoolIcon className={Edu.icon} />
+        <h3 className={Edu.h3}>Education</h3>
       </Container>
       <Divider />
-      <Container className={css.row}>
-        <Container className={css.col20}>
-          <SchoolIcon className={css.iconBig}></SchoolIcon>
+      <Container className={Edu.row}>
+        <Container className={Edu.col23}>
+          <SchoolIcon className={Edu.iconBig}></SchoolIcon>
         </Container>
-        <Container className={css.col40}>
-          <form className={css.form}>
-            <label className={css.formElement}>High school Name</label>
+        <form onSubmit={console.log("ssdsd")} className={Edu.form}>
+          <Container className={Edu.col50}>
+            <label className={Edu.formElement}>High school Name</label>
             <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${Edu.input} ${Edu.formElement}`}
               placeholder="High school Name"
+              onChange={(e) => setHighName(e.target.value)}
+              value={highName}
               type="text"
             ></input>
-            <label className={css.formElement}>University name</label>
+            <div className={`${Edu.formElement} ${Edu.rowInput}`}>
+              <div className={Edu.colInput}>
+                <label className={Edu.formElement}>University Name</label>
+                <input
+                  required
+                  className={`${Edu.input} ${Edu.formElement}`}
+                  placeholder="University Name"
+                  onChange={(e) => setUniName(e.target.value)}
+                  value={uniName}
+                  type="text"
+                ></input>
+              </div>
+              <div className={Edu.colInput}>
+                <label className={Edu.formElement}>Major</label>
+                <input
+                  required
+                  className={`${Edu.input} ${Edu.formElement}`}
+                  placeholder="Major"
+                  onChange={(e) => setMajor(e.target.value)}
+                  value={major}
+                  type="text"
+                ></input>
+              </div>
+            </div>
+            <label className={Edu.formElement}>Faculty</label>
             <input
-              className={`${css.input} ${css.formElement}`}
-              placeholder="University name"
-              type="text"
-            ></input>
-            <label className={css.formElement}>Major</label>
-            <input
-              className={`${css.input} ${css.formElement}`}
-              placeholder="Major"
-              type="text"
-            ></input>
-            <label className={css.formElement}>Faculty</label>
-            <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${Edu.input} ${Edu.formElement}`}
               placeholder="Faculty"
+              onChange={(e) => setFaculty(e.target.value)}
+              value={faculty}
               type="text"
             ></input>
-            <h4 style={{margin:'0px',padding:'0px '}}>Post graduate studies and/or training certificates</h4>
-            <p>Please list acquired certificates, beginning with the main ones</p>
-            <label className={css.formElement}>Certificate/Degree</label>
+            <em className={Edu.formElement}>
+              Post Graduate studies and/or training certificates
+            </em>
+            <p>
+              Please list acquired certificates, beginning with the main ones.
+            </p>
+            {info.map((element) => (
+              <React.Fragment key={element.index}>
+                <div className={`${Edu.formElement} ${Edu.rowInput}`}>
+                  <div className={Edu.colInput}>
+                    <label className={Edu.formElement}>
+                      Certificate/Degree
+                    </label>
+                    <input
+                      required
+                      className={`${Edu.input} ${Edu.formElement}`}
+                      placeholder="Name"
+                      name="cert"
+                      onChange={(e) =>
+                        HandleChange(e, info.indexOf(element), true)
+                      }
+                      value={info[info.indexOf(element)].cert}
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className={Edu.colInput}>
+                    <label className={Edu.formElement}>Provider</label>
+                    <input
+                      required
+                      className={`${Edu.input} ${Edu.formElement}`}
+                      placeholder="Provider"
+                      name="prov"
+                      onChange={(e) =>
+                        HandleChange(e, info.indexOf(element), true)
+                      }
+                      value={info[info.indexOf(element)].prov}
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className={Edu.colInput}>
+                    <label className={Edu.formElement}>Year</label>
+                    <input
+                      required
+                      className={`${Edu.input} ${Edu.formElement}`}
+                      placeholder="Year"
+                      name="year"
+                      onChange={(e) =>
+                        HandleChange(e, info.indexOf(element), true)
+                      }
+                      value={info[info.indexOf(element)].year}
+                      type="text"
+                    ></input>
+                  </div>
+                </div>
+              </React.Fragment>
+            ))}
+            <div className={`${Edu.formElement} ${Edu.inputWithWrap}`}>
+              <Button
+                variant="primary"
+                size="lg"
+                className="btn-primary"
+                onClick={HandleAdd}
+                style={{ marginLeft: "0px", marginTop: "5px" }}
+              >
+                Add more
+              </Button>
+            </div>
+          </Container>
+          <Container className={Edu.col50}>
+            <label className={Edu.formElement}>Graduation Year</label>
             <input
-              className={`${css.input} ${css.formElement}`}
-              placeholder="Certificate/Degree"
+              required
+              className={`${Edu.input} ${Edu.formElement}`}
+              placeholder="Graduation Year"
+              // onChange={(e) => setAddress(e.target.value)}
+              // value={Address}
               type="text"
             ></input>
-            <label className={css.formElement}>Provider</label>
-            <input
-              className={`${css.input} ${css.formElement}`}
-              placeholder="Provider"
-              type="text"
-            ></input>
-          </form>
-        </Container>
-        <Container className={css.col40}>
-          <form className={css.form}>
-            <label className={css.formElement}>Date</label>
-            <input
-              className={`${css.input} ${css.formElement}`}
-              type="date"
-            ></input>
-            <label className={css.formElement}>City</label>
-            <select className={`${css.input} ${css.formElement}`}>
-              <option value="">Select city</option>
-              <option>sfdffd</option>
-            </select>
-            <label className={css.formElement}>Technology</label>
-            <select className={`${css.input} ${css.formElement}`}>
-              <option value="">Select technology</option>
-              <option>sfdffd</option>
-            </select>
-          </form>
-        </Container>
-      </Container>
-      <Container className={css.rowBtn}>
-          <button>sdfdsfsdfds</button>
+            <div className={`${Edu.formElement} ${Edu.rowInput}`}>
+              <div className={Edu.colInput}>
+                <label className={Edu.formElement}>Grade</label>
+                <input
+                  className={`${Edu.input} ${Edu.formElement}`}
+                  placeholder="Grade"
+                  // onChange={(e) =>
+                  //   HandleChange(e, info.indexOf(element), true)
+                  // }
+                  // value={info[info.indexOf(element)].name}
+                  type="text"
+                ></input>
+              </div>
+              <div className={Edu.colInput}>
+                <label className={Edu.formElement}>Graduation Year</label>
+                <input
+                  required
+                  className={`${Edu.input} ${Edu.formElement}`}
+                  placeholder="Graduation Year"
+                  // onChange={(e) =>
+                  //   HandleChange(e, info.indexOf(element), true)
+                  // }
+                  // value={info[info.indexOf(element)].title}
+                  type="text"
+                ></input>
+              </div>
+            </div>
+          </Container>
+          <Container className={Edu.rowBtn}>
+            <div>
+              <Button
+                variant="primary"
+                size="lg"
+                className="btn-primary"
+                onClick={HandleClick}
+              >
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                size="lg"
+                type="submit"
+                className="btn-primary"
+                onClick={HandleClick}
+              >
+                Submit
+              </Button>
+            </div>
+          </Container>
+        </form>
       </Container>
     </>
   );

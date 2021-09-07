@@ -36,6 +36,7 @@ export default function DropBox({func,items}) {
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={item}
+          required
           onChange={handleChange}
           label="Question"
         >

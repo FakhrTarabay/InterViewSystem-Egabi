@@ -9,12 +9,15 @@ import WorkExp from './WorkExp';
 const MainPageTmp = () => {
     return (
         <Container className={css.col}>
+            {/* Done */}
             {/* <PersonalInfo/> */}
-            {/* <Education/> */}
             {/* Done */}
-            <Questions/>
+            <Education/>
             {/* Done */}
-            {/* <QuestionsCont/> */}
+            {/* <Questions/> */}
+            {/* Done */}
+            {/* <QuestionsCont/>     */}
+            {/* Done */}
             {/* <WorkExp/> */}
         </Container>
     )

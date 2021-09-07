@@ -1,75 +1,93 @@
 .col {
-    height: 100%;
-    width:100%;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: whitesmoke;
-    border-radius: 10px;
-    justify-content: space-around;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  justify-content: space-around;
 }
-.row,.row2,.rowBtn {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.row,
+.row2,
+.rowBtn,
+.row40 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.row40 {
+  height: 55%;
 }
 .row2 {
-    justify-content:start;
-    align-items:center;
+  justify-content: start;
+  align-items: center;
 }
-.rowBtn{
-    justify-content: space-between;
-}
-
-.col40,.col20,.col75{
-    display: flex;
-    flex-direction: column;
-    width: 35%;
-    padding:10px;
+.rowBtn {
+  justify-content: space-between;
 }
 
-.col20{
-    display: flex;
-    flex-direction: column;
-    width:23%;
-    justify-content: space-around;
-    align-items: center;
-}
-.col75{
-    width:80%;
-}
-
-.icon{
-    color: darkcyan;
-    font-size: 1.8rem!important;
-}
-.iconBig{
-    font-size: 12rem!important;
-    color: darkcyan!important;
-}
-.form{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-.formElement{
-    margin: 2.5px 0px;
+.col40,
+.col20,
+.col75,
+.col600 {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  padding: 10px;
 }
 
-.input{
-    border: 0.001rem solid rgba(211, 211, 211, 0.932);
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 16px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.col20 {
+  display: flex;
+  flex-direction: column;
+  width: 23%;
+  justify-content: space-around;
+  align-items: center;
+}
+.col600 {
+  max-height: 600px;
+  width: 80%;
+}
+.col75 {
+  width: 80%;
 }
 
-.input::placeholder{
-    font-size: 1rem;
+.icon {
+  color: darkcyan;
+  font-size: 1.8rem !important;
+}
+.iconBig {
+  font-size: 12rem !important;
+  color: darkcyan !important;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+.formElement {
+  margin: 2.5px 0px;
 }
 
-select::after{
-    nav-down: none;
+.input,
+.input40 {
+  border: 0.001rem solid rgba(211, 211, 211, 0.932);
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+.input40 {
+  width: 40%;
+}
+.input::placeholder,.input40::placeholder {
+  font-size: 1rem;
+}
+
+/* select::after {
+  nav-down: none;
+} */

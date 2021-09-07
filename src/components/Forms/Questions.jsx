@@ -1,113 +1,126 @@
-import React,{useState} from "react";
-import css from "./MainPage.module.css";
+import React, { useState } from "react";
+import Qu from "./Question.module.css";
 import Container from "../UI/Container";
 import Divider from "@material-ui/core/Divider";
-import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
+import HelpOutlineRoundedIcon from "@material-ui/icons/HelpOutlineRounded";
 import RadioButtonsGroup from "../UI/RadioGroup";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
-import "./WorkExp.css";
-import WE from "./WorkExp.module.css";
-
+import "./general.css";
 const Questions = () => {
-  const [numWeeks, setNumWeeks] = useState("")
-  const [whoVac, setWhoVac] = useState("")
-  const [salary, setSalary] = useState("")
-  const [other, setOther] = useState("")
-  const [itSol, setItSol] = useState("")
-  const [abroad, setAbroad] = useState("")
+  const [numWeeks, setNumWeeks] = useState("");
+  const [whoVac, setWhoVac] = useState("");
+  const [salary, setSalary] = useState("");
+  const [other, setOther] = useState("");
+  const [itSol, setItSol] = useState("");
+  const [abroad, setAbroad] = useState("");
 
   function HandleClick() {
     console.log("yes");
   }
   return (
     <>
-      <Container className={css.row2}>
-        <HelpOutlineRoundedIcon  className={css.icon} />
-        <h3 style={{marginLeft:'10px'}}>Questions</h3>
+      <Container className={Qu.rowCenter}>
+        <HelpOutlineRoundedIcon className={Qu.icon} />
+        <h3 className={Qu.h3}>Questions</h3>
       </Container>
-      <Divider />
-      <Container className={css.row}>
-        <Container className={css.col20}>
-          <HelpOutlineRoundedIcon className={css.iconBig}/>
+      <Divider className={Qu.Divider} />
+      <Container className={Qu.row}>
+        <Container className={Qu.col23}>
+          <HelpOutlineRoundedIcon className={Qu.iconBig} />
         </Container>
-        <Container className={css.col40}>
-          <div className={css.form}>
-            <label className={css.formElement}>Notice period</label>
+        <form onSubmit={console.log("test")} className={Qu.form}>
+          <Container className={Qu.col50}>
+            <label className={Qu.formElement}>Notice period</label>
             <input
-              className={`${css.input} ${css.formElement}`}
-              onChange={e=>setNumWeeks(e.target.value)}
+              required
+              className={`${Qu.input} ${Qu.formElement}`}
+              onChange={(e) => setNumWeeks(e.target.value)}
               value={numWeeks}
               placeholder="Enter number of weeks"
               type="text"
             ></input>
-            <label className={css.formElement}>How did you know about this vacancy?</label>
+            <label className={Qu.formElement}>
+              How did you know about this vacancy?
+            </label>
             <RadioButtonsGroup
               setOption={setWhoVac}
               value={whoVac}
               label="Marital Status"
               row={true}
-              options={["Social Media","egabiFSI Employee","recruitme website","Others"]}
+              options={[
+                "Social Media",
+                "egabiFSI Employee",
+                "recruitme website",
+                "Others",
+              ]}
             />
-            <label className={css.formElement}>Please specify the channel</label>
+            <label className={Qu.formElement}>Please specify the channel</label>
             <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${Qu.input} ${Qu.formElement}`}
               placeholder="Others"
-              onChange={e=>setOther(e.target.value)}
+              onChange={(e) => setOther(e.target.value)}
               value={other}
-              disabled={whoVac==='Others'?false:true}
+              disabled={whoVac === "Others" ? false : true}
               type="text"
             ></input>
-          </div>
-        </Container>
-        <Container className={css.col40}>
-          <div className={css.form}>
-            <label className={css.formElement}>Expected monthly salary in EGP</label>
+          </Container>
+          <Container className={Qu.col50}>
+            <label className={Qu.formElement}>
+              Expected monthly salary in EGP
+            </label>
             <input
-              className={`${css.input} ${css.formElement}`}
+              required
+              className={`${Qu.input} ${Qu.formElement}`}
               placeholder="Expected salary"
-              onChange={e=>setSalary(e.target.value)}
+              onChange={(e) => setSalary(e.target.value)}
               value={salary}
               type="text"
             ></input>
-            <label className={css.formElement}>Are you willing to work in banking IT solutions?</label>
+            <label className={Qu.formElement}>
+              Are you willing to work in banking IT solutions?
+            </label>
             <RadioButtonsGroup
               setOption={setItSol}
               value={itSol}
               label="Marital Status"
               row={true}
-              options={["Yes","No"]}
+              options={["Yes", "No"]}
             />
-            <label className={css.formElement}>Are you willing to travel abroad for business missions?</label>
+            <label className={Qu.formElement}>
+              Are you willing to travel abroad for business missions?
+            </label>
             <RadioButtonsGroup
               setOption={setAbroad}
               value={abroad}
               label="Marital Status"
               row={true}
-              options={["Yes","No"]}
+              options={["Yes", "No"]}
             />
-          </div>
-        </Container>
-      </Container>
-      <Container className={WE.rowBtn2}>
-      <div>
-          <Button
-            variant="primary"
-            size="lg"
-            className="btn-primary"
-            onClick={HandleClick}
-          >
-            Back
-          </Button>
-          <Button
-            variant="primary"
-            size="lg"
-            className="btn-primary"
-            onClick={HandleClick}
-          >
-            Submit
-          </Button>
-        </div>
+          </Container>
+          <Container className={Qu.rowBtn}>
+            <div>
+              <Button
+                variant="primary"
+                size="lg"
+                className="btn-primary"
+                onClick={HandleClick}
+              >
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                size="lg"
+                type="submit"
+                className="btn-primary"
+                onClick={HandleClick}
+              >
+                Submit
+              </Button>
+            </div>
+          </Container>
+        </form>
       </Container>
     </>
   );
