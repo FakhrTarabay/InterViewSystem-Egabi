@@ -48,7 +48,7 @@ const PersonalInfo = () => {
     <>
       <Container className={Per.rowCenter}>
         <PersonIcon className={Per.icon} />
-        Personal Information
+        <h3 className={Per.h3}>Personal information</h3>
       </Container>
       <Divider />
       <Container className={Per.row}>

@@ -6,7 +6,10 @@
   font-size: 12rem !important;
   color: darkcyan !important;
 }
-
+.h3 {
+  margin-left: 10px;
+  margin-bottom: 0px;
+}
 .row,
 .rowCenter {
   height: 100%;

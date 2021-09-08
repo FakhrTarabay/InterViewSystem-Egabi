@@ -6,8 +6,9 @@
   font-size: 12rem !important;
   color: darkcyan !important;
 }
-.h3{
-    margin-left: 10px;
+.h3 {
+  margin-left: 10px;
+  margin-bottom: 0px;
 }
 .Divider{
     opacity: 1!important;
