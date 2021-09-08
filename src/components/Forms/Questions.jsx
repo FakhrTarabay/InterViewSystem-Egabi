@@ -7,7 +7,11 @@ import RadioButtonsGroup from "../UI/RadioGroup";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
 import "./general.css";
+import { Redirect } from "react-router-dom";
+
 const Questions = () => {
+  const [routingBack, setRoutingBack] = useState(false);
+  const [routingFront, setRoutingFront] = useState(false);
   const [numWeeks, setNumWeeks] = useState("");
   const [whoVac, setWhoVac] = useState("");
   const [salary, setSalary] = useState("");
@@ -15,9 +19,13 @@ const Questions = () => {
   const [itSol, setItSol] = useState("");
   const [abroad, setAbroad] = useState("");
 
-  function HandleClick() {
-    console.log("yes");
+  if (routingBack) {
+    return <Redirect push to="/Exp" />;
   }
+  if (routingFront) {
+    return <Redirect push to="/QC" />;
+  }
+
   return (
     <>
       <Container className={Qu.rowCenter}>
@@ -29,7 +37,11 @@ const Questions = () => {
         <Container className={Qu.col23}>
           <HelpOutlineRoundedIcon className={Qu.iconBig} />
         </Container>
-        <form onSubmit={console.log("test")} className={Qu.form}>
+        <form onSubmit={e=>{
+          e.preventDefault();
+          setRoutingFront(true)
+          console.log('hereQ')
+        }} className={Qu.form}>
           <Container className={Qu.col50}>
             <label className={Qu.formElement}>Notice period</label>
             <input
@@ -105,7 +117,7 @@ const Questions = () => {
                 variant="primary"
                 size="lg"
                 className="btn-primary"
-                onClick={HandleClick}
+                onClick={()=>setRoutingBack(true)}
               >
                 Back
               </Button>
@@ -114,9 +126,8 @@ const Questions = () => {
                 size="lg"
                 type="submit"
                 className="btn-primary"
-                onClick={HandleClick}
               >
-                Submit
+                Next
               </Button>
             </div>
           </Container>

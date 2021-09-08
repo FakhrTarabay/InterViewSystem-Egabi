@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import Edu from "./Edu.module.css";
 import Container from "../UI/Container";
+import Edu from "./Edu.module.css";
 import Divider from "@material-ui/core/Divider";
 import SchoolIcon from "@material-ui/icons/School";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
+import { Redirect } from "react-router-dom";
 
 const Education = () => {
+  const [routingBack, setRoutingBack] = useState(false);
+  const [routingFront, setRoutingFront] = useState(false);
   const [index, setIndex] = useState(1);
   const [highName, setHighName] = useState("");
   const [uniName, setUniName] = useState("");
@@ -19,13 +22,13 @@ const Education = () => {
     { cert: "", prov: "", year: "", index: index - 1 },
   ]);
 
-  function HandleClick() {
-    console.log("asdas");
+  if (routingBack) {
+    return <Redirect push to="/" />;
   }
-
-  function HandleSubmit() {
-    console.log(info);
+  if (routingFront) {
+    return <Redirect push to="/Exp" />;
   }
+  
   function HandleAdd() {
     setIndex((prevState) => prevState + 1);
     setInfo((prevInfo) => [
@@ -50,7 +53,11 @@ const Education = () => {
         <Container className={Edu.col23}>
           <SchoolIcon className={Edu.iconBig}></SchoolIcon>
         </Container>
-        <form onSubmit={console.log("ssdsd")} className={Edu.form}>
+        <form onSubmit={e=>{
+          e.preventDefault()
+          console.log(info)
+          setRoutingFront(true)
+        }} className={Edu.form}>
           <Container className={Edu.col50}>
             <label className={Edu.formElement}>High school Name</label>
             <input
@@ -168,20 +175,19 @@ const Education = () => {
               required
               className={`${Edu.input} ${Edu.formElement}`}
               placeholder="Graduation Year"
-              // onChange={(e) => setAddress(e.target.value)}
-              // value={Address}
+              onChange={(e) => setGradYear(e.target.value)}
+              value={gradYear}
               type="text"
             ></input>
             <div className={`${Edu.formElement} ${Edu.rowInput}`}>
               <div className={Edu.colInput}>
                 <label className={Edu.formElement}>Grade</label>
                 <input
+                  required
                   className={`${Edu.input} ${Edu.formElement}`}
                   placeholder="Grade"
-                  // onChange={(e) =>
-                  //   HandleChange(e, info.indexOf(element), true)
-                  // }
-                  // value={info[info.indexOf(element)].name}
+                  onChange={(e) => setGrade(e.target.value)}
+                  value={grade}
                   type="text"
                 ></input>
               </div>
@@ -191,10 +197,8 @@ const Education = () => {
                   required
                   className={`${Edu.input} ${Edu.formElement}`}
                   placeholder="Graduation Year"
-                  // onChange={(e) =>
-                  //   HandleChange(e, info.indexOf(element), true)
-                  // }
-                  // value={info[info.indexOf(element)].title}
+                  onChange={(e) => setUniGrade(e.target.value)}
+                  value={UniGrade}
                   type="text"
                 ></input>
               </div>
@@ -206,7 +210,7 @@ const Education = () => {
                 variant="primary"
                 size="lg"
                 className="btn-primary"
-                onClick={HandleClick}
+                onClick={()=>setRoutingBack(true)}
               >
                 Back
               </Button>
@@ -215,9 +219,8 @@ const Education = () => {
                 size="lg"
                 type="submit"
                 className="btn-primary"
-                onClick={HandleClick}
               >
-                Submit
+                Next
               </Button>
             </div>
           </Container>

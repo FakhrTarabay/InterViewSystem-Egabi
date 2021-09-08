@@ -8,33 +8,43 @@ import DatePicker from "../UI/DatePicker";
 import CheckboxN from "../UI/CheckBox";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
+import { Redirect } from "react-router-dom";
 const WorkExp = () => {
+  const [routingBack, setRoutingBack] = useState(false);
+  const [routingFront, setRoutingFront] = useState(false);
   const [isFresh, setIsFresh] = useState(false);
   const [whoEmployer, setWhoEmployer] = useState("");
   const [isEmployer, setIsEmp] = useState(false);
-  const [durationFrom, setDurFrom] = useState(new Date());
-  const [durationTo, setDurTo] = useState(new Date());
+  const [durationFrom, setDurFrom] = useState(null);
+  const [durationTo, setDurTo] = useState(null);
   const [entryPos, setEntryPos] = useState("");
   const [LastSalary, setLastSalary] = useState("");
   const [Exp, setExp] = useState("");
   const [LastPos, setLastPos] = useState("");
   const [ReasonLeave, setReasonLeave] = useState("");
 
-  function HandleClick() {
-    const res = {
-      fresh: isFresh,
-      whoEmployer: whoEmployer,
-      isEmployer: isEmployer,
-      durationFrom: durationFrom,
-      durationTo: durationTo,
-      entryPos: entryPos,
-      LastSalary: LastSalary,
-      Exp: Exp,
-      LastPos: LastPos,
-      ReasonLeave: ReasonLeave,
-    };
-    console.log(res);
+  if (routingBack) {
+    return <Redirect push to="/Edu" />;
   }
+  if (routingFront) {
+    return <Redirect push to="/Q" />;
+  }
+
+  // function HandleClick() {
+  //   const res = {
+  //     fresh: isFresh,
+  //     whoEmployer: whoEmployer,
+  //     isEmployer: isEmployer,
+  //     durationFrom: durationFrom,
+  //     durationTo: durationTo,
+  //     entryPos: entryPos,
+  //     LastSalary: LastSalary,
+  //     Exp: Exp,
+  //     LastPos: LastPos,
+  //     ReasonLeave: ReasonLeave,
+  //   };
+  //   console.log(res);
+  // }
   return (
     <>
       <Container className={WE.rowCenter}>
@@ -46,7 +56,11 @@ const WorkExp = () => {
         <Container className={WE.col23}>
           <WorkOutlineRoundedIcon className={WE.iconBig} />
         </Container>
-        <form className={WE.form}>
+        <form onSubmit={e=>{
+          e.preventDefault()
+          console.log('hereExp')
+          setRoutingFront(true)
+        }} className={WE.form}>
           <Container className={WE.col50}>
             <div
               className={`${WE.input} ${WE.formElement}`}
@@ -143,7 +157,7 @@ const WorkExp = () => {
                 variant="primary"
                 size="lg"
                 className="btn-primary"
-                onClick={HandleClick}
+                onClick={()=>setRoutingBack(true)}
               >
                 Back
               </Button>
@@ -152,9 +166,8 @@ const WorkExp = () => {
                 size="lg"
                 type="submit"
                 className="btn-primary"
-                onClick={HandleClick}
               >
-                Submit
+                Next
               </Button>
             </div>
           </Container>

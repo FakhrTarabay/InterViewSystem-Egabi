@@ -9,6 +9,7 @@ import RadioButtonsGroup from "../UI/RadioGroup";
 import DatePicker from "../UI/DatePicker";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
+import { Redirect } from "react-router-dom";
 
 const PersonalInfo = () => {
   // const info = {
@@ -25,26 +26,24 @@ const PersonalInfo = () => {
   //   NofDep: NofDep,
   //   PostTill: PostTill,
   // };
+  const [routing, setRouting] = useState(false);
   const [applicantName, setApplicantName] = useState("");
   const [Address, setAddress] = useState("");
   const [AppliedFor, setAppliedFor] = useState("");
   const [email, setEmail] = useState("");
   const [maritalStatus, setMaritStatus] = useState("");
   const [militaryStatus, setMilitStatus] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(null);
   const [City, setCity] = useState("");
   const [Techno, setTechno] = useState("");
   const [Mobile, setMobile] = useState("");
   const [NofDep, setNofDep] = useState("");
-  const [PostTill, setPostTill] = useState(new Date());
-  // const [Info, setInfo] = useState([]);
+  const [PostTill, setPostTill] = useState(null);
 
-  function HandleClick() {
-    console.log("asdas");
+  if (routing) {
+    return <Redirect push to="/Edu/" />;
   }
-  // function HandleSubmit() {
-  //   console.log(Info);
-  // }
+
   return (
     <>
       <Container className={Per.rowCenter}>
@@ -56,7 +55,11 @@ const PersonalInfo = () => {
         <Container className={Per.col23}>
           <AssignmentIndIcon className={Per.iconBig}></AssignmentIndIcon>
         </Container>
-        <form onSubmit={console.log("ssdsd")} className={Per.form}>
+        <form onSubmit={e=>{
+          e.preventDefault();
+          console.log('herePerson')
+          setRouting(true)
+        }} className={Per.form}>
           <Container className={Per.col50}>
             <label className={Per.formElement}>Applicant Name</label>
             <input
@@ -158,19 +161,10 @@ const PersonalInfo = () => {
               <Button
                 variant="primary"
                 size="lg"
-                className="btn-primary"
-                onClick={HandleClick}
-              >
-                Back
-              </Button>
-              <Button
-                variant="primary"
-                size="lg"
                 type="submit"
                 className="btn-primary"
-                onClick={HandleClick}
               >
-                Submit
+                Next
               </Button>
             </div>
           </Container>

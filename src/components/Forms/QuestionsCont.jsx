@@ -8,8 +8,11 @@ import CheckboxN from "../UI/CheckBox";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
 import "./general.css";
+import { Redirect } from "react-router-dom";
 
 const QuestionsCont = () => {
+  const [routingBack, setRoutingBack] = useState(false);
+  const [routingFront, setRoutingFront] = useState(false);
   const [index1, setIndex1] = useState(1);
   const [index2, setIndex2] = useState(1);
   const [info, setInfo] = useState([
@@ -27,6 +30,13 @@ const QuestionsCont = () => {
 
   const [doRel, setDoRel] = useState("");
   const [auth, setAuth] = useState(false);
+
+  if (routingBack) {
+    return <Redirect push to="/Q" />;
+  }
+  if (routingFront) {
+    return <Redirect push to="/Exp" />;
+  }
 
   function HandleAdd() {
     setIndex1((prevState) => prevState + 1);
@@ -60,10 +70,6 @@ const QuestionsCont = () => {
       setInfo2(list);
     }
   }
-
-  function HandleClick() {
-    console.log(info);
-  }
   return (
     <>
       <Container className={QuC.rowCenter}>
@@ -75,7 +81,14 @@ const QuestionsCont = () => {
         <Container className={QuC.col23}>
           <HelpOutlineRoundedIcon className={QuC.iconBig} />
         </Container>
-        <form className={QuC.form} onSubmit={console.log("asdas")}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setRoutingFront(true);
+            console.log("hereQC");
+          }}
+          className={QuC.form}
+        >
           <Container className={QuC.col80}>
             <div className={QuC.form}>
               <label className={QuC.formElement}>
@@ -246,7 +259,7 @@ const QuestionsCont = () => {
                 variant="primary"
                 size="lg"
                 className="btn-primary"
-                onClick={HandleClick}
+                onClick={() => setRoutingBack(true)}
               >
                 Back
               </Button>
@@ -255,7 +268,6 @@ const QuestionsCont = () => {
                 variant="primary"
                 size="lg"
                 className="btn-primary"
-                onClick={HandleClick}
               >
                 Submit
               </Button>

@@ -1,15 +1,20 @@
-import './App.css';
-// import Home from './components/Home/Home';
-import CreateTopic from './components/Exams/CreateTopic';
+import "./App.css";
+import React from "react";
+import Container from "./components/UI/Container";
+import css from "./components/Forms/MainPage.module.css"
+// eslint-disable-next-line
+import CreateTopic from "./components/Exams/CreateTopic";
+// eslint-disable-next-line
 // import Routes from './Routes'
-import MainPageTmp from './components/Forms/MainPageTmp';
+// eslint-disable-next-line
+import MainPageTmp from "./components/Forms/MainPageTmp";
+import Routes from "./components/Routes";
 function App() {
   return (
     <div className="App">
-      {/* <Routes></Routes> */}
-      {/* <CreateTopic/> */}
-      {/* <Home/> */}
-      <MainPageTmp/>
+      <Container className={css.col}>
+        <Routes />
+      </Container>
     </div>
   );
 }
