@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import Container from "../UI/Container";
 import TextFields from "../UI/TextField";
 import css from "./CreateTopic.module.css";
+import Selector from "../UI/Selector";
+
 import RadioButtonsGroup from "../UI/RadioGroup";
 import { Button } from "@material-ui/core";
 import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
 import IconButton from "@material-ui/core/IconButton";
 import DropBox from "../UI/DropBox";
-
+import Edu from "../Forms/Edu.module.css";
 const CreateTopic = () => {
   const [Questions, setQuestions] = useState([
     {
@@ -27,12 +29,27 @@ const CreateTopic = () => {
     {
       type: "Comprehension",
       number: 4,
-      prompt: "(A) Scientists have known for a long time that vitamin D is essential for humans. If children have a vitamin D or calcium deficiency, they can develop rickets, a softening of the bones. New studies are showing that people of all ages need vitamin D to help them fight off diseases by keeping their immune systems strong.",
-      questions: ["The main idea of this paragraph is that vitamin D.", "If something is essential, it is ………… .", "When you have a deficiency of something, you ………….	."],
+      prompt:
+        "(A) Scientists have known for a long time that vitamin D is essential for humans. If children have a vitamin D or calcium deficiency, they can develop rickets, a softening of the bones. New studies are showing that people of all ages need vitamin D to help them fight off diseases by keeping their immune systems strong.",
+      questions: [
+        "The main idea of this paragraph is that vitamin D.",
+        "If something is essential, it is ………… .",
+        "When you have a deficiency of something, you ………….	.",
+      ],
       options: [
-        ["is found in milk", "has been studied by scientists", "is no secret","is important for good health"],
-        ["harmful", "expensive", "dreadful","needed"],
-        ["have all you need", "do not have enough", "look like an onion","are rich"],
+        [
+          "is found in milk",
+          "has been studied by scientists",
+          "is no secret",
+          "is important for good health",
+        ],
+        ["harmful", "expensive", "dreadful", "needed"],
+        [
+          "have all you need",
+          "do not have enough",
+          "look like an onion",
+          "are rich",
+        ],
       ],
       answers: [4, 4, 2],
     },
@@ -44,7 +61,7 @@ const CreateTopic = () => {
   const [qAnswer, setQAnswer] = useState("");
   const [index, setIndex] = useState(-1);
   const [Comprehension, setComprehension] = useState("");
-  const [ComprehensionQs, setComprehensionQs] = useState([]);
+  const [ComprehensionQs, setComprehensionQs] = useState(["1", "2", "3", "4"]);
   const [ComprehensionAs, setComprehensionAs] = useState([]);
   const [ComprehensionChoices, setComprehensionChoices] = useState([]);
 
@@ -53,9 +70,9 @@ const CreateTopic = () => {
   }
 
   function HandleReset() {
-    setComprehensionAs([])
-    setComprehensionQs([])
-    setComprehension("")
+    setComprehensionAs([]);
+    setComprehensionQs(ComprehensionQs);
+    setComprehension("");
     setQuestion("");
     setQAnswer("");
     setOptions([]);
@@ -164,7 +181,11 @@ const CreateTopic = () => {
     <>
       <Container className={css.position}>
         <b>Create Question</b>
-        <form onSubmit={() => 1 + 1}>
+        <form
+          className={Edu.col50}
+          style={{ width: "100%" }}
+          onSubmit={() => 1 + 1}
+        >
           <RadioButtonsGroup
             className={css.element}
             label={"Pick a question type"}
@@ -174,35 +195,53 @@ const CreateTopic = () => {
           />
           {QuestionType === "MCQ" ? (
             <>
-              <TextFields
-                className={css.element}
-                label="Set Question"
-                setTxtFunc={setQuestion}
-                multiline={true}
+              <label className={Edu.formElement}>Question</label>
+              <input
+                multiple
+                required
+                className={`${Edu.input} ${Edu.formElement}`}
+                placeholder="Set Question"
+                onChange={(e) => setQuestion(e.target.value)}
                 value={Question}
-              />
-              <TextFields
-                className={css.element}
-                setTxtFunc={setNumChoices}
-                label="Set number of Choices"
-                type="number"
+                pattern="[a-zA-Z]{1,}"
+                type="text"
+              ></input>
+              <label className={Edu.formElement}>Number of choices</label>
+              <input
+                required
+                className={`${Edu.input} ${Edu.formElement}`}
+                placeholder="Set number of choices"
+                onChange={(e) => setNumChoices(e.target.value)}
                 value={numChoices}
-              />
+                pattern="[0-9]{1,}"
+                type="number"
+                min="0"
+                max="99"
+              ></input>
+
               {createChoices().map((element) => element)}
             </>
           ) : QuestionType === "Comprehension" ? (
             <>
-              <TextFields
-                className={css.element}
-                setTxtFunc={setComprehension}
-                multiline={true}
-                label="Set comprehension prompt"
+              <input
+                multiple
+                required
+                className={`${Edu.input} ${Edu.formElement}`}
+                placeholder="Set comprehension prompt"
+                onChange={(e) => setComprehension(e.target.value)}
                 value={Comprehension}
-              />
-              <DropBox
-                func={setQuestion}
+                type="text"
+              ></input>
+              {console.log(ComprehensionQs)}
+              <Selector
+                className={`${Edu.input} ${Edu.formElement}`}
                 items={ComprehensionQs}
-                />  
+                setValue={setQuestion}
+                value={Question}
+                label="Question:"
+                help="Pick Question"
+              />
+              {/* <DropBox  className={`${Edu.input} ${Edu.formElement}`} func={setQuestion} items={ComprehensionQs} /> */}
               {/* ////////////////////////////////////////////////////////////////// */}
               <TextFields
                 className={css.element}
@@ -233,26 +272,33 @@ const CreateTopic = () => {
             </>
           ) : (
             <>
-              <TextFields
-                className={css.element}
-                label="Set Question"
-                setTxtFunc={setQuestion}
-                multiline={true}
+              <label className={Edu.formElement}>Question</label>
+              <input
+                required
+                className={`${Edu.input} ${Edu.formElement}`}
+                placeholder="Set Question"
+                onChange={(e) => setQuestion(e.target.value)}
                 value={Question}
-              />
+                pattern="[a-zA-Z]{1,}"
+                type="text"
+              ></input>
             </>
           )}
-          <TextFields
-            setTxtFunc={setQAnswer}
-            className={css.element}
-            label="Set model answer"
-            value={
-              // QuestionType === "Comprehension"
-              //   ? ComprehensionAs[selectedCompQuestion]
-              //   :
-                 qAnswer
-            }
-          />
+          <label className={Edu.formElement}>Model Answer</label>
+          <input
+            required
+            className={`${Edu.input} ${Edu.formElement}`}
+            placeholder="Set model answer"
+            onChange={(e) => setQAnswer(e.target.value)}
+            pattern="(T|F|t|f|true|false|TRUE|FALSE)"
+            value={qAnswer}
+            // value={
+            //   // QuestionType === "Comprehension"
+            //   //   ? ComprehensionAs[selectedCompQuestion]
+            //   //   :
+            //   qAnswer
+            type="text"
+          ></input>
           {QuestionType === "Comprehension" && (
             <div>
               <Button
@@ -304,14 +350,16 @@ const CreateTopic = () => {
             <label>Comprehension question/s:</label>
             {ComprehensionQs.map((q) => (
               <React.Fragment key={generateID()}>
-                <p>{`${ComprehensionQs.indexOf(q)+1} - ${q}`}</p>
-                <RadioButtonsGroup
+                <p>{`${ComprehensionQs.indexOf(q) + 1} - ${q}`}</p>
+                {/* <RadioButtonsGroup
                   className={css.element}
                   label={"Choices"}
                   options={ComprehensionChoices[ComprehensionQs.indexOf(q)]}
                   disabled={true}
-                />
-                <p>{`Model Answer = ${ComprehensionAs[ComprehensionQs.indexOf(q)]}`}</p>
+                /> */}
+                <p>{`Model Answer = ${
+                  ComprehensionAs[ComprehensionQs.indexOf(q)]
+                }`}</p>
               </React.Fragment>
             ))}
           </>

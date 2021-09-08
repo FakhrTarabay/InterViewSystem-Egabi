@@ -7,6 +7,14 @@
   padding:0px 60px;
 }
 
+.create{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
 .col {
   height: 100%;
   width: 100%;

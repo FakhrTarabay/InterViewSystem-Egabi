@@ -2,15 +2,18 @@ import "./App.css";
 import React from "react";
 import Container from "./components/UI/Container";
 // eslint-disable-next-line
-// import 
+// import
 import CreateTopic from "./components/Exams/CreateTopic";
 import Routes from "./components/Routes";
 function App() {
   return (
     <div className="App">
-      <Container className="col">
+      {/* <Container className="col">
         <Routes />
-      </Container>
+      </Container> */}
+      <div className="create">
+        <CreateTopic />
+      </div>
     </div>
   );
 }
