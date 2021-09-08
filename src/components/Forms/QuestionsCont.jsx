@@ -111,6 +111,7 @@ const QuestionsCont = () => {
                       <label className={QuC.formElement}>Name</label>
                       <input
                         required
+                        pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Name"
                         name="name"
@@ -125,6 +126,7 @@ const QuestionsCont = () => {
                       <label className={QuC.formElement}>Title</label>
                       <input
                         required
+                        pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Title"
                         name="title"
@@ -139,6 +141,7 @@ const QuestionsCont = () => {
                       <label className={QuC.formElement}>Mobile</label>
                       <input
                         required
+                        pattern="^0(10|11|12)[0-9]{8}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Mobile"
                         name="mobile"
@@ -172,6 +175,8 @@ const QuestionsCont = () => {
                     <div className={QuC.colInput}>
                       <label className={QuC.formElement}>Name</label>
                       <input
+                        required
+                        pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Name"
                         name="nameOpt"
@@ -185,6 +190,8 @@ const QuestionsCont = () => {
                     <div className={QuC.colInput}>
                       <label className={QuC.formElement}>Title</label>
                       <input
+                        required
+                        pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Title"
                         name="titleOpt"
@@ -198,6 +205,8 @@ const QuestionsCont = () => {
                     <div className={QuC.colInput}>
                       <label className={QuC.formElement}>Employer</label>
                       <input
+                        required
+                        pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Employer"
                         name="employer"
@@ -211,6 +220,8 @@ const QuestionsCont = () => {
                     <div className={QuC.colInput}>
                       <label className={QuC.formElement}>Mobile</label>
                       <input
+                        required
+                        pattern="^0(10|11|12)[0-9]{8}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Mobile"
                         name="mobileOpt"
@@ -237,7 +248,6 @@ const QuestionsCont = () => {
               </div>
             </div>
           </Container>
-          <Divider />
           <Container className={QuC.rowBtn}>
             <div>
               <em className={QuC.formElement} style={{ marginLeft: "4px" }}>

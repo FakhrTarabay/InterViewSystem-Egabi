@@ -22,7 +22,6 @@ export default function DatePicker({label,value,setValue}) {
           id="date-picker-inline"
           label={label}
           value={value}
-          defaultValue=""
           onChange={handleDateChange}
           KeyboardButtonProps={{
             'aria-label': 'change date',

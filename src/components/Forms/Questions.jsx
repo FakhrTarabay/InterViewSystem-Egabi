@@ -46,6 +46,7 @@ const Questions = () => {
             <label className={Qu.formElement}>Notice period</label>
             <input
               required
+              pattern="[0-9]{1,}"
               className={`${Qu.input} ${Qu.formElement}`}
               onChange={(e) => setNumWeeks(e.target.value)}
               value={numWeeks}
@@ -70,6 +71,7 @@ const Questions = () => {
             <label className={Qu.formElement}>Please specify the channel</label>
             <input
               required
+              pattern="[a-zA-Z]{1,}"
               className={`${Qu.input} ${Qu.formElement}`}
               placeholder="Others"
               onChange={(e) => setOther(e.target.value)}
@@ -84,6 +86,7 @@ const Questions = () => {
             </label>
             <input
               required
+              pattern="[0-9]{1,}"
               className={`${Qu.input} ${Qu.formElement}`}
               placeholder="Expected salary"
               onChange={(e) => setSalary(e.target.value)}

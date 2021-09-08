@@ -28,7 +28,7 @@ const Education = () => {
   if (routingFront) {
     return <Redirect push to="/Exp" />;
   }
-  
+
   function HandleAdd() {
     setIndex((prevState) => prevState + 1);
     setInfo((prevInfo) => [
@@ -53,11 +53,14 @@ const Education = () => {
         <Container className={Edu.col23}>
           <SchoolIcon className={Edu.iconBig}></SchoolIcon>
         </Container>
-        <form onSubmit={e=>{
-          e.preventDefault()
-          console.log(info)
-          setRoutingFront(true)
-        }} className={Edu.form}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log(info);
+            setRoutingFront(true);
+          }}
+          className={Edu.form}
+        >
           <Container className={Edu.col50}>
             <label className={Edu.formElement}>High school Name</label>
             <input
@@ -66,6 +69,7 @@ const Education = () => {
               placeholder="High school Name"
               onChange={(e) => setHighName(e.target.value)}
               value={highName}
+              pattern="[a-zA-Z]{1,}"
               type="text"
             ></input>
             <div className={`${Edu.formElement} ${Edu.rowInput}`}>
@@ -77,10 +81,11 @@ const Education = () => {
                   placeholder="University Name"
                   onChange={(e) => setUniName(e.target.value)}
                   value={uniName}
+                  pattern="[a-zA-Z]{1,}"
                   type="text"
                 ></input>
               </div>
-              <div className={Edu.colInput}>
+              <div className={Edu.colInput} style={{marginRight:'0px'}}>
                 <label className={Edu.formElement}>Major</label>
                 <input
                   required
@@ -88,6 +93,7 @@ const Education = () => {
                   placeholder="Major"
                   onChange={(e) => setMajor(e.target.value)}
                   value={major}
+                  pattern="[a-zA-Z]{1,}"
                   type="text"
                 ></input>
               </div>
@@ -99,6 +105,7 @@ const Education = () => {
               placeholder="Faculty"
               onChange={(e) => setFaculty(e.target.value)}
               value={faculty}
+              pattern="[a-zA-Z]{1,}"
               type="text"
             ></input>
             <em className={Edu.formElement}>
@@ -116,6 +123,7 @@ const Education = () => {
                     </label>
                     <input
                       required
+                      pattern="[a-zA-Z]{1,}"
                       className={`${Edu.input} ${Edu.formElement}`}
                       placeholder="Name"
                       name="cert"
@@ -130,6 +138,7 @@ const Education = () => {
                     <label className={Edu.formElement}>Provider</label>
                     <input
                       required
+                      pattern="[a-zA-Z]{1,}"
                       className={`${Edu.input} ${Edu.formElement}`}
                       placeholder="Provider"
                       name="prov"
@@ -144,6 +153,7 @@ const Education = () => {
                     <label className={Edu.formElement}>Year</label>
                     <input
                       required
+                      pattern="^2[0-1]{1}[0-9]{2}"
                       className={`${Edu.input} ${Edu.formElement}`}
                       placeholder="Year"
                       name="year"
@@ -173,6 +183,7 @@ const Education = () => {
             <label className={Edu.formElement}>Graduation Year</label>
             <input
               required
+              pattern="(19|20){1}[0-9]{2}"
               className={`${Edu.input} ${Edu.formElement}`}
               placeholder="Graduation Year"
               onChange={(e) => setGradYear(e.target.value)}
@@ -191,10 +202,11 @@ const Education = () => {
                   type="text"
                 ></input>
               </div>
-              <div className={Edu.colInput}>
+              <div className={Edu.colInput} style={{marginRight:'0px'}}>
                 <label className={Edu.formElement}>Graduation Year</label>
                 <input
                   required
+                  pattern="(19|20){1}[0-9]{2}"
                   className={`${Edu.input} ${Edu.formElement}`}
                   placeholder="Graduation Year"
                   onChange={(e) => setUniGrade(e.target.value)}
@@ -210,7 +222,7 @@ const Education = () => {
                 variant="primary"
                 size="lg"
                 className="btn-primary"
-                onClick={()=>setRoutingBack(true)}
+                onClick={() => setRoutingBack(true)}
               >
                 Back
               </Button>

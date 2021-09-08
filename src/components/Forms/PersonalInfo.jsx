@@ -68,6 +68,7 @@ const PersonalInfo = () => {
               placeholder="Applicant name"
               onChange={(e) => setApplicantName(e.target.value)}
               value={applicantName}
+              pattern="[a-zA-Z]{1,}"
               type="text"
             ></input>
             <label className={Per.formElement}>Address</label>
@@ -94,6 +95,7 @@ const PersonalInfo = () => {
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
+              pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
               type="text"
             ></input>
             <label className={Per.formElement}>Marital Status</label>
@@ -139,7 +141,8 @@ const PersonalInfo = () => {
               className={`${Per.input} ${Per.formElement}`}
               onChange={(e) => setMobile(e.target.value)}
               value={Mobile}
-              placeholder="Mobile"
+              placeholder="Mobile i.e."
+              pattern="^0(10|11|12)[0-9]{8}"
               type="text"
             ></input>
             <Selector

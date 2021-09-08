@@ -76,6 +76,7 @@ const WorkExp = () => {
             <label className={WE.formElement}>Company name</label>
             <input
               required
+              pattern="[a-zA-Z]{1,}"
               className={`${WE.input} ${WE.formElement}`}
               placeholder="Company name"
               onChange={(e) => setWhoEmployer(e.target.value)}
@@ -90,6 +91,7 @@ const WorkExp = () => {
             <label className={WE.formElement}>Entry position</label>
             <input
               required
+              pattern="[a-zA-Z]{1,}"
               className={`${WE.input} ${WE.formElement}`}
               placeholder="Entry position"
               onChange={(e) => setEntryPos(e.target.value)}
@@ -99,6 +101,7 @@ const WorkExp = () => {
             <label className={WE.formElement}>Last monthly salary in EGP</label>
             <input
               required
+              pattern="[0-9]{1,}"
               className={`${WE.input} ${WE.formElement}`}
               placeholder="Last monthly salary"
               onChange={(e) => setLastSalary(e.target.value)}
@@ -110,6 +113,7 @@ const WorkExp = () => {
             <label className={WE.formElement}>Total years of experience</label>
             <input
               required
+              pattern="[0-9]{1,}"
               className={`${WE.input} ${WE.formElement}`}
               placeholder="Enter number of years"
               onChange={(e) => setExp(e.target.value)}
@@ -135,6 +139,7 @@ const WorkExp = () => {
             <label className={WE.formElement}>Last position held</label>
             <input
               required
+              pattern="[a-zA-Z]{1,}"
               className={`${WE.input} ${WE.formElement}`}
               placeholder="Last position held"
               onChange={(e) => setLastPos(e.target.value)}
@@ -144,6 +149,7 @@ const WorkExp = () => {
             <label className={WE.formElement}>Reason for leaving</label>
             <input
               required
+              pattern="[a-zA-Z]{1,}"
               className={`${WE.input} ${WE.formElement}`}
               placeholder="Reason for leaving"
               onChange={(e) => setReasonLeave(e.target.value)}
