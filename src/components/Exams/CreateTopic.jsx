@@ -56,11 +56,11 @@ const CreateTopic = () => {
   ]);
   const [QuestionType, setQuestionType] = useState("MCQ");
   const [Question, setQuestion] = useState("");
-  const [numChoices, setNumChoices] = useState(0);
+  const [numChoices, setNumChoices] = useState("");
   const [Options, setOptions] = useState([]);
   const [qAnswer, setQAnswer] = useState("");
   const [index, setIndex] = useState(-1);
-  const [selectedQ, setselectedQ] = useState("");
+  const [selectedQ, setSelectedQ] = useState("");
   const [Comprehension, setComprehension] = useState("");
   const [ComprehensionQs, setComprehensionQs] = useState([]);
   const [ComprehensionAs, setComprehensionAs] = useState([]);
@@ -74,7 +74,7 @@ const CreateTopic = () => {
     setQuestion("");
     setQAnswer("");
     setOptions([]);
-    setNumChoices(0);
+    setNumChoices("");
     setIndex(-1);
   }
   function HandleChoicesReset(value) {
@@ -236,10 +236,12 @@ const CreateTopic = () => {
           style={{ width: "100%" }}
           onSubmit={(e) => {
             e.preventDefault();
-            if (flag) {
+            if (flag===1) {
               updateQuestion(index);
-            } else {
+            } else if(flag===0){
               HandleSubmit();
+            }else{
+              HandleCompQuestion();
             }
           }}
         >
@@ -291,14 +293,15 @@ const CreateTopic = () => {
                 className={`${Edu.input} ${Edu.formElement}`}
                 style={{ margin: "0px" }}
                 items={ComprehensionQs}
-                setValue={setselectedQ}
+                setValue={setSelectedQ}
                 value={selectedQ}
                 label="Question:"
                 help="Pick Question"
+                required = {false}
               />
               <label className={Edu.formElement}>Question</label>
               <input
-                // required
+                required
                 className={`${Edu.input} ${Edu.formElement}`}
                 placeholder="Set Question"
                 onChange={(e) => setQuestion(e.target.value)}
@@ -308,7 +311,7 @@ const CreateTopic = () => {
               ></input>
               <label className={Edu.formElement}>Number of choices</label>
               <input
-                // required
+                required
                 className={`${Edu.input} ${Edu.formElement}`}
                 placeholder="Set number of choices"
                 onChange={(e) => setNumChoices(e.target.value)}
@@ -324,7 +327,7 @@ const CreateTopic = () => {
             <>
               <label className={Edu.formElement}>Question</label>
               <input
-                // required
+                required
                 className={`${Edu.input} ${Edu.formElement}`}
                 placeholder="Set Question"
                 onChange={(e) => setQuestion(e.target.value)}
@@ -352,7 +355,9 @@ const CreateTopic = () => {
                 className={`${css.element}`}
                 color="primary"
                 variant="contained"
-                onClick={HandleCompQuestion}
+                // onClick={HandleCompQuestion}
+                type='submit'
+                onClick={()=>setFlag(2)}
               >
                 Set Question
               </Button>
@@ -386,7 +391,7 @@ const CreateTopic = () => {
             type="submit"
             onClick={() => setFlag(0)}
           >
-            Submit Question
+            {QuestionType==='Comprehension'?'Submit prompt':'Submit Question'}
           </Button>
         </form>
       </Container>

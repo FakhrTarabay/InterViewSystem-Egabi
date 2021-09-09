@@ -6,7 +6,8 @@ import SchoolIcon from "@material-ui/icons/School";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
-
+import Lottie from "lottie-react";
+import edu from "../assets/lottie_app/education.json";
 const Education = () => {
   const [routingBack, setRoutingBack] = useState(false);
   const [routingFront, setRoutingFront] = useState(false);
@@ -51,7 +52,7 @@ const Education = () => {
       <Divider />
       <Container className={Edu.row}>
         <Container className={Edu.col23}>
-          <SchoolIcon className={Edu.iconBig}></SchoolIcon>
+          <Lottie animationData={edu} />
         </Container>
         <form
           onSubmit={(e) => {
@@ -85,7 +86,7 @@ const Education = () => {
                   type="text"
                 ></input>
               </div>
-              <div className={Edu.colInput} style={{marginRight:'0px'}}>
+              <div className={Edu.colInput} style={{ marginRight: "0px" }}>
                 <label className={Edu.formElement}>Major</label>
                 <input
                   required
@@ -202,7 +203,7 @@ const Education = () => {
                   type="text"
                 ></input>
               </div>
-              <div className={Edu.colInput} style={{marginRight:'0px'}}>
+              <div className={Edu.colInput} style={{ marginRight: "0px" }}>
                 <label className={Edu.formElement}>Graduation Year</label>
                 <input
                   required

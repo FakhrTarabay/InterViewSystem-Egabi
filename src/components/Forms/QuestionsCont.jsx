@@ -9,6 +9,8 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
 import "./general.css";
 import { Redirect } from "react-router-dom";
+import Lottie from "lottie-react";
+import questionAnim from "../assets/lottie_app/questions.json";
 
 const QuestionsCont = () => {
   const [routingBack, setRoutingBack] = useState(false);
@@ -79,7 +81,7 @@ const QuestionsCont = () => {
       <Divider className={QuC.Divider} />
       <Container className={QuC.row}>
         <Container className={QuC.col23}>
-          <HelpOutlineRoundedIcon className={QuC.iconBig} />
+          <Lottie animationData={questionAnim} />
         </Container>
         <form
           onSubmit={(e) => {

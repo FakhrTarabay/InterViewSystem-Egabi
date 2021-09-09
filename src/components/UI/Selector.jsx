@@ -19,8 +19,11 @@ const useStyles = makeStyles((theme) => ({
 function generateID() {
     return Math.floor(Math.random() * 100000000);
   }
-
-export default function Selector({setValue,value,items,label,help,style}) {
+Selector.defaultProps = {
+    required: true,
+    style:{}
+}
+export default function Selector({setValue,value,items,label,help,style,required}) {
   const classes = useStyles();
 
   const handleChange = (event) => {
@@ -32,7 +35,7 @@ export default function Selector({setValue,value,items,label,help,style}) {
       <FormControl className={classes.formControl} style={style}>
         <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>
         <Select
-          required
+          required = {required}
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
           value={value}

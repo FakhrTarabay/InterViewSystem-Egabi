@@ -9,6 +9,8 @@ import CheckboxN from "../UI/CheckBox";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
+import Lottie from "lottie-react";
+import exp from "../assets/lottie_app/work.json";
 const WorkExp = () => {
   const [routingBack, setRoutingBack] = useState(false);
   const [routingFront, setRoutingFront] = useState(false);
@@ -54,7 +56,7 @@ const WorkExp = () => {
       <Divider className={WE.Divider} />
       <Container className={WE.row}>
         <Container className={WE.col23}>
-          <WorkOutlineRoundedIcon className={WE.iconBig} />
+          <Lottie animationData={exp}/>
         </Container>
         <form onSubmit={e=>{
           e.preventDefault()

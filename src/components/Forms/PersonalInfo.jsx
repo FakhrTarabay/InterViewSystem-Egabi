@@ -3,13 +3,14 @@ import Per from "./Per.module.css";
 import Container from "../UI/Container";
 import Divider from "@material-ui/core/Divider";
 import PersonIcon from "@material-ui/icons/Person";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import Selector from "../UI/Selector";
 import RadioButtonsGroup from "../UI/RadioGroup";
 import DatePicker from "../UI/DatePicker";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
+import Lottie from "lottie-react";
+import personal from "../assets/lottie_app/personalinfo.json";
 
 const PersonalInfo = () => {
   // const info = {
@@ -53,13 +54,16 @@ const PersonalInfo = () => {
       <Divider />
       <Container className={Per.row}>
         <Container className={Per.col23}>
-          <AssignmentIndIcon className={Per.iconBig}></AssignmentIndIcon>
+          <Lottie animationData={personal} />
         </Container>
-        <form onSubmit={e=>{
-          e.preventDefault();
-          console.log('herePerson')
-          setRouting(true)
-        }} className={Per.form}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log("herePerson");
+            setRouting(true);
+          }}
+          className={Per.form}
+        >
           <Container className={Per.col50}>
             <label className={Per.formElement}>Applicant Name</label>
             <input
