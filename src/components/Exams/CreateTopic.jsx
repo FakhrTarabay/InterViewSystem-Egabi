@@ -8,21 +8,20 @@ import RadioButtonsGroup from "../UI/RadioGroup";
 import { Button } from "@material-ui/core";
 import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
 import IconButton from "@material-ui/core/IconButton";
-import DropBox from "../UI/DropBox";
 import Edu from "../Forms/Edu.module.css";
 const CreateTopic = () => {
   const [Questions, setQuestions] = useState([
     {
       number: 1,
-      question: "98",
+      Question: "98",
       type: "MCQ",
-      options: [1],
+      choices: [1],
       answer: 1,
     },
-    { number: 2, question: "123", type: "T or F", answer: "T" },
+    { number: 2, Question: "123", type: "T or F", answer: "T" },
     {
       number: 3,
-      question: "If a tree falls and nobody hears it, did it actually fall?",
+      Question: "If a tree falls and nobody hears it, did it actually fall?",
       type: "Writing",
       answer: "asddddddddddddddddd",
     },
@@ -31,12 +30,12 @@ const CreateTopic = () => {
       number: 4,
       prompt:
         "(A) Scientists have known for a long time that vitamin D is essential for humans. If children have a vitamin D or calcium deficiency, they can develop rickets, a softening of the bones. New studies are showing that people of all ages need vitamin D to help them fight off diseases by keeping their immune systems strong.",
-      questions: [
+      ComprehensionQs: [
         "The main idea of this paragraph is that vitamin D.",
         "If something is essential, it is ………… .",
         "When you have a deficiency of something, you ………….	.",
       ],
-      options: [
+      ComprehensionChoices: [
         [
           "is found in milk",
           "has been studied by scientists",
@@ -51,7 +50,7 @@ const CreateTopic = () => {
           "are rich",
         ],
       ],
-      answers: [4, 4, 2],
+      ComprehensionAs: [4, 4, 2],
     },
   ]);
   const [QuestionType, setQuestionType] = useState("MCQ");
@@ -60,8 +59,9 @@ const CreateTopic = () => {
   const [Options, setOptions] = useState([]);
   const [qAnswer, setQAnswer] = useState("");
   const [index, setIndex] = useState(-1);
+  const [selectedQ, setselectedQ] = useState("")
   const [Comprehension, setComprehension] = useState("");
-  const [ComprehensionQs, setComprehensionQs] = useState(["1", "2", "3", "4"]);
+  const [ComprehensionQs, setComprehensionQs] = useState([]);
   const [ComprehensionAs, setComprehensionAs] = useState([]);
   const [ComprehensionChoices, setComprehensionChoices] = useState([]);
 
@@ -70,9 +70,6 @@ const CreateTopic = () => {
   }
 
   function HandleReset() {
-    setComprehensionAs([]);
-    setComprehensionQs(ComprehensionQs);
-    setComprehension("");
     setQuestion("");
     setQAnswer("");
     setOptions([]);
@@ -82,11 +79,16 @@ const CreateTopic = () => {
   function HandleChoicesReset(value) {
     setQuestionType(value);
     HandleReset();
+    setComprehension("");
+    setComprehensionChoices([]);
+    setComprehensionQs([]);
+    setComprehensionAs([]);
   }
   function HandleCompQuestion() {
-    // setComprehensionQs((prevQuestions) => [...prevQuestions, ComprehensionQ]);
-    // setComprehensionA((prevAnswers) => [...prevAnswers, qAnswer]);
-    // HandleReset();
+    setComprehensionQs((prevQuestions) => [...prevQuestions, Question]);
+    setComprehensionChoices((prevChoices) => [...prevChoices, Options]);
+    setComprehensionAs((prevAnswers) => [...prevAnswers, qAnswer]);
+    HandleReset();
   }
   function delChoice(i) {
     setNumChoices(numChoices - 1);
@@ -94,40 +96,72 @@ const CreateTopic = () => {
     res.splice(i, 1);
     setOptions([...res]);
   }
-  function addQuestion(q) {
+  function HandleSubmit() {
     if (QuestionType === "Comprehension") {
-      // setQuestions((prevQ) => [
-      //   ...prevQ,
-      //   {
-      //     type: q.type,
-      //     number: q.number,
-      //     prompt: q.prompt,
-      //     ComprehensionQs: q.ComprehensionQs,
-      //     ComprehensionA: q.ComprehensionA,
-      //   },
-      // ]);
+      setQuestions((prevQuestions) => [
+        ...prevQuestions,
+        {
+          type: QuestionType,
+          number: prevQuestions.length + 1,
+          prompt: Comprehension,
+          ComprehensionQs: ComprehensionQs,
+          ComprehensionChoices: ComprehensionChoices,
+          ComprehensionAs: ComprehensionAs,
+        },
+      ]);
     } else {
-      setQuestions((prevQ) => [...prevQ, q]);
+      setQuestions((prevQuestions) => [
+        ...prevQuestions,
+        {
+          type: QuestionType,
+          number: prevQuestions.length + 1,
+          Question: Question,
+          choices: Options,
+          answer: qAnswer,
+        },
+      ]);
     }
     HandleReset();
   }
   function setPreView(q) {
     setIndex(q.number - 1);
     setQuestionType(q.type);
-    setQuestion(q.question);
+    setQuestion(q.Question);
     setQAnswer(q.answer);
     if (q.type === "MCQ") {
-      setNumChoices(q.options.length);
-      setOptions(q.options);
+      setNumChoices(q.choices.length);
+      setOptions(q.choices);
     }
     if (q.type === "Comprehension") {
       setQuestion("");
       setQAnswer("");
       setComprehension(q.prompt);
-      setComprehensionQs(q.questions);
-      setComprehensionChoices(q.options);
-      setComprehensionAs(q.answers);
+      setComprehensionQs(q.ComprehensionQs);
+      setComprehensionChoices(q.ComprehensionChoices);
+      setComprehensionAs(q.ComprehensionAs);
     }
+  }
+  function HandleUpdateCompQ(){
+    if(selectedQ.length!==0){
+      const res = Questions;
+      let i = Questions[index].ComprehensionQs.indexOf(selectedQ)
+      let CompQs = Questions[index].ComprehensionQs
+      let CompChoices = Questions[index].ComprehensionChoices
+      let CompAs = Questions[index].ComprehensionAs
+      CompQs[i] = Question
+      CompChoices[i] = Options
+      CompAs[i] = qAnswer
+      res.splice(index,1,{
+          type: QuestionType,
+          number: index + 1,
+          prompt: Comprehension,
+          ComprehensionQs: CompQs,
+          ComprehensionChoices: CompChoices,
+          ComprehensionAs: CompAs,
+      })
+      setQuestions([...res]);
+      // HandleReset();
+    }else{console.log("error")}
   }
   function createChoices() {
     const choices = [];
@@ -141,14 +175,14 @@ const CreateTopic = () => {
             alignItems: "center",
           }}
         >
-          <TextFields
-            flag={1}
-            func={setOptionsFun}
-            className={css.element}
-            label={`choice ${i + 1}`}
-            key={i + 1}
-            index={i}
-          />
+          <input
+            required
+            className={`${Edu.input} ${Edu.formElement}`}
+            onChange={(e) => setOptionsFun(e.target.value, i)}
+            placeholder={`Choice ${i + 1}`}
+            value={Options[i]}
+            type="text"
+          ></input>
           <IconButton onClick={() => delChoice(i)}>
             <IndeterminateCheckBoxIcon />
           </IconButton>
@@ -164,16 +198,25 @@ const CreateTopic = () => {
   }
   function updateQuestion(index) {
     const res = Questions;
-    res.splice(index, 1, {
-      // ComprehensionA: ComprehensionA,
-      prompt: Comprehension,
-      // ComprehensionQs: ComprehensionQs,
-      number: index + 1,
-      question: Question,
-      type: QuestionType,
-      options: Options,
-      answer: qAnswer,
-    });
+    if (Questions[index].type === "Comprehension") {
+      res.splice(index, 1, {
+        type: QuestionType,
+        number: index + 1,
+        prompt: Comprehension,
+        ComprehensionQs: ComprehensionQs,
+        ComprehensionChoices: ComprehensionChoices,
+        ComprehensionAs: ComprehensionAs,
+      });
+    } else {
+      res.splice(index, 1, {
+        type: QuestionType,
+        number: index + 1,
+        Question: Question,
+        choices: Options,
+        answer: qAnswer,
+      });
+    }
+    console.log(res)
     setQuestions([...res]);
     HandleReset();
   }
@@ -184,7 +227,10 @@ const CreateTopic = () => {
         <form
           className={Edu.col50}
           style={{ width: "100%" }}
-          onSubmit={() => 1 + 1}
+          onSubmit={(e) => {
+            e.preventDefault();
+            HandleSubmit();
+          }}
         >
           <RadioButtonsGroup
             className={css.element}
@@ -218,13 +264,11 @@ const CreateTopic = () => {
                 min="0"
                 max="99"
               ></input>
-
               {createChoices().map((element) => element)}
             </>
           ) : QuestionType === "Comprehension" ? (
             <>
               <input
-                multiple
                 required
                 className={`${Edu.input} ${Edu.formElement}`}
                 placeholder="Set comprehension prompt"
@@ -232,49 +276,44 @@ const CreateTopic = () => {
                 value={Comprehension}
                 type="text"
               ></input>
-              {console.log(ComprehensionQs)}
               <Selector
                 className={`${Edu.input} ${Edu.formElement}`}
+                style={{ margin: "0px" }}
                 items={ComprehensionQs}
-                setValue={setQuestion}
-                value={Question}
+                setValue={setselectedQ}
+                value={selectedQ}
                 label="Question:"
                 help="Pick Question"
               />
-              {/* <DropBox  className={`${Edu.input} ${Edu.formElement}`} func={setQuestion} items={ComprehensionQs} /> */}
-              {/* ////////////////////////////////////////////////////////////////// */}
-              <TextFields
-                className={css.element}
-                label="Set Question"
-                setTxtFunc={setQuestion}
-                multiline={true}
+              <label className={Edu.formElement}>Question</label>
+              <input
+                // required
+                className={`${Edu.input} ${Edu.formElement}`}
+                placeholder="Set Question"
+                onChange={(e) => setQuestion(e.target.value)}
                 value={Question}
-              />
-              <TextFields
-                className={css.element}
-                setTxtFunc={setNumChoices}
-                label="Set number of Choices"
+                pattern="[a-zA-Z]{1,}"
+                type="text"
+              ></input>
+              <label className={Edu.formElement}>Number of choices</label>
+              <input
+                // required
+                className={`${Edu.input} ${Edu.formElement}`}
+                placeholder="Set number of choices"
+                onChange={(e) => setNumChoices(e.target.value)}
+                value={numChoices}
+                pattern="[0-9]{2}"
                 type="number"
-              />
+                min="0"
+                max="99"
+              ></input>
               {createChoices().map((element) => element)}
-              {QuestionType !== "Comprehension" && (
-                <div>
-                  <Button
-                    className={`${css.btn} ${css.element}`}
-                    color="primary"
-                    variant="contained"
-                    onClick={HandleCompQuestion}
-                  >
-                    Set Question
-                  </Button>
-                </div>
-              )}
             </>
           ) : (
             <>
               <label className={Edu.formElement}>Question</label>
               <input
-                required
+                // required
                 className={`${Edu.input} ${Edu.formElement}`}
                 placeholder="Set Question"
                 onChange={(e) => setQuestion(e.target.value)}
@@ -290,17 +329,20 @@ const CreateTopic = () => {
             className={`${Edu.input} ${Edu.formElement}`}
             placeholder="Set model answer"
             onChange={(e) => setQAnswer(e.target.value)}
-            pattern="(T|F|t|f|true|false|TRUE|FALSE)"
+            pattern={QuestionType==='T or F'?'(T|F|t|f)':"[a-zA-Z0-9]{1,}"}
             value={qAnswer}
-            // value={
-            //   // QuestionType === "Comprehension"
-            //   //   ? ComprehensionAs[selectedCompQuestion]
-            //   //   :
-            //   qAnswer
             type="text"
           ></input>
           {QuestionType === "Comprehension" && (
             <div>
+              <Button
+                className={`${css.btn} ${css.element}`}
+                color="primary"
+                variant="contained"
+                onClick={HandleUpdateCompQ}
+              >
+                update selected question
+              </Button>
               <Button
                 className={`${css.btn} ${css.element}`}
                 color="primary"
@@ -325,16 +367,7 @@ const CreateTopic = () => {
             className={css.element}
             variant="contained"
             color="primary"
-            onClick={() =>
-              addQuestion({
-                prompt: Comprehension,
-                number: Questions.length + 1,
-                question: Question,
-                type: QuestionType,
-                options: Options,
-                answer: qAnswer,
-              })
-            }
+            type="submit"
           >
             Submit Question
           </Button>
@@ -351,12 +384,12 @@ const CreateTopic = () => {
             {ComprehensionQs.map((q) => (
               <React.Fragment key={generateID()}>
                 <p>{`${ComprehensionQs.indexOf(q) + 1} - ${q}`}</p>
-                {/* <RadioButtonsGroup
+                <RadioButtonsGroup
                   className={css.element}
                   label={"Choices"}
                   options={ComprehensionChoices[ComprehensionQs.indexOf(q)]}
                   disabled={true}
-                /> */}
+                />
                 <p>{`Model Answer = ${
                   ComprehensionAs[ComprehensionQs.indexOf(q)]
                 }`}</p>
@@ -389,6 +422,7 @@ const CreateTopic = () => {
         <b style={{ textAlign: "center" }}>Created Questions</b>
         {Questions.map((q) => (
           <Button onClick={() => setPreView(q)} key={q.number}>
+            {/* {console.log(q)} */}
             {q.number}
           </Button>
         ))}
