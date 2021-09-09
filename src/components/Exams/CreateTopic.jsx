@@ -10,6 +10,7 @@ import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox"
 import IconButton from "@material-ui/core/IconButton";
 import Edu from "../Forms/Edu.module.css";
 const CreateTopic = () => {
+  const [flag, setFlag] = useState(0);
   const [Questions, setQuestions] = useState([
     {
       number: 1,
@@ -59,7 +60,7 @@ const CreateTopic = () => {
   const [Options, setOptions] = useState([]);
   const [qAnswer, setQAnswer] = useState("");
   const [index, setIndex] = useState(-1);
-  const [selectedQ, setselectedQ] = useState("")
+  const [selectedQ, setselectedQ] = useState("");
   const [Comprehension, setComprehension] = useState("");
   const [ComprehensionQs, setComprehensionQs] = useState([]);
   const [ComprehensionAs, setComprehensionAs] = useState([]);
@@ -97,6 +98,9 @@ const CreateTopic = () => {
     setOptions([...res]);
   }
   function HandleSubmit() {
+    if (Question.length === 0) {
+      return;
+    }
     if (QuestionType === "Comprehension") {
       setQuestions((prevQuestions) => [
         ...prevQuestions,
@@ -135,33 +139,37 @@ const CreateTopic = () => {
     if (q.type === "Comprehension") {
       setQuestion("");
       setQAnswer("");
+      setNumChoices(0);
+      setOptions([]);
       setComprehension(q.prompt);
       setComprehensionQs(q.ComprehensionQs);
       setComprehensionChoices(q.ComprehensionChoices);
       setComprehensionAs(q.ComprehensionAs);
     }
   }
-  function HandleUpdateCompQ(){
-    if(selectedQ.length!==0){
+  function HandleUpdateCompQ() {
+    if (Question.length !== 0 || qAnswer.length !== 0) {
       const res = Questions;
-      let i = Questions[index].ComprehensionQs.indexOf(selectedQ)
-      let CompQs = Questions[index].ComprehensionQs
-      let CompChoices = Questions[index].ComprehensionChoices
-      let CompAs = Questions[index].ComprehensionAs
-      CompQs[i] = Question
-      CompChoices[i] = Options
-      CompAs[i] = qAnswer
-      res.splice(index,1,{
-          type: QuestionType,
-          number: index + 1,
-          prompt: Comprehension,
-          ComprehensionQs: CompQs,
-          ComprehensionChoices: CompChoices,
-          ComprehensionAs: CompAs,
-      })
+      let i = Questions[index].ComprehensionQs.indexOf(selectedQ);
+      let CompQs = Questions[index].ComprehensionQs;
+      let CompChoices = Questions[index].ComprehensionChoices;
+      let CompAs = Questions[index].ComprehensionAs;
+      CompQs[i] = Question;
+      CompChoices[i] = Options;
+      CompAs[i] = qAnswer;
+      res.splice(index, 1, {
+        type: QuestionType,
+        number: index + 1,
+        prompt: Comprehension,
+        ComprehensionQs: CompQs,
+        ComprehensionChoices: CompChoices,
+        ComprehensionAs: CompAs,
+      });
       setQuestions([...res]);
       // HandleReset();
-    }else{console.log("error")}
+    } else {
+      console.log("error");
+    }
   }
   function createChoices() {
     const choices = [];
@@ -180,7 +188,7 @@ const CreateTopic = () => {
             className={`${Edu.input} ${Edu.formElement}`}
             onChange={(e) => setOptionsFun(e.target.value, i)}
             placeholder={`Choice ${i + 1}`}
-            value={Options[i]}
+            value={Options[i] === undefined ? "" : Options[i]}
             type="text"
           ></input>
           <IconButton onClick={() => delChoice(i)}>
@@ -216,7 +224,6 @@ const CreateTopic = () => {
         answer: qAnswer,
       });
     }
-    console.log(res)
     setQuestions([...res]);
     HandleReset();
   }
@@ -229,7 +236,11 @@ const CreateTopic = () => {
           style={{ width: "100%" }}
           onSubmit={(e) => {
             e.preventDefault();
-            HandleSubmit();
+            if (flag) {
+              updateQuestion(index);
+            } else {
+              HandleSubmit();
+            }
           }}
         >
           <RadioButtonsGroup
@@ -329,22 +340,16 @@ const CreateTopic = () => {
             className={`${Edu.input} ${Edu.formElement}`}
             placeholder="Set model answer"
             onChange={(e) => setQAnswer(e.target.value)}
-            pattern={QuestionType==='T or F'?'(T|F|t|f)':"[a-zA-Z0-9]{1,}"}
+            pattern={
+              QuestionType === "T or F" ? "^(T|F|t|f)$" : "[a-zA-Z0-9]{1,}"
+            }
             value={qAnswer}
             type="text"
           ></input>
           {QuestionType === "Comprehension" && (
             <div>
               <Button
-                className={`${css.btn} ${css.element}`}
-                color="primary"
-                variant="contained"
-                onClick={HandleUpdateCompQ}
-              >
-                update selected question
-              </Button>
-              <Button
-                className={`${css.btn} ${css.element}`}
+                className={`${css.element}`}
                 color="primary"
                 variant="contained"
                 onClick={HandleCompQuestion}
@@ -353,21 +358,33 @@ const CreateTopic = () => {
               </Button>
             </div>
           )}
-          {index !== -1 && (
-            <Button
-              className={css.element}
-              variant="contained"
-              color="secondary"
-              onClick={() => updateQuestion(index)}
-            >
-              Update Question {index + 1}
-            </Button>
-          )}
+          {index !== -1 &&
+            (QuestionType === "Comprehension" ? (
+              <Button
+                className={css.element}
+                color="secondary"
+                variant="contained"
+                onClick={HandleUpdateCompQ}
+              >
+                update selected question
+              </Button>
+            ) : (
+              <Button
+                className={css.element}
+                variant="contained"
+                color="secondary"
+                type="submit"
+                onClick={() => setFlag(1)}
+              >
+                Update Question {index + 1}
+              </Button>
+            ))}
           <Button
             className={css.element}
             variant="contained"
             color="primary"
             type="submit"
+            onClick={() => setFlag(0)}
           >
             Submit Question
           </Button>
@@ -422,7 +439,6 @@ const CreateTopic = () => {
         <b style={{ textAlign: "center" }}>Created Questions</b>
         {Questions.map((q) => (
           <Button onClick={() => setPreView(q)} key={q.number}>
-            {/* {console.log(q)} */}
             {q.number}
           </Button>
         ))}
