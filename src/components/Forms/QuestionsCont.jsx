@@ -172,7 +172,7 @@ const QuestionsCont = () => {
                 Reference check: (Optional)
               </label>
               {info2.map((element) => (
-                <>
+                <React.Fragment key={element.index}>
                   <div className={`${QuC.formElement} ${QuC.rowS}`}>
                     <div className={QuC.colInput}>
                       <label className={QuC.formElement}>Name</label>
@@ -235,7 +235,7 @@ const QuestionsCont = () => {
                       ></input>
                     </div>
                   </div>
-                </>
+                </React.Fragment>
               ))}
               <div className={`${QuC.formElement} ${QuC.inputWithWrap}`}>
                 <Button

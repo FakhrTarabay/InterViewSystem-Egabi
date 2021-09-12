@@ -11,9 +11,15 @@ export default function RadioButtonsGroup({
   setOption,
   disabled,
   row,
+  flag,
+  index,
 }) {
   const handleChange = (event) => {
-    setOption(event.target.value);
+    if (flag === 1) {
+      setOption(event.target.value, index);
+    } else {
+      setOption(event.target.value);
+    }
   };
   function generateID() {
     return Math.floor(Math.random() * 100000000);

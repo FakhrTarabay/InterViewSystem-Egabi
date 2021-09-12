@@ -6,6 +6,7 @@ import Container from "./components/UI/Container";
 import CreateTopic from "./components/Exams/CreateTopic";
 // eslint-disable-next-line
 import Routes from "./components/Routes";
+import Exam from "./components/Exams/TakingExam/Exam";
 function App() {
   return (
     <>
@@ -16,9 +17,12 @@ function App() {
       {/* <Container className="col">
         <Routes />
       </Container> */}
-      <div className="create">
+      <Container className="col">
+        <Exam/>
+      </Container>
+      {/* <div className="create">
         <CreateTopic />
-      </div>
+      </div> */}
     </div>
     </>
   );
