@@ -4,11 +4,12 @@ import Container from "../../UI/Container";
 import RadioButtonsGroup from "../../UI/RadioGroup";
 import Button from "react-bootstrap/Button";
 import Edu from "../../Forms/Edu.module.css";
-import Timer from "react-compound-timer/build";
+// import Timer from "react-compound-timer/build";
 import css from "../CreateTopic.module.css";
 import Exa from "./Exam.module.css";
 import Lottie from "lottie-react";
 import suc from "../../assets/lottie_app/successfully1.json";
+import { Timer } from 'react-countdown-clock-timer';
 
 const Exam = () => {
   const [flag, setFlag] = useState(false);
@@ -109,15 +110,7 @@ const Exam = () => {
   ) : (
     <Container className={css.col} style={{ alignItems: "center" }}>
       <div className={Exa.timer}>
-        <Timer initialTime={6 * 1000} direction="backward">
-          {() => (
-            <>
-              {(<Timer.Seconds />._owner.memoizedState.s===0)?
-              console.log(<Timer.Seconds />._owner.memoizedState.s):console.log("asda")}
-              <Timer.Minutes /> : <Timer.Seconds />
-            </>
-          )}
-        </Timer>
+        <Timer durationInSeconds={600} onFinish={()=>setFlag(true)}/>
       </div>
       <ProgressBar value={(index / Questions.length) * 100} />
       <form
