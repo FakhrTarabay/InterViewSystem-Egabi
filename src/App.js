@@ -25,7 +25,6 @@ function App() {
       </Container> */}
         <Container className="col">
           <Exam/>
-        
         </Container>
         {/* <div className="create">
         <CreateTopic />

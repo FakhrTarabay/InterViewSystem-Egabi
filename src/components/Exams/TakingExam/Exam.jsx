@@ -8,9 +8,11 @@ import Exa from "./Exam.module.css";
 import Lottie from "lottie-react";
 import suc from "../../assets/lottie_app/successfully1.json";
 import { Timer } from 'react-countdown-clock-timer';
+import StartingPage from "./startingPage";
 
 const Exam = () => {
   const [flag, setFlag] = useState(false);
+  const [isStart, setIsStart] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [finalAnswers, setFinalAnswers] = useState([]);
@@ -93,7 +95,10 @@ const Exam = () => {
     },
   ]);
 
-  return flag ? (
+  return !isStart?
+  <StartingPage isStart={setIsStart}/>
+  :
+  flag ? (
     <div style={{ width: "400px", alignSelf: "center" }}>
       {console.log(finalAnswers)}
       <Lottie animationData={suc} />
