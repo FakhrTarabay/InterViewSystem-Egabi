@@ -193,7 +193,7 @@ const Exam = () => {
                   className={`${Edu.input} ${Edu.formElement}`}
                   placeholder="Answer"
                   onChange={(e) => HandleFinalAnswers(e.target.value)}
-                  value={answers[0]}
+                  value={finalAnswers[index]}
                   type="text"
                 ></textarea>
               )}

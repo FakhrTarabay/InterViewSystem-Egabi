@@ -20,12 +20,12 @@ function App() {
         />
       </header>
       <div className="App">
-        {/* <Container className="col">
-        <Routes />
-      </Container> */}
         <Container className="col">
+        <Routes />
+      </Container>
+        {/* <Container className="col">
           <Exam/>
-        </Container>
+        </Container> */}
         {/* <div className="create">
         <CreateTopic />
       </div> */}

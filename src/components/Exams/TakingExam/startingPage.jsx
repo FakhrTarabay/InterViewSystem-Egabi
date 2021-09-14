@@ -19,6 +19,10 @@ const StartingPage = ({ isStart }) => {
         <br />
         4-There are multiple types of questions including : MCQ, Writing, True
         or false, and Comprehension.
+        <br />
+        5-You can go back and forth between the questions, and your answers will not be removed.
+        <br />
+        6-After you submit a success message will appear.
       </p>
       <Container className={Exa.rowBtn}>
         <div>

@@ -5,7 +5,7 @@ import person from './Forms/PersonalInfo'
 import Q from './Forms/Questions'
 import QC from './Forms/QuestionsCont'
 import Exp from './Forms/WorkExp'
-
+import Exam from './Exams/TakingExam/Exam'
 const Routes = () => {
     return (
       <BrowserRouter>
@@ -13,9 +13,9 @@ const Routes = () => {
             <Route exact={true} path={'/'} component={person}/>
             <Route exact={true} path={'/Edu'} component={Edu}/>
             <Route exact={true} path={'/Exp'} component={Exp}/>
-            {/* <Route exact={true} path={'/personInfo'} component={person}/> */}
             <Route exact={true} path={'/Q'} component={Q}/>
             <Route exact={true} path={'/QC'} component={QC}/>
+            <Route exact={true} path={'/Exam'} component={Exam}/>
         </Switch>
       </BrowserRouter>
     )

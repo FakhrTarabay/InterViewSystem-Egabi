@@ -37,7 +37,7 @@ const QuestionsCont = () => {
     return <Redirect push to="/Q" />;
   }
   if (routingFront) {
-    return <Redirect push to="/Exp" />;
+    return <Redirect push to="/Exam" />;
   }
 
   function HandleAdd() {

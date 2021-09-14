@@ -101,7 +101,7 @@ const Questions = () => {
             <RadioButtonsGroup
               setOption={setItSol}
               value={itSol}
-              label="Marital Status"
+              label="IT"
               row={true}
               options={["Yes", "No"]}
             />
@@ -111,7 +111,7 @@ const Questions = () => {
             <RadioButtonsGroup
               setOption={setAbroad}
               value={abroad}
-              label="Marital Status"
+              label="abroad"
               row={true}
               options={["Yes", "No"]}
             />
