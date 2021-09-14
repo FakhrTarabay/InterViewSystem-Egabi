@@ -116,7 +116,7 @@ const PersonalInfo = () => {
               required
               setOption={setMilitStatus}
               value={militaryStatus}
-              label="Marital Status"
+              label="Military Status"
               row={true}
               options={["Complete", "Exempted", "Postponed", "N/A"]}
             />

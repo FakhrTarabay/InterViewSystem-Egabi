@@ -8,45 +8,46 @@ import Timer from "react-compound-timer/build";
 import css from "../CreateTopic.module.css";
 import Exa from "./Exam.module.css";
 import Lottie from "lottie-react";
-import suc from '../../assets/lottie_app/successfully1.json'
+import suc from "../../assets/lottie_app/successfully1.json";
+
 const Exam = () => {
-  const [flag, setflag] = useState(false)
-  const [index, setIndex] = useState(0);
-  const [answers, setAnswers] = useState([])
-  const [finalAnswers, setFinalAnswers] = useState([])
-  function HandleSubmit(val,index){
-    let res = answers
-    for(let elem in res){
-      if(res[elem].index===index){
-        res[elem].val=val
-        setAnswers([...res])
-        return
+  const [flag, setFlag] = useState(false);
+  const [index, setIndex] = useState(3);
+  const [answers, setAnswers] = useState([]);
+  const [finalAnswers, setFinalAnswers] = useState([]);
+
+
+  function HandleSubmit(val, index) {
+    let res = answers;
+    for (let elem of res) {
+      if (elem.index === index) {
+        elem.val = val;
+        setAnswers([...res]);
+        return;
       }
     }
-    res.push({index:index,val:val})
-    setAnswers([...res])
-  }
-  function HandleFinalAnswers(val){
-    console.log(val)
-    let res = finalAnswers
-    if(res[index]!==undefined){
-      res[index] = val
-      setFinalAnswers([...res])
-      return
-    }
-    res.push(val)
-    setFinalAnswers([...res])
+    res.push({ index: index, val: val });
+    setAnswers([...res]);
   }
 
-  function HandleForm(){
-    if(Questions[index].type==='Comprehension'){
-      console.log(answers.length)
-      if(Questions[index].ComprehensionQs.length===answers.length){
-        console.log('yes')
-        setIndex(index-1)
-      }
-      else{
-        console.log('no')
+  function HandleFinalAnswers(val) {
+    let res = finalAnswers;
+    if (res[index] !== undefined) {
+      res[index] = val;
+      setFinalAnswers([...res]);
+      return;
+    }
+    res.push(val);
+    setFinalAnswers([...res]);
+  }
+
+  function HandleForm() {
+    if (Questions[index].type === "Comprehension") {
+      setFinalAnswers((prev) => [...prev, answers]);
+      if (Questions[index].ComprehensionQs.length === answers.length) {
+        setIndex(index - 1);
+      } else {
+        console.log("no");
       }
     }
   }
@@ -59,7 +60,7 @@ const Exam = () => {
       number: 1,
       Question: "aw el mofta7 tl3 day3 f3ln ana h2tl nfsiiiiiii",
       type: "MCQ",
-      choices: ["1", "2", "3","4"," 5"],
+      choices: ["1", "2", "3", "4", " 5"],
       answer: 1,
     },
     { number: 2, Question: "123", type: "T or F", answer: "T" },
@@ -97,119 +98,141 @@ const Exam = () => {
       ComprehensionAs: [4, 4, 2],
     },
   ]);
-  return (
-      flag?<Lottie animationData={suc}/>:(
-      <Container className={css.col} style={{ alignItems: "center" }}>
-        <div className={Exa.timer}>
-          <Timer initialTime={600 * 1000} direction="backward" >
-            {() => (
-              <>
-              {/* {(<Timer.Seconds />._owner.memoizedState.s===0)?
-              console.log(<Timer.Seconds />._owner.memoizedState.s):console.log("asda")} */}
+
+  return flag ? (
+    <div style={{ width: "400px", alignSelf: "center" }}>
+      <Lottie animationData={suc} />
+      <h3 style={{ textAlign: "center" }}>
+        Success, your answers have been submitted
+      </h3>
+    </div>
+  ) : (
+    <Container className={css.col} style={{ alignItems: "center" }}>
+      <div className={Exa.timer}>
+        <Timer initialTime={6 * 1000} direction="backward">
+          {() => (
+            <>
+              {(<Timer.Seconds />._owner.memoizedState.s===0)?
+              console.log(<Timer.Seconds />._owner.memoizedState.s):console.log("asda")}
               <Timer.Minutes /> : <Timer.Seconds />
-              </>
-            )}
-          </Timer>
-        </div>
-        <ProgressBar value={((index) / Questions.length) * 100} />
-        <form className={Exa.form} onSubmit={e=>{
+            </>
+          )}
+        </Timer>
+      </div>
+      <ProgressBar value={(index / Questions.length) * 100} />
+      <form
+        className={Exa.form}
+        onSubmit={(e) => {
           e.preventDefault();
-          console.log(index)
-          console.log(Questions.length-1)
-          if(index===Questions.length-1){
-            setflag(true)
+          if (index === Questions.length - 1) {
+            setFlag(true);
           }
-          setIndex(index+1)
+          setIndex(index + 1);
           HandleForm();
-        }}>
-          <Container className={`${Exa.width55} ${css.position}`}>
-            {Questions[index].type === "Comprehension" ? (
-              <>
-                <b style={{ wordBreak: "break-word", padding: "15px 0px" }}>
-                  {Questions[index].prompt}
-                </b>
-                {Questions[index].ComprehensionQs.map((q) => (
-                  <React.Fragment key={generateID()}>
-                    <p>{`${
-                      Questions[index].ComprehensionQs.indexOf(q) + 1
-                    } - ${q}`}</p>
-                    <RadioButtonsGroup
-                      className={css.element}
-                      label={"Choices"}
-                      value={answers[Questions[index].ComprehensionQs.indexOf(q)]===undefined?null:answers[Questions[index].ComprehensionQs.indexOf(q)].val}
-                      options={
-                        Questions[index].ComprehensionChoices[
-                          Questions[index].ComprehensionQs.indexOf(q)
-                        ]
-                      }
-                      index = {Questions[index].ComprehensionQs.indexOf(q)}
-                      flag={1}
-                      setOption = {HandleSubmit}
-                    />
-                  </React.Fragment>
-                ))}
-              </>
-            ) : (
-              <>
-                <label className={css.element}>Question {index+1}:</label>
-                <p
-                  style={{ wordBreak: "break-word" }}
-                  >{`A - ${Questions[index].Question}`}</p>
-                  {console.log(finalAnswers)}
-                {Questions[index].type === "MCQ" ||
-                Questions[index].type === "T or F" ? (
+        }}
+      >
+        <Container className={`${Exa.width55} ${css.position}`}>
+          {Questions[index].type === "Comprehension" ? (
+            <>
+              <b style={{ wordBreak: "break-word", padding: "15px 0px" }}>
+                {Questions[index].prompt}
+              </b>
+              {Questions[index].ComprehensionQs.map((q, index1) => (
+                <React.Fragment key={generateID()}>
+                  <p>{`${
+                    Questions[index].ComprehensionQs.indexOf(q) + 1
+                  } - ${q}`}</p>
                   <RadioButtonsGroup
                     className={css.element}
-                    label={"Choices"}
+                    label={generateID() + ""}
+                    value={
+                      answers.filter(
+                        (elem) =>
+                          elem.index ===
+                          Questions[index].ComprehensionQs.indexOf(q)
+                      )[0] === undefined
+                        ? null
+                        : answers.filter(
+                            (elem) =>
+                              elem.index ===
+                              Questions[index].ComprehensionQs.indexOf(q)
+                          )[0].val
+                    }
                     options={
-                      Questions[index].type === "T or F"
+                      Questions[index].ComprehensionChoices[
+                        Questions[index].ComprehensionQs.indexOf(q)
+                      ]
+                    }
+                    index={Questions[index].ComprehensionQs.indexOf(q)}
+                    flag={1}
+                    setOption={HandleSubmit}
+                  />
+                </React.Fragment>
+              ))}
+            </>
+          ) : (
+            <>
+              <label className={css.element}>Question {index + 1}:</label>
+              <p
+                style={{ wordBreak: "break-word" }}
+              >{`A - ${Questions[index].Question}`}</p>
+              {Questions[index].type === "MCQ" ||
+              Questions[index].type === "T or F" ? (
+                <RadioButtonsGroup
+                  className={css.element}
+                  label={"Choices"}
+                  options={
+                    Questions[index].type === "T or F"
                       ? ["T", "F"]
                       : Questions[index].choices
-                    }
-                    setOption={HandleFinalAnswers}
-                    value={finalAnswers[index]===undefined?null:finalAnswers[index]}
-                    flag={0}  
-                  />
-                ) : (
-                  <textarea
-                    required
-                    className={`${Edu.input} ${Edu.formElement}`}
-                    placeholder="Answer"
-                    // onChange={(e) => setComprehension(e.target.value)}
-                    // value={Comprehension}
-                    type="text"
-                  ></textarea>
-                )}
-              </>
-            )}
-          </Container>
-          <Container className={Exa.rowBtn}>
-              <div style={{fontSize:'20px'}}>{Questions.length - index-1} Questions Left</div>
-              <div>
-  
-              <Button
-                  variant="primary"
-                  size="lg"
-                  className="btn-primary"
-                  onClick={()=>setIndex(index-1)}
-                >
-                  Back
-                </Button>
-                <Button
-                  variant="primary"
-                  size="lg"
-                  type="submit"
-                  className="btn-primary"
-                  // onClick={()=>setIndex(index+1)}
-                >
-                  Next
-                </Button>
-              </div>
-          </Container>
-        </form>
-      </Container>)
-    );
-
+                  }
+                  setOption={HandleFinalAnswers}
+                  value={
+                    finalAnswers[index] === undefined
+                      ? null
+                      : finalAnswers[index]
+                  }
+                  flag={0}
+                />
+              ) : (
+                <textarea
+                  required
+                  className={`${Edu.input} ${Edu.formElement}`}
+                  placeholder="Answer"
+                  // onChange={(e) => setComprehension(e.target.value)}
+                  // value={Comprehension}
+                  type="text"
+                ></textarea>
+              )}
+            </>
+          )}
+        </Container>
+        <Container className={Exa.rowBtn}>
+          <div style={{ fontSize: "20px" }}>
+            {Questions.length - index - 1} Questions Left
+          </div>
+          <div>
+            <Button
+              variant="primary"
+              size="lg"
+              className="btn-primary"
+              onClick={() => setIndex(index - 1)}
+            >
+              Back
+            </Button>
+            <Button
+              variant="primary"
+              size="lg"
+              type="submit"
+              className="btn-primary"
+            >
+              Next
+            </Button>
+          </div>
+        </Container>
+      </form>
+    </Container>
+  );
 };
 
 export default Exam;
