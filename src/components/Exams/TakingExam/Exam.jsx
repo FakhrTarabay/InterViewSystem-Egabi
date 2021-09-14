@@ -4,7 +4,6 @@ import Container from "../../UI/Container";
 import RadioButtonsGroup from "../../UI/RadioGroup";
 import Button from "react-bootstrap/Button";
 import Edu from "../../Forms/Edu.module.css";
-// import Timer from "react-compound-timer/build";
 import css from "../CreateTopic.module.css";
 import Exa from "./Exam.module.css";
 import Lottie from "lottie-react";
@@ -30,7 +29,7 @@ const Exam = () => {
     res.push({ index: index, val: val });
     setAnswers([...res]);
   }
-
+  
   function HandleFinalAnswers(val) {
     let res = finalAnswers;
     if (res[index] !== undefined) {
@@ -38,13 +37,14 @@ const Exam = () => {
       setFinalAnswers([...res]);
       return;
     }
-    res.push(val);
-    setFinalAnswers([...res]);
+    setFinalAnswers(prev=>[...prev,val]);
   }
 
   function HandleForm() {
+    if(Questions[index].type==='Comprehension'){
       setFinalAnswers((prev) => [...prev, answers]);
       setAnswers([])
+    }
   }
 
   function generateID() {
@@ -103,9 +103,9 @@ const Exam = () => {
       </h3>
     </div>
   ) : (
-    <Container className={css.col} style={{ alignItems: "center" }}>
+    <Container className={Exa.col} style={{ alignItems: "center" }}>
       <div className={Exa.timer}>
-        {/* <Timer durationInSeconds={10} onFinish={()=>{console.log(finalAnswers );setFlag(true);return;}}/> */}
+        <Timer durationInSeconds={600} onFinish={()=>{console.log(finalAnswers );setFlag(true);return;}}/>
       </div>
       <ProgressBar value={(index / Questions.length) * 100} />
       <form
@@ -118,10 +118,9 @@ const Exam = () => {
             return;
           }
           setIndex(index + 1);
-          HandleForm();
         }}
       >
-        <Container className={`${Exa.width55} ${css.position}`}>
+        <Container className={`${Exa.width55} ${Exa.position}`}>
           {Questions[index].type === "Comprehension" ? (
             <>
               <b style={{ wordBreak: "break-word", padding: "15px 0px" }}>
@@ -133,7 +132,7 @@ const Exam = () => {
                     Questions[index].ComprehensionQs.indexOf(q) + 1
                   } - ${q}`}</p>
                   <RadioButtonsGroup
-                    className={css.element}
+                    className={Exa.element}
                     label={generateID() + ""}
                     value={
                       answers.filter(
@@ -162,14 +161,14 @@ const Exam = () => {
             </>
           ) : (
             <>
-              <label className={css.element}>Question {index + 1}:</label>
+              <label className={Exa.element}>Question {index + 1}:</label>
               <p
                 style={{ wordBreak: "break-word" }}
               >{`A - ${Questions[index].Question}`}</p>
               {Questions[index].type === "MCQ" ||
               Questions[index].type === "T or F" ? (
                 <RadioButtonsGroup
-                  className={css.element}
+                  className={Exa.element}
                   label={"Choices"}
                   options={
                     Questions[index].type === "T or F"
@@ -189,7 +188,7 @@ const Exam = () => {
                   required
                   className={`${Edu.input} ${Edu.formElement}`}
                   placeholder="Answer"
-                  onChange={(e) => setAnswers([e.target.value])}
+                  onChange={(e) => HandleFinalAnswers(e.target.value)}
                   value={answers[0]}
                   type="text"
                 ></textarea>
@@ -221,8 +220,6 @@ const Exam = () => {
           </div>
         </Container>
       </form>
-      <button onClick={()=>console.log(answers)}>answers</button>
-      <button onClick={()=>console.log(finalAnswers)}>final</button>
     </Container>
   );
 };
