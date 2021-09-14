@@ -13,7 +13,7 @@ import { Timer } from 'react-countdown-clock-timer';
 
 const Exam = () => {
   const [flag, setFlag] = useState(false);
-  const [index, setIndex] = useState(3);
+  const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [finalAnswers, setFinalAnswers] = useState([]);
 
@@ -43,14 +43,8 @@ const Exam = () => {
   }
 
   function HandleForm() {
-    if (Questions[index].type === "Comprehension") {
       setFinalAnswers((prev) => [...prev, answers]);
-      if (Questions[index].ComprehensionQs.length === answers.length) {
-        setIndex(index - 1);
-      } else {
-        console.log("no");
-      }
-    }
+      setAnswers([])
   }
 
   function generateID() {
@@ -102,6 +96,7 @@ const Exam = () => {
 
   return flag ? (
     <div style={{ width: "400px", alignSelf: "center" }}>
+      {console.log(finalAnswers)}
       <Lottie animationData={suc} />
       <h3 style={{ textAlign: "center" }}>
         Success, your answers have been submitted
@@ -110,7 +105,7 @@ const Exam = () => {
   ) : (
     <Container className={css.col} style={{ alignItems: "center" }}>
       <div className={Exa.timer}>
-        <Timer durationInSeconds={600} onFinish={()=>setFlag(true)}/>
+        {/* <Timer durationInSeconds={10} onFinish={()=>{console.log(finalAnswers );setFlag(true);return;}}/> */}
       </div>
       <ProgressBar value={(index / Questions.length) * 100} />
       <form
@@ -119,6 +114,8 @@ const Exam = () => {
           e.preventDefault();
           if (index === Questions.length - 1) {
             setFlag(true);
+            HandleForm();
+            return;
           }
           setIndex(index + 1);
           HandleForm();
@@ -192,8 +189,8 @@ const Exam = () => {
                   required
                   className={`${Edu.input} ${Edu.formElement}`}
                   placeholder="Answer"
-                  // onChange={(e) => setComprehension(e.target.value)}
-                  // value={Comprehension}
+                  onChange={(e) => setAnswers([e.target.value])}
+                  value={answers[0]}
                   type="text"
                 ></textarea>
               )}
@@ -219,11 +216,13 @@ const Exam = () => {
               type="submit"
               className="btn-primary"
             >
-              Next
+              {index === Questions.length - 1?"Submit":"Next"}
             </Button>
           </div>
         </Container>
       </form>
+      <button onClick={()=>console.log(answers)}>answers</button>
+      <button onClick={()=>console.log(finalAnswers)}>final</button>
     </Container>
   );
 };
