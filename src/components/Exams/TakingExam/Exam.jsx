@@ -4,7 +4,6 @@ import Container from "../../UI/Container";
 import RadioButtonsGroup from "../../UI/RadioGroup";
 import Button from "react-bootstrap/Button";
 import Edu from "../../Forms/Edu.module.css";
-import css from "../CreateTopic.module.css";
 import Exa from "./Exam.module.css";
 import Lottie from "lottie-react";
 import suc from "../../assets/lottie_app/successfully1.json";
