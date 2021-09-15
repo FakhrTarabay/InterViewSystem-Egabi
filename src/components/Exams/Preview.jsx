@@ -3,7 +3,18 @@ import css from "./CreateTopic.module.css";
 import RadioButtonsGroup from "../UI/RadioGroup";
 import TextFields from "../UI/TextField";
 
-const Preview = ({QuestionType,Comprehension,ComprehensionQs,ComprehensionChoices,ComprehensionAs,qAnswer,setQuestion,Question,Options,generateID}) => {
+const Preview = ({
+  QuestionType,
+  Comprehension,
+  ComprehensionQs,
+  ComprehensionChoices,
+  ComprehensionAs,
+  qAnswer,
+  setQuestion,
+  Question,
+  Options,
+  generateID,
+}) => {
   return (
     <>
       <b>Question Preview</b>

@@ -1,0 +1,12 @@
+.formElement {
+    margin: 2.5px 0px;
+  }
+  
+  .input {
+    border: 0.001rem solid rgba(211, 211, 211, 0.932);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  

@@ -5,7 +5,6 @@ import RadioButtonsGroup from "../UI/RadioGroup";
 import { Button } from "@material-ui/core";
 import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
 import IconButton from "@material-ui/core/IconButton";
-import Edu from "../Forms/Edu.module.css";
 import Preview from "./Preview";
 import SelectQ from "./SelectQ";
 import MCQ from "./MCQ/MCQ";
@@ -159,7 +158,7 @@ const CreateTopic = () => {
         >
           <input
             required
-            className={`${Edu.input} ${Edu.formElement}`}
+            className={`${css.input} ${css.formElement}`}
             onChange={(e) => setOptionsFun(e.target.value, i)}
             placeholder={`Choice ${i + 1}`}
             value={Options[i] === undefined ? "" : Options[i]}
@@ -206,7 +205,7 @@ const CreateTopic = () => {
       <Container className={css.position}>
         <b>Create Question</b>
         <form
-          className={Edu.col50}
+          className={css.col50}
           style={{ width: "100%" }}
           onSubmit={(e) => {
             e.preventDefault();

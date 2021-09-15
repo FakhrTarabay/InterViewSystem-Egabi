@@ -1,23 +1,40 @@
 .position {
-    height: 100%;
-    width:30.7%;
-    display: flex;
-    flex-direction: column;
-    padding:50px;
-    background-color: whitesmoke;
-    border-radius: 10px;
+  height: 100%;
+  width: 30.7%;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  background-color: whitesmoke;
+  border-radius: 10px;
 }
-.width40{
-    width:40%;
+.width40 {
+  width: 40%;
 }
-.width10{
-    width:10%;
-    padding: 30px;
+.width10 {
+  width: 10%;
+  padding: 30px;
 }
-.element{
-    margin:10px 0px!important;
+.formElement {
+  margin: 2.5px 0px;
 }
-.btn{
-    margin: 0px 10px 0px 0px!important;
-    text-transform: none!important;
+
+.input {
+  border: 0.001rem solid rgba(211, 211, 211, 0.932);
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.element {
+  margin: 10px 0px !important;
+}
+.btn {
+  margin: 0px 10px 0px 0px !important;
+  text-transform: none !important;
+}
+.col50 {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 10px;
 }

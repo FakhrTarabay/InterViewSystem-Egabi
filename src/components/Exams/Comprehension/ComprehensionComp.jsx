@@ -1,7 +1,6 @@
 import React from "react";
 import Selector from "../../UI/Selector";
-import Edu from "../../Forms/Edu.module.css";
-
+import Comp from "../Comprehension/Comp.module.css"
 const ComprehensionComp = ({
   setComprehension,
   ComprehensionQs,
@@ -18,14 +17,14 @@ const ComprehensionComp = ({
     <>
       <input
         required
-        className={`${Edu.input} ${Edu.formElement}`}
+        className={`${Comp.input} ${Comp.formElement}`}
         placeholder="Set comprehension prompt"
         onChange={(e) => setComprehension(e.target.value)}
         value={Comprehension}
         type="text"
       ></input>
       <Selector
-        className={`${Edu.input} ${Edu.formElement}`}
+        className={`${Comp.input} ${Comp.formElement}`}
         style={{ margin: "0px" }}
         items={ComprehensionQs}
         setValue={setSelectedQ}
@@ -34,20 +33,20 @@ const ComprehensionComp = ({
         help="Pick Question"
         required={false}
       />
-      <label className={Edu.formElement}>Question</label>
+      <label className={Comp.formElement}>Question</label>
       <input
         required
-        className={`${Edu.input} ${Edu.formElement}`}
+        className={`${Comp.input} ${Comp.formElement}`}
         placeholder="Set Question"
         onChange={(e) => setQuestion(e.target.value)}
         value={Question}
         pattern="[a-zA-Z]{1,}"
         type="text"
       ></input>
-      <label className={Edu.formElement}>Number of choices</label>
+      <label className={Comp.formElement}>Number of choices</label>
       <input
         required
-        className={`${Edu.input} ${Edu.formElement}`}
+        className={`${Comp.input} ${Comp.formElement}`}
         placeholder="Set number of choices"
         onChange={(e) => setNumChoices(e.target.value)}
         value={numChoices}

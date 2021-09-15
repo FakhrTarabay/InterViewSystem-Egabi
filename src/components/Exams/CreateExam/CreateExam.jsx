@@ -28,14 +28,9 @@ const CreateExam = () => {
     <Container className={CEXA.col} style={{ alignItems: "center" }}>
       <h3>Create an Exam</h3>
       <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          width: "100%",
-          justifyContent: "center",
-        }}
+        className={CEXA.divRow}
       >
-        <Container style={{ width: "40%", padding: "5px 20px" }}>
+        <Container className={CEXA.width40}>
           <form
             className={CEXA.form}
             onSubmit={(e) => {
@@ -78,8 +73,7 @@ const CreateExam = () => {
           <Button
             variant="primary"
             size="lg"
-            className="btn-primary"
-            style={{ marginLeft: "0px", marginTop: "5px" }}
+            className={`btn-primary ${CEXA.subBtn}`}
             onClick={() => {
               console.log(toSent);
               console.log(toSent2);
@@ -88,9 +82,9 @@ const CreateExam = () => {
             Submit
           </Button>
         </Container>
-        <Container style={{ width: "30%", padding: "5px 20px" }}>
+        <Container className={CEXA.width30}>
           {
-            <ul style={{ listStyle: "none" }}>
+            <ul className={CEXA.list}>
               {zip(toSent, toSent2).map((elem) => (
                 <li
                   key={generateID()}
