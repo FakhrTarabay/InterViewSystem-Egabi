@@ -14,6 +14,7 @@ import ModelAnswer from "./ModelAnswer";
 import OtherQs from "./OtherQs";
 const CreateTopic = () => {
   const [flag, setFlag] = useState(0);
+  const [topicName, setTopicName] = useState("")
   const [Questions, setQuestions] = useState([]);
   const [QuestionType, setQuestionType] = useState("MCQ");
   const [Question, setQuestion] = useState("");
@@ -215,6 +216,17 @@ const CreateTopic = () => {
             }
           }}
         >
+           <label className={css.formElement}>
+              Enter topic name
+            </label>
+            <input
+              required
+              className={`${css.input} ${css.formElement}`}
+              placeholder="Enter topic name"
+              onChange={(e) => setTopicName(e.target.value)}
+              value={topicName}
+              type="text"
+            ></input>
           <RadioButtonsGroup
             className={css.element}
             label={"Pick a question type"}
@@ -264,7 +276,6 @@ const CreateTopic = () => {
                 className={`${css.element}`}
                 color="primary"
                 variant="contained"
-                // onClick={HandleCompQuestion}
                 type="submit"
                 onClick={() => setFlag(2)}
               >
@@ -278,9 +289,6 @@ const CreateTopic = () => {
             HandleUpdateCompQ={HandleUpdateCompQ}
             setFlag={setFlag}
           />
-          {/* {window.onbeforeunload = ()=>{
-
-          }} */}
           <Button
             className={css.element}
             variant="contained"

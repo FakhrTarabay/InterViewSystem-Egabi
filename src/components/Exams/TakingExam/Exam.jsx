@@ -93,7 +93,9 @@ const Exam = () => {
       ComprehensionAs: [4, 4, 2],
     },
   ]);
-
+        {window.onbeforeunload = ()=>{
+          console.log("asasdadsd")
+          }}
   return !isStart?
   <StartingPage isStart={setIsStart}/>
   :

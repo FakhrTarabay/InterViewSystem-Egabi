@@ -5,6 +5,7 @@ import Container from "../../UI/Container";
 import Button from "react-bootstrap/Button";
 const CreateExam = () => {
   const [topics] = useState(["eng", "react", "angular", "IQ"]);
+  const [exName, setExName] = useState("")
   const [selectedTopic, setSelectedTopic] = useState("");
   const [noOFQ, setNoOFQ] = useState("");
   const [toSent, setToSent] = useState([]);
@@ -38,6 +39,17 @@ const CreateExam = () => {
               HandleAdd();
             }}
           >
+             <label className={CEXA.formElement}>
+              Exam name
+            </label>
+            <input
+              required
+              className={`${CEXA.input} ${CEXA.formElement}`}
+              placeholder="Enter Exam name"
+              onChange={(e) => setExName(e.target.value)}
+              value={exName}
+              type="text"
+            ></input>
             <Selector
               className={`${CEXA.input} ${CEXA.formElement}`}
               items={topics}
@@ -82,7 +94,7 @@ const CreateExam = () => {
             Submit
           </Button>
         </Container>
-        <Container className={CEXA.width30}>
+        <Container className={CEXA.width40}>
           {
             <ul className={CEXA.list}>
               {zip(toSent, toSent2).map((elem) => (
