@@ -1,59 +1,21 @@
 import React, { useState } from "react";
 import Container from "../UI/Container";
-import TextFields from "../UI/TextField";
 import css from "./CreateTopic.module.css";
-import Selector from "../UI/Selector";
-
 import RadioButtonsGroup from "../UI/RadioGroup";
 import { Button } from "@material-ui/core";
 import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
 import IconButton from "@material-ui/core/IconButton";
 import Edu from "../Forms/Edu.module.css";
+import Preview from "./Preview";
+import SelectQ from "./SelectQ";
+import MCQ from "./MCQ/MCQ";
+import ComprehensionComp from "./Comprehension/ComprehensionComp";
+import UpdateQBtn from "./UpdateQBtn";
+import ModelAnswer from "./ModelAnswer";
+import OtherQs from "./OtherQs";
 const CreateTopic = () => {
   const [flag, setFlag] = useState(0);
-  const [Questions, setQuestions] = useState([
-    {
-      number: 1,
-      Question: "98",
-      type: "MCQ",
-      choices: [1],
-      answer: 1,
-    },
-    { number: 2, Question: "123", type: "T or F", answer: "T" },
-    {
-      number: 3,
-      Question: "If a tree falls and nobody hears it, did it actually fall?",
-      type: "Writing",
-      answer: "asddddddddddddddddd",
-    },
-    {
-      type: "Comprehension",
-      number: 4,
-      prompt:
-        "(A) Scientists have known for a long time that vitamin D is essential for humans. If children have a vitamin D or calcium deficiency, they can develop rickets, a softening of the bones. New studies are showing that people of all ages need vitamin D to help them fight off diseases by keeping their immune systems strong.",
-      ComprehensionQs: [
-        "The main idea of this paragraph is that vitamin D.",
-        "If something is essential, it is ………… .",
-        "When you have a deficiency of something, you ………….	.",
-      ],
-      ComprehensionChoices: [
-        [
-          "is found in milk",
-          "has been studied by scientists",
-          "is no secret",
-          "is important for good health",
-        ],
-        ["harmful", "expensive", "dreadful", "needed"],
-        [
-          "have all you need",
-          "do not have enough",
-          "look like an onion",
-          "are rich",
-        ],
-      ],
-      ComprehensionAs: [4, 4, 2],
-    },
-  ]);
+  const [Questions, setQuestions] = useState([]);
   const [QuestionType, setQuestionType] = useState("MCQ");
   const [Question, setQuestion] = useState("");
   const [numChoices, setNumChoices] = useState("");
@@ -66,10 +28,23 @@ const CreateTopic = () => {
   const [ComprehensionAs, setComprehensionAs] = useState([]);
   const [ComprehensionChoices, setComprehensionChoices] = useState([]);
 
+  function HandleDelete() {
+    const res = [];
+    for (let elem of Questions) {
+      if (elem.number !== index + 1) {
+        res.push(elem);
+      }
+    }
+    setQuestions([...res]);
+    HandleReset();
+    setComprehension("");
+    setComprehensionChoices([]);
+    setComprehensionQs([]);
+    setComprehensionAs([]);
+  }
   function generateID() {
     return Math.floor(Math.random() * 100000000);
   }
-
   function HandleReset() {
     setQuestion("");
     setQAnswer("");
@@ -166,7 +141,6 @@ const CreateTopic = () => {
         ComprehensionAs: CompAs,
       });
       setQuestions([...res]);
-      // HandleReset();
     } else {
       console.log("error");
     }
@@ -236,11 +210,11 @@ const CreateTopic = () => {
           style={{ width: "100%" }}
           onSubmit={(e) => {
             e.preventDefault();
-            if (flag===1) {
+            if (flag === 1) {
               updateQuestion(index);
-            } else if(flag===0){
+            } else if (flag === 0) {
               HandleSubmit();
-            }else{
+            } else {
               HandleCompQuestion();
             }
           }}
@@ -254,101 +228,40 @@ const CreateTopic = () => {
           />
           {QuestionType === "MCQ" ? (
             <>
-              <label className={Edu.formElement}>Question</label>
-              <input
-                multiple
-                required
-                className={`${Edu.input} ${Edu.formElement}`}
-                placeholder="Set Question"
-                onChange={(e) => setQuestion(e.target.value)}
-                value={Question}
-                pattern="[a-zA-Z]{1,}"
-                type="text"
-              ></input>
-              <label className={Edu.formElement}>Number of choices</label>
-              <input
-                required
-                className={`${Edu.input} ${Edu.formElement}`}
-                placeholder="Set number of choices"
-                onChange={(e) => setNumChoices(e.target.value)}
-                value={numChoices}
-                pattern="[0-9]{1,}"
-                type="number"
-                min="0"
-                max="99"
-              ></input>
-              {createChoices().map((element) => element)}
+              <MCQ
+                setQuestion={setQuestion}
+                setNumChoices={setNumChoices}
+                createChoices={createChoices}
+                Question={Question}
+                numChoices={numChoices}
+              />
             </>
           ) : QuestionType === "Comprehension" ? (
             <>
-              <input
-                required
-                className={`${Edu.input} ${Edu.formElement}`}
-                placeholder="Set comprehension prompt"
-                onChange={(e) => setComprehension(e.target.value)}
-                value={Comprehension}
-                type="text"
-              ></input>
-              <Selector
-                className={`${Edu.input} ${Edu.formElement}`}
-                style={{ margin: "0px" }}
-                items={ComprehensionQs}
-                setValue={setSelectedQ}
-                value={selectedQ}
-                label="Question:"
-                help="Pick Question"
-                required = {false}
+              <ComprehensionComp
+                setComprehension={setComprehension}
+                createChoices={createChoices}
+                setSelectedQ={setSelectedQ}
+                setQuestion={setQuestion}
+                setNumChoices={setNumChoices}
+                ComprehensionQs={ComprehensionQs}
+                selectedQ={selectedQ}
+                Question={Question}
+                numChoices={numChoices}
+                Comprehension={Comprehension}
               />
-              <label className={Edu.formElement}>Question</label>
-              <input
-                required
-                className={`${Edu.input} ${Edu.formElement}`}
-                placeholder="Set Question"
-                onChange={(e) => setQuestion(e.target.value)}
-                value={Question}
-                pattern="[a-zA-Z]{1,}"
-                type="text"
-              ></input>
-              <label className={Edu.formElement}>Number of choices</label>
-              <input
-                required
-                className={`${Edu.input} ${Edu.formElement}`}
-                placeholder="Set number of choices"
-                onChange={(e) => setNumChoices(e.target.value)}
-                value={numChoices}
-                pattern="[0-9]{2}"
-                type="number"
-                min="0"
-                max="99"
-              ></input>
-              {createChoices().map((element) => element)}
             </>
           ) : (
-            <>
-              <label className={Edu.formElement}>Question</label>
-              <input
-                required
-                className={`${Edu.input} ${Edu.formElement}`}
-                placeholder="Set Question"
-                onChange={(e) => setQuestion(e.target.value)}
-                value={Question}
-                pattern="[a-zA-Z]{1,}"
-                type="text"
-              ></input>
-            </>
+            <OtherQs 
+              setQuestion={setQuestion} 
+              Question={Question} 
+            />
           )}
-          <label className={Edu.formElement}>Model Answer</label>
-          <input
-            required
-            className={`${Edu.input} ${Edu.formElement}`}
-            placeholder="Set model answer"
-            onChange={(e) => setQAnswer(e.target.value)}
-            pattern={
-              QuestionType === "T or F" ? "^(T|F|t|f)$" : "[a-zA-Z0-9]{1,}"
-            }
-            value={qAnswer}
-            type="text"
-          ></input>
+          <ModelAnswer
+            setQAnswer={setQAnswer}
+            QuestionType={QuestionType}
+            qAnswer={qAnswer}
+          />
           {QuestionType === "Comprehension" && (
             <div>
               <Button
@@ -356,34 +269,19 @@ const CreateTopic = () => {
                 color="primary"
                 variant="contained"
                 // onClick={HandleCompQuestion}
-                type='submit'
-                onClick={()=>setFlag(2)}
+                type="submit"
+                onClick={() => setFlag(2)}
               >
                 Set Question
               </Button>
             </div>
           )}
-          {index !== -1 &&
-            (QuestionType === "Comprehension" ? (
-              <Button
-                className={css.element}
-                color="secondary"
-                variant="contained"
-                onClick={HandleUpdateCompQ}
-              >
-                update selected question
-              </Button>
-            ) : (
-              <Button
-                className={css.element}
-                variant="contained"
-                color="secondary"
-                type="submit"
-                onClick={() => setFlag(1)}
-              >
-                Update Question {index + 1}
-              </Button>
-            ))}
+          <UpdateQBtn
+            index={index}
+            QuestionType={QuestionType}
+            HandleUpdateCompQ={HandleUpdateCompQ}
+            setFlag={setFlag}
+          />
           <Button
             className={css.element}
             variant="contained"
@@ -391,62 +289,32 @@ const CreateTopic = () => {
             type="submit"
             onClick={() => setFlag(0)}
           >
-            {QuestionType==='Comprehension'?'Submit prompt':'Submit Question'}
+            {QuestionType === "Comprehension"
+              ? "Submit prompt"
+              : "Submit Question"}
           </Button>
         </form>
       </Container>
-      {/* done preview*/}
       <Container className={`${css.width40} ${css.position}`}>
-        <b>Question Preview</b>
-        {QuestionType === "Comprehension" ? (
-          <>
-            <label className={css.element}>Comprehension prompt:</label>
-            <b style={{ wordBreak: "break-word" }}>{Comprehension}</b>
-            <label>Comprehension question/s:</label>
-            {ComprehensionQs.map((q) => (
-              <React.Fragment key={generateID()}>
-                <p>{`${ComprehensionQs.indexOf(q) + 1} - ${q}`}</p>
-                <RadioButtonsGroup
-                  className={css.element}
-                  label={"Choices"}
-                  options={ComprehensionChoices[ComprehensionQs.indexOf(q)]}
-                  disabled={true}
-                />
-                <p>{`Model Answer = ${
-                  ComprehensionAs[ComprehensionQs.indexOf(q)]
-                }`}</p>
-              </React.Fragment>
-            ))}
-          </>
-        ) : (
-          <>
-            <label className={css.element}>Question:</label>
-            <p style={{ wordBreak: "break-word" }}>{`A - ${Question}`}</p>
-            {QuestionType === "MCQ" || QuestionType === "T or F" ? (
-              <RadioButtonsGroup
-                className={css.element}
-                label={"Choices"}
-                options={QuestionType === "T or F" ? ["T", "F"] : Options}
-                disabled={true}
-              />
-            ) : (
-              <TextFields
-                disabled={true}
-                setTxtFunc={setQuestion}
-                multiline={true}
-              />
-            )}
-            <p>{`Model Answer = ${qAnswer}`}</p>
-          </>
-        )}
+        <Preview
+          QuestionType={QuestionType}
+          Comprehension={Comprehension}
+          ComprehensionQs={ComprehensionQs}
+          ComprehensionChoices={ComprehensionChoices}
+          ComprehensionAs={ComprehensionAs}
+          qAnswer={qAnswer}
+          setQuestion={setQuestion}
+          Question={Question}
+          Options={Options}
+          generateID={generateID}
+        />
       </Container>
       <Container className={`${css.width10} ${css.position}`}>
-        <b style={{ textAlign: "center" }}>Created Questions</b>
-        {Questions.map((q) => (
-          <Button onClick={() => setPreView(q)} key={q.number}>
-            {q.number}
-          </Button>
-        ))}
+        <SelectQ
+          Questions={Questions}
+          setPreView={setPreView}
+          HandleDelete={HandleDelete}
+        />
       </Container>
     </>
   );

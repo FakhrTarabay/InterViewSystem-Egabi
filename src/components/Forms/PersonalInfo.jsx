@@ -124,7 +124,7 @@ const PersonalInfo = () => {
           <Container className={Per.col50}>
             <DatePicker setValue={setDate} value={date} label="Date" />
             <Selector
-              className={`${Per.input} ${Per.formElement}`}
+              className={`${Per.input} ${Per.formElement} ${Per.marginZero}`}
               items={[1, 2, 3]}
               setValue={setCity}
               value={City}

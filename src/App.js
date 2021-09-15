@@ -1,12 +1,14 @@
 import "./App.css";
 import React from "react";
 import svg from "./components/assets/hr_logo.svg";
+// eslint-disable-next-line
 import Container from "./components/UI/Container";
 // eslint-disable-next-line
 import CreateTopic from "./components/Exams/CreateTopic";
 // eslint-disable-next-line
 import Routes from "./components/Routes";
-import Exam from "./components/Exams/TakingExam/Exam";
+// eslint-disable-next-line
+import CreateExam from "./components/Exams/CreateExam/CreateExam";
 function App() {
   return (
     <>
@@ -16,19 +18,36 @@ function App() {
           height="50px"
           width="200px"
           src={svg}
-          alt="asasd"
+          alt="logo"
         />
       </header>
       <div className="App">
-        <Container className="col">
-        <Routes />
-      </Container>
         {/* <Container className="col">
-          <Exam/>
-        </Container> */}
-        {/* <div className="create">
-        <CreateTopic />
-      </div> */}
+        <Routes />
+      </Container> */}
+        <div className="create">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "space-evenly",
+              paddingBottom: "30px",
+            }}
+          >
+            <CreateTopic />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <CreateExam />
+          </div>
+        </div>
       </div>
     </>
   );

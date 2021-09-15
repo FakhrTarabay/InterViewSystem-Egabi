@@ -23,7 +23,7 @@ Selector.defaultProps = {
     required: true,
     style:{}
 }
-export default function Selector({setValue,value,items,label,help,style,required}) {
+export default function Selector({setValue,value,items,label,help,style,required,className}) {
   const classes = useStyles();
 
   const handleChange = (event) => {
@@ -32,7 +32,7 @@ export default function Selector({setValue,value,items,label,help,style,required
 
   return (
     <>
-      <FormControl className={classes.formControl} style={style}>
+      <FormControl className={classes.formControl+className} style={style}>
         <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>
         <Select
           required = {required}
