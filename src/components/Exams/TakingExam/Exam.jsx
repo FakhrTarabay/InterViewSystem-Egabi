@@ -53,7 +53,7 @@ const Exam = () => {
   const [Questions] = useState([
     {
       number: 1,
-      Question: "aw el mofta7 tl3 day3 f3ln ana h2tl nfsiiiiiii",
+      Question: "What is 9 + 10?",
       type: "MCQ",
       choices: ["1", "2", "3", "4", " 5"],
       answer: 1,

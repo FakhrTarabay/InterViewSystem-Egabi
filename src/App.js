@@ -22,10 +22,10 @@ function App() {
         />
       </header>
       <div className="App">
-        <Container className="col">
+        {/* <Container className="col">
         <Routes />
-      </Container>
-        {/* <div className="create">
+      </Container> */}
+        <div className="create">
           <div
             style={{
               display: "flex",
@@ -47,7 +47,7 @@ function App() {
           >
             <CreateExam />
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );

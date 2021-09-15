@@ -15,12 +15,13 @@
 ::-webkit-scrollbar-thumb{
   background-color: darkcyan;
 }
-body    {overflow-y:scroll!important;}
+
 body { 
-  height: 100%;
-  width: 100%;
+  overflow-y:scroll!important;
   padding: 0 !important;
   background-color:#cbdeee!important;
+  height: 100%;
+  width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

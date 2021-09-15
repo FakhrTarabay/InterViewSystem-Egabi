@@ -72,9 +72,6 @@ const CreateTopic = () => {
     setOptions([...res]);
   }
   function HandleSubmit() {
-    if (Question.length === 0) {
-      return;
-    }
     if (QuestionType === "Comprehension") {
       setQuestions((prevQuestions) => [
         ...prevQuestions,
@@ -281,12 +278,15 @@ const CreateTopic = () => {
             HandleUpdateCompQ={HandleUpdateCompQ}
             setFlag={setFlag}
           />
+          {/* {window.onbeforeunload = ()=>{
+
+          }} */}
           <Button
             className={css.element}
             variant="contained"
             color="primary"
-            type="submit"
-            onClick={() => setFlag(0)}
+            type={QuestionType==='Comprehension'?'button':'submit'}
+            onClick={QuestionType==='Comprehension'?()=>HandleSubmit():()=>setFlag(0)}
           >
             {QuestionType === "Comprehension"
               ? "Submit prompt"
