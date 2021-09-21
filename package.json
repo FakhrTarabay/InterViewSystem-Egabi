@@ -1,5 +1,14 @@
 {
   "name": "interviewsystem",
+  "author": {
+    "name": "Fakhreldin Hussein Soliman Tarabay",
+    "email": "fakhretarabay@gmail.com"
+  },
+  "description": "Interview system created for Egabi during a summer internship in 2021",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FakhrTarabay"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
