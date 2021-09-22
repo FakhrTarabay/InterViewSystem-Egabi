@@ -2,8 +2,10 @@ import React from "react";
 import Container from "../../UI/Container";
 import Exa from "./Exam.module.css";
 import Button from "react-bootstrap/Button";
-
 const StartingPage = ({ isStart }) => {
+  function start(){
+    isStart(true)
+  }
   return (
     <Container className={Exa.col} style={{ alignItems: "center" }}>
       <h1>Welcome to Egabi FSI</h1>
@@ -32,7 +34,7 @@ const StartingPage = ({ isStart }) => {
             variant="primary"
             size="lg"
             className="btn-primary"
-            onClick={() => isStart(true)}
+            onClick={start}
           >
             Start
           </Button>
