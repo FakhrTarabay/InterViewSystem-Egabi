@@ -9,7 +9,7 @@ const TextArea = ({index,finalAnswers,HandleFinalAnswers}) => {
                   className={`${Exa.input} ${Exa.formElement}`}
                   placeholder="Answer"
                   onChange={(e) => HandleFinalAnswers(e.target.value)}
-                  value={finalAnswers[index]}
+                  value={finalAnswers[index]===null?"":finalAnswers[index]}
                   type="text"
                 ></textarea>   
         </>

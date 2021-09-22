@@ -33,7 +33,6 @@ const Exam = () => {
 
   function HandleSubmit(val, index) {
     dispatch(CounterActions.setAnswers({ val: val, index: index, flag: 1 }));
-    HandleFinalAnswers(answers);
   }
 
   function HandleFinalAnswers(val) {
@@ -53,6 +52,7 @@ const Exam = () => {
     <StartingPage isStart={setIsStart} />
   ) : flag ? (
     <div style={{ width: "400px", alignSelf: "center" }}>
+      {console.log(finalAnswers)}
       <Lottie animationData={suc} />
       <h3 style={{ textAlign: "center" }}>
         Success, your answers have been submitted
@@ -64,7 +64,6 @@ const Exam = () => {
         <Timer
           durationInSeconds={timer}
           onFinish={() => {
-            console.log("fin");
             setFlag(true);
             dispatch(CounterActions.reset());
             return;

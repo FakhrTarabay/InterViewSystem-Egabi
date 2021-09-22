@@ -26,7 +26,9 @@ const StartingPage = ({ isStart }) => {
         <br />
         6-After you submit a success message will appear.
         <br />
-        7-<em>Good luck.</em>
+        7-Refreshing the page is not recommended.
+        <br />
+        8-<em>Good luck.</em>
       </p>
       <Container className={Exa.rowBtn}>
         <div>

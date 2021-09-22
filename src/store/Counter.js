@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initState = {
-  time: 602,
+  time: 601,
   finalAnswers: [],
   answers: [],
   Questions: [
@@ -72,6 +72,7 @@ const CounterReducer = createSlice({
       state.startTime = minSec();
     },
     setFinalAnswers(state, { payload }) {
+      debugger
       if (payload.flag) {
         let res = state.finalAnswers;
         if (res[payload.index] !== undefined) {
@@ -99,7 +100,9 @@ const CounterReducer = createSlice({
       }
     },
     reset(state) {
-      state.time = 602;
+      state.time = 601;
+      // state.finalAnswers=[]
+      // state.answers = []
     },
   },
 });
