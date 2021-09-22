@@ -4,7 +4,7 @@ import svg from "./components/assets/hr_logo.svg";
 // eslint-disable-next-line
 import Container from "./components/UI/Container";
 // eslint-disable-next-line
-import CreateTopic from "./components/Exams/CreateTopic";
+import CreateTopic from "./components/Exams/CreateTopic/CreateTopic";
 // eslint-disable-next-line
 import Routes from "./components/Routes";
 // eslint-disable-next-line
@@ -22,10 +22,10 @@ function App() {
         />
       </header>
       <div className="App">
-        <Container className="col">
+        {/* <Container className="col">
         <Routes />
-      </Container>
-        {/* <div className="create">
+      </Container> */}
+        <div className="create">
           <div
             style={{
               display: "flex",
@@ -47,7 +47,7 @@ function App() {
           >
             <CreateExam />
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );

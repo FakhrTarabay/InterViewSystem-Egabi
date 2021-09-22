@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Container from "../UI/Container";
+import Container from "../../UI/Container";
 import css from "./CreateTopic.module.css";
-import RadioButtonsGroup from "../UI/RadioGroup";
+import RadioButtonsGroup from "../../UI/RadioGroup";
 import { Button } from "@material-ui/core";
 import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
 import IconButton from "@material-ui/core/IconButton";
 import Preview from "./Preview";
 import SelectQ from "./SelectQ";
-import MCQ from "./MCQ/MCQ";
-import ComprehensionComp from "./Comprehension/ComprehensionComp";
+import MCQ from "../MCQ/MCQ";
+import ComprehensionComp from "../Comprehension/ComprehensionComp";
 import UpdateQBtn from "./UpdateQBtn";
 import ModelAnswer from "./ModelAnswer";
 import OtherQs from "./OtherQs";

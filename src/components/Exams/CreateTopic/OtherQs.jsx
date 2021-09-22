@@ -1,5 +1,5 @@
 import React from 'react'
-import Edu from "../Forms/Edu.module.css";
+import Edu from "../../Forms/Edu.module.css";
 
 const OtherQs = ({setQuestion,Question}) => {
     return (

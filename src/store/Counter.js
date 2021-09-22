@@ -17,7 +17,7 @@ const initState = {
       number: 3,
       Question: "If a tree falls and nobody hears it, did it actually fall?",
       type: "Writing",
-      answer: "asddddddddddddddddd",
+      answer: "yo",
     },
     {
       type: "Comprehension",

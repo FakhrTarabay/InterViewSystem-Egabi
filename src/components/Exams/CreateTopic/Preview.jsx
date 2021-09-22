@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./CreateTopic.module.css";
-import RadioButtonsGroup from "../UI/RadioGroup";
-import TextFields from "../UI/TextField";
+import RadioButtonsGroup from "../../UI/RadioGroup";
+import TextFields from "../../UI/TextField";
 
 const Preview = ({
   QuestionType,
