@@ -17,13 +17,13 @@ const Exam = () => {
   const dispatch = useDispatch();
   dispatch(CounterActions.startTime());
 
-  const timer = useSelector((state) => state.time);
+  const timer = useSelector((state) => state.counter.time);
   const [flag, setFlag] = useState(false);
   const [isStart, setIsStart] = useState(false);
   const [index, setIndex] = useState(0);
-  const answers = useSelector((state) => state.answers);
-  const finalAnswers = useSelector((state) => state.finalAnswers);
-  const Questions = useSelector((state) => state.Questions);
+  const answers = useSelector((state) => state.counter.answers);
+  const finalAnswers = useSelector((state) => state.counter.finalAnswers);
+  const Questions = useSelector((state) => state.counter.Questions);
 
   useBeforeunload((e) => {
     e.preventDefault();

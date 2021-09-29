@@ -11,22 +11,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react";
 import personal from "../assets/lottie_app/personalinfo.json";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../store/user";
 
 const PersonalInfo = () => {
-  // const info = {
-  //   applicantName: applicantName,
-  //   Address: Address,
-  //   AppliedFor: AppliedFor,
-  //   email: email,
-  //   maritalStatus: maritalStatus,
-  //   militaryStatus: militaryStatus,
-  //   date: date,
-  //   City: City,
-  //   Techno: Techno,
-  //   Mobile: Mobile,
-  //   NofDep: NofDep,
-  //   PostTill: PostTill,
-  // };
   const [routing, setRouting] = useState(false);
   const [applicantName, setApplicantName] = useState("");
   const [Address, setAddress] = useState("");
@@ -40,13 +29,62 @@ const PersonalInfo = () => {
   const [Mobile, setMobile] = useState("");
   const [NofDep, setNofDep] = useState("");
   const [PostTill, setPostTill] = useState(null);
+  const userID = useSelector((state) => state.user.id);
+  // console.log(userID);
+  const dispatch = useDispatch();
+
+  async function send() {
+    try {
+      if (userID === null) {
+        const res = await axios.post(
+          "http://10.1.2.24:3200/registration/PersonalInfo",
+          {
+            applicant_name: applicantName,
+            address: Address,
+            position_applied_for: AppliedFor,
+            email: email,
+            marital_status: maritalStatus,
+            military_status: militaryStatus,
+            date: date,
+            city: City,
+            technology: Techno,
+            mobile: Mobile,
+            number_of_dependents: NofDep,
+            if_postponed_date: militaryStatus === "Postponed" ? PostTill : null,
+          }
+        );
+        dispatch(userActions.setId(res.data.userId));
+      } else {
+        const res = await axios.put(
+          `http://10.1.2.24:3200/registration/PersonalInfo/${userID}`,
+          {
+            applicant_name: applicantName,
+            address: Address,
+            position_applied_for: AppliedFor,
+            email: email,
+            marital_status: maritalStatus,
+            military_status: militaryStatus,
+            date: date,
+            city: City,
+            technology: Techno,
+            mobile: Mobile,
+            number_of_dependents: NofDep,
+            if_postponed_date: militaryStatus === "Postponed" ? PostTill : null,
+          }
+        );
+        console.log(res);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   if (routing) {
     return <Redirect push to="/Edu/" />;
   }
 
   return (
-    <>
+    <Container className={Per.col}> 
       <Container className={Per.rowCenter}>
         <PersonIcon className={Per.icon} />
         <h3 className={Per.h3}>Personal information</h3>
@@ -59,7 +97,7 @@ const PersonalInfo = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            console.log("herePerson");
+            send();
             setRouting(true);
           }}
           className={Per.form}
@@ -160,6 +198,7 @@ const PersonalInfo = () => {
             <DatePicker
               setValue={setPostTill}
               value={PostTill}
+              disabled={militaryStatus === "Postponed" ? false : true}
               label="If postponed until when"
             />
           </Container>
@@ -177,7 +216,7 @@ const PersonalInfo = () => {
           </Container>
         </form>
       </Container>
-    </>
+    </Container>
   );
 };
 

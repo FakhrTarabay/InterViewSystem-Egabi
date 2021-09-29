@@ -11,7 +11,7 @@ const MCQ = ({setQuestion,Question,setNumChoices,numChoices,createChoices}) => {
                 placeholder="Set Question"
                 onChange={(e) => setQuestion(e.target.value)}
                 value={Question}
-                pattern="[a-zA-Z?-_!@#$%^&*()+''><.,]{1,}"
+                pattern="[a-zA-Z0-9?-_!@#$%^&*()+''? ><.,]{1,}"
                 type="text"
               ></input>
               <label className={MCQC.formElement}>Number of choices</label>

@@ -77,23 +77,25 @@ const CreateTopic = () => {
       setQuestions((prevQuestions) => [
         ...prevQuestions,
         {
-          type: QuestionType,
+          typeId: QuestionType,
           number: prevQuestions.length + 1,
-          prompt: Comprehension,
-          ComprehensionQs: ComprehensionQs,
-          ComprehensionChoices: ComprehensionChoices,
-          ComprehensionAs: ComprehensionAs,
+          paragraphPrompt: Comprehension,
+          paragraphQuestions: ComprehensionQs,
+          paragraphChoices: ComprehensionChoices,
+          paragraphAnswers: ComprehensionAs,
+          topic:topicName
         },
       ]);
     } else {
       setQuestions((prevQuestions) => [
         ...prevQuestions,
         {
-          type: QuestionType,
+          typeId: QuestionType,
           number: prevQuestions.length + 1,
-          Question: Question,
+          questionHeader: Question,
           choices: Options,
-          answer: qAnswer,
+          modelAnswer: qAnswer,
+          topic:topicName
         },
       ]);
     }
@@ -101,41 +103,41 @@ const CreateTopic = () => {
   }
   function setPreView(q) {
     setIndex(q.number - 1);
-    setQuestionType(q.type);
-    setQuestion(q.Question);
-    setQAnswer(q.answer);
-    if (q.type === "MCQ") {
+    setQuestionType(q.typeId);
+    setQuestion(q.questionHeader);
+    setQAnswer(q.modelAnswer);
+    if (q.typeId === "MCQ") {
       setNumChoices(q.choices.length);
       setOptions(q.choices);
     }
-    if (q.type === "Comprehension") {
+    if (q.typeId === "Comprehension") {
       setQuestion("");
       setQAnswer("");
       setNumChoices(0);
       setOptions([]);
-      setComprehension(q.prompt);
-      setComprehensionQs(q.ComprehensionQs);
-      setComprehensionChoices(q.ComprehensionChoices);
-      setComprehensionAs(q.ComprehensionAs);
+      setComprehension(q.paragraphPrompt);
+      setComprehensionQs(q.paragraphQuestions);
+      setComprehensionChoices(q.paragraphChoices);
+      setComprehensionAs(q.paragraphAnswers);
     }
   }
   function HandleUpdateCompQ() {
     if (Question.length !== 0 || qAnswer.length !== 0) {
       const res = Questions;
-      let i = Questions[index].ComprehensionQs.indexOf(selectedQ);
-      let CompQs = Questions[index].ComprehensionQs;
-      let CompChoices = Questions[index].ComprehensionChoices;
-      let CompAs = Questions[index].ComprehensionAs;
+      let i = Questions[index].paragraphQuestions.indexOf(selectedQ);
+      let CompQs = Questions[index].paragraphQuestions;
+      let CompChoices = Questions[index].paragraphChoices;
+      let CompAs = Questions[index].paragraphAnswers;
       CompQs[i] = Question;
       CompChoices[i] = Options;
       CompAs[i] = qAnswer;
       res.splice(index, 1, {
-        type: QuestionType,
+        typeId: QuestionType,
         number: index + 1,
-        prompt: Comprehension,
-        ComprehensionQs: CompQs,
-        ComprehensionChoices: CompChoices,
-        ComprehensionAs: CompAs,
+        paragraphPrompt: Comprehension,
+        paragraphQuestions: CompQs,
+        paragraphChoices: CompChoices,
+        paragraphAnswers: CompAs,
       });
       setQuestions([...res]);
     } else {
@@ -177,22 +179,22 @@ const CreateTopic = () => {
   }
   function updateQuestion(index) {
     const res = Questions;
-    if (Questions[index].type === "Comprehension") {
+    if (Questions[index].typeId === "Comprehension") {
       res.splice(index, 1, {
-        type: QuestionType,
+        typeId: QuestionType,
         number: index + 1,
-        prompt: Comprehension,
-        ComprehensionQs: ComprehensionQs,
-        ComprehensionChoices: ComprehensionChoices,
-        ComprehensionAs: ComprehensionAs,
+        paragraphPrompt: Comprehension,
+        paragraphQuestions: ComprehensionQs,
+        paragraphChoices: ComprehensionChoices,
+        paragraphAnswers: ComprehensionAs,
       });
     } else {
       res.splice(index, 1, {
-        type: QuestionType,
+        typeId: QuestionType,
         number: index + 1,
-        Question: Question,
+        questionHeader: Question,
         choices: Options,
-        answer: qAnswer,
+        modelAnswer: qAnswer,
       });
     }
     setQuestions([...res]);

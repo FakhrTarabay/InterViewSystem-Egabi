@@ -29,7 +29,7 @@ const Questions = () => {
   }
 
   return (
-    <>
+    <Container className={Qu.col}>
       <Container className={Qu.rowCenter}>
         <HelpOutlineRoundedIcon className={Qu.icon} />
         <h3 className={Qu.h3}>Questions</h3>
@@ -138,7 +138,7 @@ const Questions = () => {
           </Container>
         </form>
       </Container>
-    </>
+    </Container>
   );
 };
 

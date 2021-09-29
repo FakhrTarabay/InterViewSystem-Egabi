@@ -1,0 +1,10 @@
+.woPadding,.wPadding{
+    display: flex;
+    flex-Direction: row;
+    width: 100%;
+    justify-Content: space-evenly;
+}
+
+.wPadding{
+    padding-Bottom:30px;
+}

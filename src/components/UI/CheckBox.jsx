@@ -1,7 +1,7 @@
 import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export default function CheckboxN({className,setValue,value}) {
+export default function CheckboxN({className,setValue,value,required}) {
   const handleChange = (event) => {
     setValue(event.target.checked);
   };
@@ -9,7 +9,7 @@ export default function CheckboxN({className,setValue,value}) {
   return (
     <>
       <Checkbox
-        required
+        required={required}
         className={className}
         checked={value}
         onChange={handleChange}

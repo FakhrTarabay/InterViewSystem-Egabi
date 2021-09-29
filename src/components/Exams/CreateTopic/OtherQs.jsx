@@ -11,7 +11,7 @@ const OtherQs = ({setQuestion,Question}) => {
                 placeholder="Set Question"
                 onChange={(e) => setQuestion(e.target.value)}
                 value={Question}
-                pattern="[a-zA-Z]{1,}"
+                pattern="[a-zA-Z0-9?-_!@#$%^&*()+''? ><.,]{1,}"
                 type="text"
               ></input>  
         </>

@@ -32,23 +32,8 @@ const WorkExp = () => {
     return <Redirect push to="/Q" />;
   }
 
-  // function HandleClick() {
-  //   const res = {
-  //     fresh: isFresh,
-  //     whoEmployer: whoEmployer,
-  //     isEmployer: isEmployer,
-  //     durationFrom: durationFrom,
-  //     durationTo: durationTo,
-  //     entryPos: entryPos,
-  //     LastSalary: LastSalary,
-  //     Exp: Exp,
-  //     LastPos: LastPos,
-  //     ReasonLeave: ReasonLeave,
-  //   };
-  //   console.log(res);
-  // }
   return (
-    <>
+    <Container className={WE.col}>
       <Container className={WE.rowCenter}>
         <WorkOutlineRoundedIcon className={WE.icon} />
         <h3 className={WE.h3}>Work Experience</h3>
@@ -71,6 +56,7 @@ const WorkExp = () => {
               <CheckboxN
                 className={WE.MuiButtonBaseRoot}
                 setValue={setIsFresh}
+                required={false}
                 value={isFresh}
               />
               <label className={WE.formElement}>Fresh Graduate</label>
@@ -129,6 +115,7 @@ const WorkExp = () => {
               <CheckboxN
                 className={WE.MuiButtonBaseRoot}
                 setValue={setIsEmp}
+                required={true}
                 value={isEmployer}
               />
               <label className={WE.formElement}>current employer</label>
@@ -181,7 +168,7 @@ const WorkExp = () => {
           </Container>
         </form>
       </Container>
-    </>
+    </Container>
   );
 };
 

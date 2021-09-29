@@ -6,7 +6,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-export default function DatePicker({label,value,setValue}) {
+export default function DatePicker({label,value,setValue,disabled}) {
   const handleDateChange = (date) => {
     setValue(date);
   };
@@ -14,6 +14,7 @@ export default function DatePicker({label,value,setValue}) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
+          disabled={disabled}
           required
           disableToolbar
           variant="inline"

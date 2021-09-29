@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react";
 import edu from "../assets/lottie_app/education.json";
+// import axios from "axios";
 const Education = () => {
   const [routingBack, setRoutingBack] = useState(false);
   const [routingFront, setRoutingFront] = useState(false);
@@ -29,7 +30,7 @@ const Education = () => {
   if (routingFront) {
     return <Redirect push to="/Exp" />;
   }
-
+ 
   function HandleAdd() {
     setIndex((prevState) => prevState + 1);
     setInfo((prevInfo) => [
@@ -44,7 +45,7 @@ const Education = () => {
     setInfo(list);
   }
   return (
-    <>
+    <Container className={Edu.col}>
       <Container className={Edu.rowCenter}>
         <SchoolIcon className={Edu.icon} />
         <h3 className={Edu.h3}>Education</h3>
@@ -239,7 +240,7 @@ const Education = () => {
           </Container>
         </form>
       </Container>
-    </>
+    </Container>
   );
 };
 
