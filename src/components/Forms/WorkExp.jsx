@@ -11,6 +11,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react";
 import exp from "../assets/lottie_app/work.json";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../store/user";
+
 const WorkExp = () => {
   const [routingBack, setRoutingBack] = useState(false);
   const [routingFront, setRoutingFront] = useState(false);
@@ -24,12 +28,40 @@ const WorkExp = () => {
   const [Exp, setExp] = useState("");
   const [LastPos, setLastPos] = useState("");
   const [ReasonLeave, setReasonLeave] = useState("");
+  const userID = useSelector((state) => state.user.id);
+  const flagExp = useSelector((state) => state.user.flagExp);
+  const dispatch = useDispatch();
 
   if (routingBack) {
     return <Redirect push to="/Edu" />;
   }
   if (routingFront) {
     return <Redirect push to="/Q" />;
+  }
+
+  async function send() {
+    try {
+      const res = await axios({
+        method: flagExp ? "put" : "post",
+        url: `http://10.1.2.24:3200/registration/WorkExperienceInfo/${userID}`,
+        data: {
+          freshGraduate: isFresh,
+          totalYearsExperience: Exp,
+          companyName: whoEmployer,
+          currentEmployer: isEmployer,
+          from: durationFrom,
+          to: durationTo,
+          entryPosition: entryPos,
+          lastPositionHeld: LastPos,
+          lastMonthlySalary: LastSalary,
+          reasonForLeaving: ReasonLeave,
+        },
+      });
+      console.log(res);
+      dispatch(userActions.setFlagExp());
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -41,13 +73,16 @@ const WorkExp = () => {
       <Divider className={WE.Divider} />
       <Container className={WE.row}>
         <Container className={WE.col23}>
-          <Lottie animationData={exp}/>
+          <Lottie animationData={exp} />
         </Container>
-        <form onSubmit={e=>{
-          e.preventDefault()
-          console.log('hereExp')
-          setRoutingFront(true)
-        }} className={WE.form}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            send();
+            setRoutingFront(true);
+          }}
+          className={WE.form}
+        >
           <Container className={WE.col50}>
             <div
               className={`${WE.input} ${WE.formElement}`}
@@ -152,7 +187,7 @@ const WorkExp = () => {
                 variant="primary"
                 size="lg"
                 className="btn-primary"
-                onClick={()=>setRoutingBack(true)}
+                onClick={() => setRoutingBack(true)}
               >
                 Back
               </Button>

@@ -15,7 +15,6 @@ import { userActions } from "../../store/user";
 const Education = () => {
   const [routingBack, setRoutingBack] = useState(false);
   const [routingFront, setRoutingFront] = useState(false);
-  // const [index, setIndex] = useState(1);
   const [highName, setHighName] = useState("");
   const [uniName, setUniName] = useState("");
   const [major, setMajor] = useState("");
@@ -23,9 +22,7 @@ const Education = () => {
   const [gradYear, setGradYear] = useState("");
   const [grade, setGrade] = useState("");
   const [UniGrade, setUniGrade] = useState("");
-  const [info, setInfo] = useState([
-    ["","",""],
-  ]);
+  const [info, setInfo] = useState([["", "", ""]]);
   const userID = useSelector((state) => state.user.id);
   const flagEdu = useSelector((state) => state.user.flagEdu);
   const dispatch = useDispatch();
@@ -37,10 +34,7 @@ const Education = () => {
   }
 
   function HandleAdd() {
-    setInfo((prevInfo) => [
-      ...prevInfo,
-      ["","",""],
-    ]);
+    setInfo((prevInfo) => [...prevInfo, ["", "", ""]]);
   }
   function HandleChange(e, index) {
     const { name, value } = e.target;
@@ -66,7 +60,7 @@ const Education = () => {
         },
       });
       console.log(res);
-      dispatch(userActions.setFlagEdu())
+      dispatch(userActions.setFlagEdu());
     } catch (error) {
       console.log(error);
     }

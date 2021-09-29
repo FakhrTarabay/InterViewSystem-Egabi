@@ -34,27 +34,29 @@ const PersonalInfo = () => {
 
   async function send() {
     try {
-        const res = await axios({
-          method:(userID===null?"post":"put"),
-          url: (userID===null?"http://10.1.2.24:3200/registration/PersonalInfo":
-          `http://10.1.2.24:3200/registration/PersonalInfo/${userID}`),
-          data: {
-            applicant_name: applicantName,
-            address: Address,
-            position_applied_for: AppliedFor,
-            email: email,
-            marital_status: maritalStatus,
-            military_status: militaryStatus,
-            date: date,
-            city: City,
-            technology: Techno,
-            mobile: Mobile,
-            number_of_dependents: NofDep,
-            if_postponed_date: militaryStatus === "Postponed" ? PostTill : null,
-          },
-        });
-        dispatch(userActions.setId(res.data.userId));
-        console.log(res);
+      const res = await axios({
+        method: userID === null ? "post" : "put",
+        url:
+          userID === null
+            ? "http://10.1.2.24:3200/registration/PersonalInfo"
+            : `http://10.1.2.24:3200/registration/PersonalInfo/${userID}`,
+        data: {
+          applicant_name: applicantName,
+          address: Address,
+          position_applied_for: AppliedFor,
+          email: email,
+          marital_status: maritalStatus,
+          military_status: militaryStatus,
+          date: date,
+          city: City,
+          technology: Techno,
+          mobile: Mobile,
+          number_of_dependents: NofDep,
+          if_postponed_date: militaryStatus === "Postponed" ? PostTill : null,
+        },
+      });
+      dispatch(userActions.setId(res.data.userId));
+      console.log(res);
     } catch (error) {
       console.log(error);
     }

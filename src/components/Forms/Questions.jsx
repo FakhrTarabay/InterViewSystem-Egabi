@@ -10,6 +10,9 @@ import "./general.css";
 import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react";
 import questionAnim from "../assets/lottie_app/questions.json";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../store/user";
 
 const Questions = () => {
   const [routingBack, setRoutingBack] = useState(false);
@@ -20,6 +23,29 @@ const Questions = () => {
   const [other, setOther] = useState("");
   const [itSol, setItSol] = useState("");
   const [abroad, setAbroad] = useState("");
+  const userID = useSelector((state) => state.user.id);
+  const flagQ = useSelector((state) => state.user.flagQ);
+  const dispatch = useDispatch();
+  async function send() {
+    try {
+      const res = await axios({
+        method: flagQ ? "put" : "post",
+        url: `http://10.1.2.24:3200/registration/JobQuestions/${userID}`,
+        data: {
+          noticePeriod: +numWeeks,
+          expectedMonthlySalary: +salary,
+          heardAboutUs: whoVac,
+          ifOthers: other,
+          willingInItBankingSolutions: itSol==='Yes'?true:false,
+          willingTravelingAbroad: abroad==='Yes'?true:false,
+        },
+      });
+      console.log(res);
+      dispatch(userActions.setFlagQ());
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   if (routingBack) {
     return <Redirect push to="/Exp" />;
@@ -37,13 +63,16 @@ const Questions = () => {
       <Divider className={Qu.Divider} />
       <Container className={Qu.row}>
         <Container className={Qu.col23}>
-          <Lottie animationData={questionAnim}/>
+          <Lottie animationData={questionAnim} />
         </Container>
-        <form onSubmit={e=>{
-          e.preventDefault();
-          setRoutingFront(true)
-          console.log('hereQ')
-        }} className={Qu.form}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            send()
+            setRoutingFront(true);
+          }}
+          className={Qu.form}
+        >
           <Container className={Qu.col50}>
             <label className={Qu.formElement}>Notice period</label>
             <input
@@ -122,7 +151,7 @@ const Questions = () => {
                 variant="primary"
                 size="lg"
                 className="btn-primary"
-                onClick={()=>setRoutingBack(true)}
+                onClick={() => setRoutingBack(true)}
               >
                 Back
               </Button>
