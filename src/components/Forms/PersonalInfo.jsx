@@ -30,15 +30,15 @@ const PersonalInfo = () => {
   const [NofDep, setNofDep] = useState("");
   const [PostTill, setPostTill] = useState(null);
   const userID = useSelector((state) => state.user.id);
-  // console.log(userID);
   const dispatch = useDispatch();
 
   async function send() {
     try {
-      if (userID === null) {
-        const res = await axios.post(
-          "http://10.1.2.24:3200/registration/PersonalInfo",
-          {
+        const res = await axios({
+          method:(userID===null?"post":"put"),
+          url: (userID===null?"http://10.1.2.24:3200/registration/PersonalInfo":
+          `http://10.1.2.24:3200/registration/PersonalInfo/${userID}`),
+          data: {
             applicant_name: applicantName,
             address: Address,
             position_applied_for: AppliedFor,
@@ -51,29 +51,10 @@ const PersonalInfo = () => {
             mobile: Mobile,
             number_of_dependents: NofDep,
             if_postponed_date: militaryStatus === "Postponed" ? PostTill : null,
-          }
-        );
+          },
+        });
         dispatch(userActions.setId(res.data.userId));
-      } else {
-        const res = await axios.put(
-          `http://10.1.2.24:3200/registration/PersonalInfo/${userID}`,
-          {
-            applicant_name: applicantName,
-            address: Address,
-            position_applied_for: AppliedFor,
-            email: email,
-            marital_status: maritalStatus,
-            military_status: militaryStatus,
-            date: date,
-            city: City,
-            technology: Techno,
-            mobile: Mobile,
-            number_of_dependents: NofDep,
-            if_postponed_date: militaryStatus === "Postponed" ? PostTill : null,
-          }
-        );
         console.log(res);
-      }
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +65,7 @@ const PersonalInfo = () => {
   }
 
   return (
-    <Container className={Per.col}> 
+    <Container className={Per.col}>
       <Container className={Per.rowCenter}>
         <PersonIcon className={Per.icon} />
         <h3 className={Per.h3}>Personal information</h3>

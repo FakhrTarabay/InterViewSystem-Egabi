@@ -11,13 +11,15 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storageSession from 'redux-persist/lib/storage/session'
 
-const persistConfig = { key: "root", version: 1, storage };
-const persistedReducer = persistReducer(persistConfig, CounterReducer);
+const persistConfig = { key: "root", version: 1, storage:storageSession };
+const persistedCounterReducer = persistReducer(persistConfig, CounterReducer);
+const persistedUserReducer = persistReducer(persistConfig, userReducer);
+
 
 const store = configureStore({
-  reducer: {counter:persistedReducer,user:userReducer},
+  reducer: {counter:persistedCounterReducer,user:persistedUserReducer},
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

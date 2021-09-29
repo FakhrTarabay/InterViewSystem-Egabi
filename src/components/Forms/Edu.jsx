@@ -8,11 +8,14 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react";
 import edu from "../assets/lottie_app/education.json";
-// import axios from "axios";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../store/user";
+
 const Education = () => {
   const [routingBack, setRoutingBack] = useState(false);
   const [routingFront, setRoutingFront] = useState(false);
-  const [index, setIndex] = useState(1);
+  // const [index, setIndex] = useState(1);
   const [highName, setHighName] = useState("");
   const [uniName, setUniName] = useState("");
   const [major, setMajor] = useState("");
@@ -21,21 +24,22 @@ const Education = () => {
   const [grade, setGrade] = useState("");
   const [UniGrade, setUniGrade] = useState("");
   const [info, setInfo] = useState([
-    { cert: "", prov: "", year: "", index: index - 1 },
+    ["","",""],
   ]);
-
+  const userID = useSelector((state) => state.user.id);
+  const flagEdu = useSelector((state) => state.user.flagEdu);
+  const dispatch = useDispatch();
   if (routingBack) {
     return <Redirect push to="/" />;
   }
   if (routingFront) {
     return <Redirect push to="/Exp" />;
   }
- 
+
   function HandleAdd() {
-    setIndex((prevState) => prevState + 1);
     setInfo((prevInfo) => [
       ...prevInfo,
-      { cert: "", prov: "", year: "", index: index },
+      ["","",""],
     ]);
   }
   function HandleChange(e, index) {
@@ -44,6 +48,30 @@ const Education = () => {
     list[index][name] = value;
     setInfo(list);
   }
+
+  async function send() {
+    try {
+      const res = await axios({
+        method: flagEdu ? "put" : "post",
+        url: `http://10.1.2.24:3200/registration/EducationalInfo/${userID}`,
+        data: {
+          high_school_name: highName,
+          university_name: uniName,
+          major: major,
+          faculty: faculty,
+          high_school_graduation_year: gradYear,
+          grade: grade,
+          University_graduation_year: UniGrade,
+          addMoreItems: info,
+        },
+      });
+      console.log(res);
+      dispatch(userActions.setFlagEdu())
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Container className={Edu.col}>
       <Container className={Edu.rowCenter}>
@@ -58,7 +86,7 @@ const Education = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            console.log(info);
+            send();
             setRoutingFront(true);
           }}
           className={Edu.form}
@@ -117,7 +145,7 @@ const Education = () => {
               Please list acquired certificates, beginning with the main ones.
             </p>
             {info.map((element) => (
-              <React.Fragment key={element.index}>
+              <React.Fragment key={info.indexOf(element)}>
                 <div className={`${Edu.formElement} ${Edu.rowInput}`}>
                   <div className={Edu.colInput}>
                     <label className={Edu.formElement}>
@@ -128,11 +156,9 @@ const Education = () => {
                       pattern="[a-zA-Z]{1,}"
                       className={`${Edu.input} ${Edu.formElement}`}
                       placeholder="Name"
-                      name="cert"
-                      onChange={(e) =>
-                        HandleChange(e, info.indexOf(element), true)
-                      }
-                      value={info[info.indexOf(element)].cert}
+                      name={0}
+                      onChange={(e) => HandleChange(e, info.indexOf(element))}
+                      value={info[info.indexOf(element)][0]}
                       type="text"
                     ></input>
                   </div>
@@ -143,11 +169,9 @@ const Education = () => {
                       pattern="[a-zA-Z]{1,}"
                       className={`${Edu.input} ${Edu.formElement}`}
                       placeholder="Provider"
-                      name="prov"
-                      onChange={(e) =>
-                        HandleChange(e, info.indexOf(element), true)
-                      }
-                      value={info[info.indexOf(element)].prov}
+                      name={1}
+                      onChange={(e) => HandleChange(e, info.indexOf(element))}
+                      value={info[info.indexOf(element)][1]}
                       type="text"
                     ></input>
                   </div>
@@ -158,11 +182,9 @@ const Education = () => {
                       pattern="^2[0-1]{1}[0-9]{2}"
                       className={`${Edu.input} ${Edu.formElement}`}
                       placeholder="Year"
-                      name="year"
-                      onChange={(e) =>
-                        HandleChange(e, info.indexOf(element), true)
-                      }
-                      value={info[info.indexOf(element)].year}
+                      name={2}
+                      onChange={(e) => HandleChange(e, info.indexOf(element))}
+                      value={info[info.indexOf(element)][2]}
                       type="text"
                     ></input>
                   </div>
