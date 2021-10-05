@@ -12,6 +12,8 @@ import ComprehensionComp from "../Comprehension/ComprehensionComp";
 import UpdateQBtn from "./UpdateQBtn";
 import ModelAnswer from "./ModelAnswer";
 import OtherQs from "./OtherQs";
+import Alerts from "../../UI/Alerts";
+
 const CreateTopic = () => {
   const [flag, setFlag] = useState(0);
   const [topicName, setTopicName] = useState("")
@@ -27,7 +29,8 @@ const CreateTopic = () => {
   const [ComprehensionQs, setComprehensionQs] = useState([]);
   const [ComprehensionAs, setComprehensionAs] = useState([]);
   const [ComprehensionChoices, setComprehensionChoices] = useState([]);
-
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState("")
   function HandleDelete() {
     const res = [];
     for (let elem of Questions) {
@@ -41,6 +44,8 @@ const CreateTopic = () => {
     setComprehensionChoices([]);
     setComprehensionQs([]);
     setComprehensionAs([]);
+    setMessage("Question Deleted")
+    setOpen(true)
   }
   function generateID() {
     return Math.floor(Math.random() * 100000000);
@@ -99,6 +104,8 @@ const CreateTopic = () => {
         },
       ]);
     }
+    setMessage("Question submitted")
+    setOpen(true)
     HandleReset();
   }
   function setPreView(q) {
@@ -198,6 +205,8 @@ const CreateTopic = () => {
       });
     }
     setQuestions([...res]);
+    setMessage("Question updated")
+    setOpen(true)
     HandleReset();
   }
   return (
@@ -325,6 +334,7 @@ const CreateTopic = () => {
           HandleDelete={HandleDelete}
         />
       </Container>
+      <Alerts setOpen={setOpen} open={open} message={message}/>
     </>
   );
 };
