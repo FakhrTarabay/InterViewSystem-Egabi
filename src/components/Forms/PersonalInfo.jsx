@@ -38,8 +38,8 @@ const PersonalInfo = () => {
         method: userID === null ? "post" : "put",
         url:
           userID === null
-            ? "http://10.1.2.24:3200/registration/PersonalInfo"
-            : `http://10.1.2.24:3200/registration/PersonalInfo/${userID}`,
+            ? "http://10.1.2.10:3200/registration/PersonalInfo"
+            : `http://10.1.2.10:3200/registration/PersonalInfo/${userID}`,
         data: {
           applicant_name: applicantName,
           address: Address,

@@ -11,27 +11,38 @@ import "./general.css";
 import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react";
 import questionAnim from "../assets/lottie_app/questions.json";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../store/user";
 
 const QuestionsCont = () => {
   const [routingBack, setRoutingBack] = useState(false);
   const [routingFront, setRoutingFront] = useState(false);
-  const [index1, setIndex1] = useState(1);
-  const [index2, setIndex2] = useState(1);
-  const [info, setInfo] = useState([
-    { name: "", title: "", mobile: "", auth: "", doRel: "", index: index1 - 1 },
-  ]);
-  const [info2, setInfo2] = useState([
-    {
-      nameOpt: "",
-      titleOpt: "",
-      mobileOpt: "",
-      employer: "",
-      index: index2 - 1,
-    },
-  ]);
-
+  const [info, setInfo] = useState([["","",""]]);
+  const [info2, setInfo2] = useState([["","","",""]]);
   const [doRel, setDoRel] = useState("");
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(false)
+  const userID = useSelector((state) => state.user.id);
+  const flagQC = useSelector((state) => state.user.flagQC);
+  const dispatch = useDispatch();
+
+  async function send() {
+    try {
+      const res = await axios({
+        method: flagQC ? "put" : "post",
+        url: `http://10.1.2.10:3200/registration/ExtraQuestions/${userID}`,
+        data: {
+          hasRelatives: doRel==='Yes'?true:false,
+          recommendation: info,
+          referenceCheck: info2,
+        },
+      });
+      console.log(res);
+      dispatch(userActions.setFlagQC());
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   if (routingBack) {
     return <Redirect push to="/Q" />;
@@ -41,24 +52,10 @@ const QuestionsCont = () => {
   }
 
   function HandleAdd() {
-    setIndex1((prevState) => prevState + 1);
-    setInfo((prevInfo) => [
-      ...prevInfo,
-      { name: "", title: "", mobile: "", auth: "", doRel: "", index: index1 },
-    ]);
+    setInfo((prevInfo) => [...prevInfo, ["","",""]]);
   }
   function HandleAdd2() {
-    setIndex2((prevState) => prevState + 1);
-    setInfo2((prevInfo) => [
-      ...prevInfo,
-      {
-        nameOpt: "",
-        titleOpt: "",
-        mobileOpt: "",
-        employer: "",
-        index: index2,
-      },
-    ]);
+    setInfo2((prevInfo) => [...prevInfo,["","","",""]])
   }
   function HandleChange(e, index, which) {
     const { name, value } = e.target;
@@ -86,8 +83,8 @@ const QuestionsCont = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            send();
             setRoutingFront(true);
-            console.log("hereQC");
           }}
           className={QuC.form}
         >
@@ -106,8 +103,8 @@ const QuestionsCont = () => {
               <label className={QuC.formElement}>
                 Please mention any recommendation to work at egabiFSI.
               </label>
-              {info.map((element) => (
-                <React.Fragment key={element.index}>
+              {info.map((element, index) => (
+                <React.Fragment key={index}>
                   <div className={`${QuC.formElement} ${QuC.rowInput}`}>
                     <div className={QuC.colInput}>
                       <label className={QuC.formElement}>Name</label>
@@ -116,11 +113,9 @@ const QuestionsCont = () => {
                         pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Name"
-                        name="name"
-                        onChange={(e) =>
-                          HandleChange(e, info.indexOf(element), true)
-                        }
-                        value={info[info.indexOf(element)].name}
+                        name={0}
+                        onChange={(e) => HandleChange(e, index, true)}
+                        value={element[0]}
                         type="text"
                       ></input>
                     </div>
@@ -131,11 +126,9 @@ const QuestionsCont = () => {
                         pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Title"
-                        name="title"
-                        onChange={(e) =>
-                          HandleChange(e, info.indexOf(element), true)
-                        }
-                        value={info[info.indexOf(element)].title}
+                        name={1}
+                        onChange={(e) => HandleChange(e, index, true)}
+                        value={element[1]}
                         type="text"
                       ></input>
                     </div>
@@ -146,11 +139,9 @@ const QuestionsCont = () => {
                         pattern="^0(10|11|12)[0-9]{8}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Mobile"
-                        name="mobile"
-                        onChange={(e) =>
-                          HandleChange(e, info.indexOf(element), true)
-                        }
-                        value={info[info.indexOf(element)].mobile}
+                        name={2}
+                        onChange={(e) => HandleChange(e, index, true)}
+                        value={element[2]}
                         type="text"
                       ></input>
                     </div>
@@ -171,8 +162,8 @@ const QuestionsCont = () => {
               <label className={QuC.formElement}>
                 Reference check: (Optional)
               </label>
-              {info2.map((element) => (
-                <React.Fragment key={element.index}>
+              {info2.map((element, index) => (
+                <React.Fragment key={index}>
                   <div className={`${QuC.formElement} ${QuC.rowS}`}>
                     <div className={QuC.colInput}>
                       <label className={QuC.formElement}>Name</label>
@@ -181,11 +172,9 @@ const QuestionsCont = () => {
                         pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Name"
-                        name="nameOpt"
-                        onChange={(e) =>
-                          HandleChange(e, info2.indexOf(element))
-                        }
-                        value={info2[info2.indexOf(element)].nameOpt}
+                        name={0}
+                        onChange={(e) => HandleChange(e, index)}
+                        value={element[0]}
                         type="text"
                       ></input>
                     </div>
@@ -196,11 +185,9 @@ const QuestionsCont = () => {
                         pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Title"
-                        name="titleOpt"
-                        onChange={(e) =>
-                          HandleChange(e, info2.indexOf(element))
-                        }
-                        value={info2[info2.indexOf(element)].titleOpt}
+                        name={1}
+                        onChange={(e) => HandleChange(e, index)}
+                        value={element[1]}
                         type="text"
                       ></input>
                     </div>
@@ -211,11 +198,9 @@ const QuestionsCont = () => {
                         pattern="[a-zA-Z]{1,}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Employer"
-                        name="employer"
-                        onChange={(e) =>
-                          HandleChange(e, info2.indexOf(element))
-                        }
-                        value={info2[info2.indexOf(element)].employer}
+                        name={2}
+                        onChange={(e) => HandleChange(e, index)}
+                        value={element[2]}
                         type="text"
                       ></input>
                     </div>
@@ -226,11 +211,9 @@ const QuestionsCont = () => {
                         pattern="^0(10|11|12)[0-9]{8}"
                         className={`${QuC.input} ${QuC.formElement}`}
                         placeholder="Mobile"
-                        name="mobileOpt"
-                        onChange={(e) =>
-                          HandleChange(e, info2.indexOf(element))
-                        }
-                        value={info2[info2.indexOf(element)].mobileOpt}
+                        name={3}
+                        onChange={(e) => HandleChange(e, index)}
+                        value={element[3]}
                         type="text"
                       ></input>
                     </div>
@@ -259,7 +242,6 @@ const QuestionsCont = () => {
                 I certify that the facts contained in this application are true
                 and complete.
               </p>
-
               <CheckboxN
                 className={QuC.MuiButtonBaseRoot}
                 setValue={setAuth}

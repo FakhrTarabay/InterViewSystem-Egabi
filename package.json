@@ -37,6 +37,7 @@
     "redux-persist": "^6.0.0",
     "web-vitals": "^1.1.2"
   },
+  "proxy": "http://10.1.2.10:3200",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

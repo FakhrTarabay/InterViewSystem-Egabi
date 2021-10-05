@@ -138,8 +138,8 @@ const Education = () => {
             <p>
               Please list acquired certificates, beginning with the main ones.
             </p>
-            {info.map((element) => (
-              <React.Fragment key={info.indexOf(element)}>
+            {info.map((element, index) => (
+              <React.Fragment key={index}>
                 <div className={`${Edu.formElement} ${Edu.rowInput}`}>
                   <div className={Edu.colInput}>
                     <label className={Edu.formElement}>
@@ -151,8 +151,8 @@ const Education = () => {
                       className={`${Edu.input} ${Edu.formElement}`}
                       placeholder="Name"
                       name={0}
-                      onChange={(e) => HandleChange(e, info.indexOf(element))}
-                      value={info[info.indexOf(element)][0]}
+                      onChange={(e) => HandleChange(e, index)}
+                      value={element[0]}
                       type="text"
                     ></input>
                   </div>
@@ -164,8 +164,8 @@ const Education = () => {
                       className={`${Edu.input} ${Edu.formElement}`}
                       placeholder="Provider"
                       name={1}
-                      onChange={(e) => HandleChange(e, info.indexOf(element))}
-                      value={info[info.indexOf(element)][1]}
+                      onChange={(e) => HandleChange(e, index)}
+                      value={element[1]}
                       type="text"
                     ></input>
                   </div>
@@ -177,8 +177,8 @@ const Education = () => {
                       className={`${Edu.input} ${Edu.formElement}`}
                       placeholder="Year"
                       name={2}
-                      onChange={(e) => HandleChange(e, info.indexOf(element))}
-                      value={info[info.indexOf(element)][2]}
+                      onChange={(e) => HandleChange(e, index)}
+                      value={element[2]}
                       type="text"
                     ></input>
                   </div>

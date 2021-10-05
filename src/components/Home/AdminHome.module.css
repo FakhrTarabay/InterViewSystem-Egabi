@@ -52,9 +52,9 @@
     border-radius: 12px;
 }
 .box:hover{
-  /* transition: all 1s ease-out;
-  transform: scale(1.2, 1.2); */
-  animation: rotating 1s ;
+  transition: all 1s ease-out;
+  transform: scale(1.2, 1.2);
+  /* animation: rotating 1s ; */
 }
 
 @keyframes scaling{

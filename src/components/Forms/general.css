@@ -1,8 +1,10 @@
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    /* background: linear-gradient(darkblue,rgb(185, 0, 46))!important; */
-    background-color:darkcyan!important;
-    border: none!important;
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: darkcyan !important;
+  border: none !important;
 }
-.btn-primary{
-    margin-left: 10px;
+.btn-primary {
+  margin-left: 10px;
 }
