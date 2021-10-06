@@ -16,7 +16,7 @@ import Alerts from "../../UI/Alerts";
 
 const CreateTopic = () => {
   const [flag, setFlag] = useState(0);
-  const [topicName, setTopicName] = useState("")
+  const [topicName, setTopicName] = useState("");
   const [Questions, setQuestions] = useState([]);
   const [QuestionType, setQuestionType] = useState("MCQ");
   const [Question, setQuestion] = useState("");
@@ -29,8 +29,9 @@ const CreateTopic = () => {
   const [ComprehensionQs, setComprehensionQs] = useState([]);
   const [ComprehensionAs, setComprehensionAs] = useState([]);
   const [ComprehensionChoices, setComprehensionChoices] = useState([]);
-  const [open, setOpen] = useState(false)
-  const [message, setMessage] = useState("")
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+
   function HandleDelete() {
     const res = [];
     for (let elem of Questions) {
@@ -44,12 +45,14 @@ const CreateTopic = () => {
     setComprehensionChoices([]);
     setComprehensionQs([]);
     setComprehensionAs([]);
-    setMessage("Question Deleted")
-    setOpen(true)
+    setMessage("Question Deleted");
+    setOpen(true);
   }
+
   function generateID() {
     return Math.floor(Math.random() * 100000000);
   }
+
   function HandleReset() {
     setQuestion("");
     setQAnswer("");
@@ -57,6 +60,7 @@ const CreateTopic = () => {
     setNumChoices("");
     setIndex(-1);
   }
+
   function HandleChoicesReset(value) {
     setQuestionType(value);
     HandleReset();
@@ -65,18 +69,21 @@ const CreateTopic = () => {
     setComprehensionQs([]);
     setComprehensionAs([]);
   }
+
   function HandleCompQuestion() {
     setComprehensionQs((prevQuestions) => [...prevQuestions, Question]);
     setComprehensionChoices((prevChoices) => [...prevChoices, Options]);
     setComprehensionAs((prevAnswers) => [...prevAnswers, qAnswer]);
     HandleReset();
   }
+
   function delChoice(i) {
     setNumChoices(numChoices - 1);
     const res = Options;
     res.splice(i, 1);
     setOptions([...res]);
   }
+
   function HandleSubmit() {
     if (QuestionType === "Comprehension") {
       setQuestions((prevQuestions) => [
@@ -88,7 +95,7 @@ const CreateTopic = () => {
           paragraphQuestions: ComprehensionQs,
           paragraphChoices: ComprehensionChoices,
           paragraphAnswers: ComprehensionAs,
-          topic:topicName
+          topic: topicName,
         },
       ]);
     } else {
@@ -100,12 +107,12 @@ const CreateTopic = () => {
           questionHeader: Question,
           choices: Options,
           modelAnswer: qAnswer,
-          topic:topicName
+          topic: topicName,
         },
       ]);
     }
-    setMessage("Question submitted")
-    setOpen(true)
+    setMessage("Question submitted");
+    setOpen(true);
     HandleReset();
   }
   function setPreView(q) {
@@ -205,8 +212,8 @@ const CreateTopic = () => {
       });
     }
     setQuestions([...res]);
-    setMessage("Question updated")
-    setOpen(true)
+    setMessage("Question updated");
+    setOpen(true);
     HandleReset();
   }
   return (
@@ -227,17 +234,15 @@ const CreateTopic = () => {
             }
           }}
         >
-           <label className={css.formElement}>
-              Enter topic name
-            </label>
-            <input
-              required
-              className={`${css.input} ${css.formElement}`}
-              placeholder="Enter topic name"
-              onChange={(e) => setTopicName(e.target.value)}
-              value={topicName}
-              type="text"
-            ></input>
+          <label className={css.formElement}>Enter topic name</label>
+          <input
+            required
+            className={`${css.input} ${css.formElement}`}
+            placeholder="Enter topic name"
+            onChange={(e) => setTopicName(e.target.value)}
+            value={topicName}
+            type="text"
+          ></input>
           <RadioButtonsGroup
             className={css.element}
             label={"Pick a question type"}
@@ -271,10 +276,7 @@ const CreateTopic = () => {
               />
             </>
           ) : (
-            <OtherQs 
-              setQuestion={setQuestion} 
-              Question={Question} 
-            />
+            <OtherQs setQuestion={setQuestion} Question={Question} />
           )}
           <ModelAnswer
             setQAnswer={setQAnswer}
@@ -304,8 +306,12 @@ const CreateTopic = () => {
             className={css.element}
             variant="contained"
             color="primary"
-            type={QuestionType==='Comprehension'?'button':'submit'}
-            onClick={QuestionType==='Comprehension'?()=>HandleSubmit():()=>setFlag(0)}
+            type={QuestionType === "Comprehension" ? "button" : "submit"}
+            onClick={
+              QuestionType === "Comprehension"
+                ? () => HandleSubmit()
+                : () => setFlag(0)
+            }
           >
             {QuestionType === "Comprehension"
               ? "Submit prompt"
@@ -334,7 +340,7 @@ const CreateTopic = () => {
           HandleDelete={HandleDelete}
         />
       </Container>
-      <Alerts setOpen={setOpen} open={open} message={message}/>
+      <Alerts setOpen={setOpen} open={open} message={message} />
     </>
   );
 };
