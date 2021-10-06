@@ -23,18 +23,16 @@ const Preview = ({
           <label className={css.element}>Comprehension prompt:</label>
           <b style={{ wordBreak: "break-word" }}>{Comprehension}</b>
           <label>Comprehension question/s:</label>
-          {ComprehensionQs.map((q) => (
+          {ComprehensionQs.map((q, index) => (
             <React.Fragment key={generateID()}>
-              <p>{`${ComprehensionQs.indexOf(q) + 1} - ${q}`}</p>
+              <p>{`${index + 1} - ${q}`}</p>
               <RadioButtonsGroup
                 className={css.element}
                 label={"Choices"}
-                options={ComprehensionChoices[ComprehensionQs.indexOf(q)]}
+                options={ComprehensionChoices[index]}
                 disabled={true}
               />
-              <p>{`Model Answer = ${
-                ComprehensionAs[ComprehensionQs.indexOf(q)]
-              }`}</p>
+              <p>{`Model Answer = ${ComprehensionAs[index]}`}</p>
             </React.Fragment>
           ))}
         </>
