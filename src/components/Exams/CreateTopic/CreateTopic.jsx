@@ -154,6 +154,8 @@ const CreateTopic = () => {
         paragraphAnswers: CompAs,
       });
       setQuestions([...res]);
+      setMessage("Question updated");
+      setOpen(true);
     } else {
       console.log("error");
     }
