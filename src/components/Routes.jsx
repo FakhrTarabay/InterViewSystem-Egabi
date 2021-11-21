@@ -12,13 +12,13 @@ const Routes = () => {
     return (
       <BrowserRouter>
         <Switch>
-            <Route exact={true} path={'/'} component={person}/>
+            <Route exact={true} path={'/per'} component={person}/>
             <Route exact={true} path={'/Edu'} component={Edu}/>
             <Route exact={true} path={'/Exp'} component={Exp}/>
             <Route exact={true} path={'/Q'} component={Q}/>
             <Route exact={true} path={'/QC'} component={QC}/>
             <Route exact={true} path={'/Exam'} component={Exam}/>
-            <Route exact={true} path={'/AdminHome'} component={AH}/>
+            <Route exact={true} path={'/'} component={AH}/>
             <Route exact={true} path={'/TopicExam'} component={TE}/>
         </Switch>
       </BrowserRouter>

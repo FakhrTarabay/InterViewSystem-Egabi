@@ -11,10 +11,6 @@ const CreateExam = () => {
   const [toSent, setToSent] = useState([]);
   const [toSent2, setToSent2] = useState([]);
 
-  function generateID() {
-    return Math.floor(Math.random() * 100000000);
-  }
-
   function HandleAdd() {
     setToSent((prev) => [...prev, selectedTopic]);
     setToSent2((prev) => [...prev, +noOFQ]);
@@ -97,9 +93,9 @@ const CreateExam = () => {
         <Container className={CEXA.width40}>
           {
             <ul className={CEXA.list}>
-              {zip(toSent, toSent2).map((elem) => (
+              {zip(toSent, toSent2).map((elem,index) => (
                 <li
-                  key={generateID()}
+                  key={index}
                 >{`Topic ${elem[0]}, number of questions ${elem[1]}`}</li>
               ))}
             </ul>

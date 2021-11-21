@@ -27,7 +27,7 @@ const Education = () => {
   const flagEdu = useSelector((state) => state.user.flagEdu);
   const dispatch = useDispatch();
   if (routingBack) {
-    return <Redirect push to="/" />;
+    return <Redirect push to="/per" />;
   }
   if (routingFront) {
     return <Redirect push to="/Exp" />;
