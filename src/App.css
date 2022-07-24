@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: whitesmoke;
+  background-color: white;
   border-radius: 10px;
   justify-content: space-around;
 }
@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   padding: 90px 60px;
-  background-color: whitesmoke;
+  background-color: white;
   border-radius: 10px;
   justify-content: space-around;
 }
@@ -39,7 +39,9 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: azure;
+  background-color: white;
+  border-bottom: 1px solid black;
+}
+.css-1ezt7l4-MuiButtonBase-root{
+  margin: 15px!important;
 }

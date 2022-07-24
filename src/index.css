@@ -1,12 +1,15 @@
-#html{
-  background-color:#cbdeee;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+html{
+  background-color:white;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  padding: 0px 60px;
   scrollbar-color: darkcyan #fff;
   scrollbar-width: thin;
   scroll-behavior: smooth;
-  
+  font-family: 'Noto Sans JP', sans-serif;
 }
 ::-webkit-scrollbar{
   background-color:#fff;
@@ -16,12 +19,7 @@
   background-color: darkcyan;
 }
 
-body { 
-  overflow-y:scroll!important;
-  padding: 0 !important;
-  background-color:#cbdeee!important;
-  height: 100%;
-  width: 100%;
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

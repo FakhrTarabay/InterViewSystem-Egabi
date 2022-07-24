@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     padding: 70px 50px;
-    background-color: whitesmoke;
+    background-color: white;
     border-radius: 10px;
     justify-content: space-around;
   }
