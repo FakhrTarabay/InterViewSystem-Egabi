@@ -59,7 +59,7 @@ const ImageBackdrop = styled('span')(({ theme }) => ({
   right: 0,
   top: 0,
   bottom: 0,
-  backgroundColor: theme.palette.common.black,
+  backgroundColor: "#3c69be",
   opacity: 0.7,
   transition: theme.transitions.create('opacity'),
 }));
@@ -69,7 +69,7 @@ export default function ButtonBases({setFlag}) {
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%',justifyContent:'center' }}>
       {images.map((image) => (
         <ImageButton
-          onClick={()=>setFlag(true)}
+          onClick={image.title ==='View Profiles'?(()=>null):(()=>setFlag(true))}
           focusRipple
           key={image.title}
           style={{
