@@ -74,6 +74,7 @@ export default function ButtonBases({setFlag}) {
           key={image.title}
           style={{
             width: image.width,
+            margin:"15px"
           }}
         >
           <ImageBackdrop className="MuiImageBackdrop-root" />

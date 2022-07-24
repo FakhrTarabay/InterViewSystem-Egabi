@@ -1,5 +1,4 @@
 .rowSB {
-    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -10,8 +9,6 @@
   }
 
 .rowSS {
-    height: 100%;
-    width: 100%;
     display: flex;
     flex-direction: row;
     border-radius: 10px;
